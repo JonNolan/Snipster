@@ -90,26 +90,49 @@
        font-size: 24px;
       }
       #Category {
-        margin-right: 10px;
+        margin-right: 5px;
         margin-bottom: 5px;
       }
       #Criteria {
         margin-bottom: 5px;
-        margin-right: 25px;
+        margin-right: 5px;
       }
       #FilterFlag {
         margin-bottom: 5px;
+        height: 29px;
       }
       #SearchButtons {
         margin-bottom: 5px;
       }
+      #clearSearch {
+        margin-left: 3px;
+      }
       #SortToolbar {
-        margin-bottom: 5px;
+        margin-bottom: 8px;
+      }
+      .sortFilter {
+        margin-left: 5px;
+      }
+      .sortNoFilter {
+        margin-left: 5px;
+      }
+      #sort-bar {
+        margin-top: 6px;
+      }
+      #result-bar {
+        margin-top: 6px;
+        margin-bottom:12px;
+      }
+      #filter-bar {
+        margin-bottom: 6px;
+        padding-bottom: 1px;
       }
       .modal-content{
         background-color: black;
       }
-
+      .modal-body code {
+        font-size: 14px;
+      }
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
@@ -188,7 +211,7 @@
           </div>
         </nav>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom" id="filter-bar">
             <h2>Filter Options</h2>
             <form id="search" class="form-inline">
               <select class="custom-select  btn btn-secondary dropdown-toggle" id="Category">
@@ -210,10 +233,10 @@
                 </div>
             </form>
           </div>
-          <div  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom" id="sort-bar">
             <h2>Sort Options</h2>
             <div class="btn-toolbar" role="toolbar" id="SortToolbar">
-              <div class="btn-group btn-group-lg mr-2" role="group" aria-label="Sort group">
+              <div class="btn-group" role="group" aria-label="Sort group">
                 <button id="SortCreatorDropDown" type="button" class="btn btn-secondary dropdown-toggle sortNoFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Creator
                 </button>
                   <div class="dropdown-menu" aria-labelledby="btnGroupCreator">
@@ -221,7 +244,7 @@
                     <a id="ddCreatorDesc" class="dropdown-item" >Descending</a>
                   </div>
               </div>
-              <div class="btn-group btn-group-lg mr-2" role="group" aria-label="Sort group">
+              <div class="btn-group" role="group" aria-label="Sort group">
                 <button id="SortLanguageDropDown" type="button" class="btn btn-secondary dropdown-toggle sortNoFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Language
                 </button>
                   <div class="dropdown-menu" aria-labelledby="btnGroupLanguage">
@@ -229,7 +252,7 @@
                     <a id="ddLanguageDesc" class="dropdown-item" >Descending</a>
                   </div>
               </div>
-              <div class="btn-group btn-group-lg mr-2" role="group" aria-label="Sort group">
+              <div class="btn-group" role="group" aria-label="Sort group">
                 <button id="SortDescriptionDropDown" type="button" class="btn btn-secondary dropdown-toggle sortNoFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Description
                 </button>
                   <div class="dropdown-menu" aria-labelledby="btnGroupDescription">
@@ -237,7 +260,7 @@
                     <a id="ddDescriptionDesc" class="dropdown-item" >Descending</a>
                   </div>
               </div>
-              <div class="btn-group btn-group-lg mr-2" role="group" aria-label="Sort group">
+              <div class="btn-group" role="group" aria-label="Sort group">
                 <button id="SortCreatorDropDownFilter" type="button" class="btn btn-secondary dropdown-toggle sortFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Creator
                 </button>
                   <div class="dropdown-menu" aria-labelledby="btnGroupCreator">
@@ -245,7 +268,7 @@
                     <a id="ddCreatorDescFilterOrder" class="dropdown-item" >Descending</a>
                   </div>
               </div>
-              <div class="btn-group btn-group-lg mr-2" role="group" aria-label="Sort group">
+              <div class="btn-group" role="group" aria-label="Sort group">
                 <button id="SortLanguageDropDownFilter" type="button" class="btn btn-secondary dropdown-toggle sortFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Language
                 </button>
                   <div class="dropdown-menu" aria-labelledby="btnGroupCreator">
@@ -253,7 +276,7 @@
                     <a id="ddLanguageDescFilterOrder" class="dropdown-item" >Descending</a>
                   </div>
               </div>
-              <div class="btn-group btn-group-lg mr-2" role="group" aria-label="Sort group">
+              <div class="btn-group" role="group" aria-label="Sort group">
                 <button id="SortDescriptionDropDownFilter" type="button" class="btn btn-secondary dropdown-toggle sortFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Description
                 </button>
                   <div class="dropdown-menu" aria-labelledby="btnGroupCreator">
@@ -263,7 +286,9 @@
               </div>
             </div>
           </div>
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> <h2>Current Results</h2><h2 >Current Filter</h2>
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom" id="result-bar">
+            <h2>Current Results</h2>
+            <h2>Current Filter</h2>
             <h2 id="currentFilter" class="bg-dark text-white"></h2>
           </div>
           <div class="table-responsive">
@@ -354,8 +379,8 @@
 
         function BuildModalFromTable(table_this){
 
-          $(table_this).find('.modal-header').html($(' <p class="text-danger"> Viewing ID # ' + IdFromRow + '</p> '));            
-          $(table_this).find('.modal-body').html($('<p class="text-primary"> Creator: ' + CreatorFromRow + '</p><p class="text-primary"> Language: ' + LanguageFromRow + '</p><p class="text-primary"> Description: ' + DescriptionFromRow + '</p><h3 class="text-success">  Snippet: </h3><code>' + SnippetFromRow + '</code>'));
+          $(table_this).find('.modal-header').html($(' <h2 class="text-danger"> Viewing ID # ' + IdFromRow + '</h2> '));            
+          $(table_this).find('.modal-body').html($('<p class="text-primary"> Creator: ' + CreatorFromRow + '</p><p class="text-primary"> Language: ' + LanguageFromRow + '</p><p class="text-primary"> Description: ' + DescriptionFromRow + '</p><p class="text-success">  Snippet: </p><code>' + SnippetFromRow + '</code>'));
         }
       });
 
