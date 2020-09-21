@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+dd-language-desc-filter-ordercriteria<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>Function Junction</title>
@@ -89,31 +89,31 @@
       td,th {
        font-size: 24px;
       }
-      #Category {
+      #category {
         margin-right: 5px;
         margin-bottom: 5px;
       }
-      #Criteria {
+      #criteria {
         margin-bottom: 5px;
         margin-right: 5px;
       }
-      #FilterFlag {
+      #filter-flag {
         margin-bottom: 5px;
         height: 29px;
       }
-      #SearchButtons {
+      #search-buttons {
         margin-bottom: 5px;
       }
-      #clearSearch {
+      #clear-search {
         margin-left: 3px;
       }
-      #SortToolbar {
+      #sort-toolbar {
         margin-bottom: 8px;
       }
-      .sortFilter {
+      .sort-filter {
         margin-left: 5px;
       }
-      .sortNoFilter {
+      .sort-no-filter {
         margin-left: 5px;
       }
       #sort-bar {
@@ -144,7 +144,7 @@
         width: 60px;
         height: 34px;
       }
-      .switch input { 
+      .switch input {
         opacity: 0;
         width: 0;
         height: 0;
@@ -192,21 +192,21 @@
     <nav class="navbar sticky-top ">
       <h2>Function Junction</h2>
       <div class="justify-content-right"><h2>Welcome User<img id="logo" class="p-2" src="img/white_train.png" height="50em"></h2></div>
-    </nav>    
+    </nav>
     <div class="container-fluid">
       <div class="row">
-        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+        <nav id="sidebar-menu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
           <div class="sidebar-sticky pt-3">
             <ul class="nav flex-column">
               <li class="nav-item">
                 <a class="nav-link active" >
                   <h5>Theme Selector</h5>
                   <label class="switch">
-                    <input type="checkbox" id="themeCheckbox" onchange="toggleTheme()" checked>
+                    <input type="checkbox" id="theme-checkbox" onchange="toggleTheme()" checked>
                     <span class="slider round"></span>
                   </label>
                 </a>
-              </li>              
+              </li>
             </ul>
           </div>
         </nav>
@@ -214,74 +214,74 @@
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom" id="filter-bar">
             <h2>Filter Options</h2>
             <form id="search" class="form-inline">
-              <select class="custom-select  btn btn-secondary dropdown-toggle" id="Category">
+              <select class="custom-select  btn btn-secondary dropdown-toggle" id="category">
                 <option value="0" disabled selected hidden>Choose filter...</option>
                 <option value="Creator" >Creator</option>
                 <option value="Language">Language</option>
                 <option value="Description">Description</option>
                 <option value="Snippet">Snippet</option>
               </select>
-              <div class="input-group" id="filterBox">
-                <div class="input-group-prepend" id="FilterFlag">
+              <div class="input-group" id="filter-box">
+                <div class="input-group-prepend" id="filter-flag">
                   <p class="input-group-text">Filter</p>
                 </div>
-                  <input type="text" class="form-control" placeholder="Enter criteria..." id="Criteria">
+                  <input type="text" class="form-control" placeholder="Enter criteria..." id="criteria">
                 </div>
-                <div id="SearchButtons">
-                  <button id="searchSubmit" class="btn btn-success">Submit</button>
-                  <button id="clearSearch" class="btn btn-danger">Clear Filter</button>
+                <div id="search-buttons">
+                  <button id="search-submit" class="btn btn-success">Submit</button>
+                  <button id="clear-search" class="btn btn-danger">Clear Filter</button>
                 </div>
             </form>
           </div>
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom" id="sort-bar">
             <h2>Sort Options</h2>
-            <div class="btn-toolbar" role="toolbar" id="SortToolbar">
-              <div class="btn-group" role="group" aria-label="Sort group">
-                <button id="SortCreatorDropDown" type="button" class="btn btn-secondary dropdown-toggle sortNoFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Creator
+            <div class="btn-toolbar" role="toolbar" id="sort-toolbar">
+              <div class="btn-group" role="group" aria-label="sort group">
+                <button id="sort-creator-dropdown" type="button" class="btn btn-secondary dropdown-toggle sort-no-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Creator
                 </button>
-                  <div class="dropdown-menu" aria-labelledby="btnGroupCreator">
-                    <a id="ddCreatorAsc" class="dropdown-item" >Ascending</a>
-                    <a id="ddCreatorDesc" class="dropdown-item" >Descending</a>
+                  <div class="dropdown-menu" aria-labelledby="btn-group-creator">
+                    <a id="dd-creator-asc" class="dropdown-item" >Ascending</a>
+                    <a id="dd-creator-desc" class="dropdown-item" >Descending</a>
                   </div>
               </div>
-              <div class="btn-group" role="group" aria-label="Sort group">
-                <button id="SortLanguageDropDown" type="button" class="btn btn-secondary dropdown-toggle sortNoFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Language
+              <div class="btn-group" role="group" aria-label="sort group">
+                <button id="sort-language-dropdown" type="button" class="btn btn-secondary dropdown-toggle sort-no-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Language
                 </button>
-                  <div class="dropdown-menu" aria-labelledby="btnGroupLanguage">
-                    <a id="ddLanguageAsc" class="dropdown-item" >Ascending</a>
-                    <a id="ddLanguageDesc" class="dropdown-item" >Descending</a>
+                  <div class="dropdown-menu" aria-labelledby="btn-group-language">
+                    <a id="dd-language-asc" class="dropdown-item" >Ascending</a>
+                    <a id="dd-language-desc" class="dropdown-item" >Descending</a>
                   </div>
               </div>
-              <div class="btn-group" role="group" aria-label="Sort group">
-                <button id="SortDescriptionDropDown" type="button" class="btn btn-secondary dropdown-toggle sortNoFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Description
+              <div class="btn-group" role="group" aria-label="sort group">
+                <button id="sort-description-dropdown" type="button" class="btn btn-secondary dropdown-toggle sort-no-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Description
                 </button>
-                  <div class="dropdown-menu" aria-labelledby="btnGroupDescription">
-                    <a id="ddDescriptionAsc" class="dropdown-item" >Ascending</a>
-                    <a id="ddDescriptionDesc" class="dropdown-item" >Descending</a>
+                  <div class="dropdown-menu" aria-labelledby="btn-group-description">
+                    <a id="dd-description-asc" class="dropdown-item" >Ascending</a>
+                    <a id="dd-description-desc" class="dropdown-item" >Descending</a>
                   </div>
               </div>
-              <div class="btn-group" role="group" aria-label="Sort group">
-                <button id="SortCreatorDropDownFilter" type="button" class="btn btn-secondary dropdown-toggle sortFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Creator
+              <div class="btn-group" role="group" aria-label="sort group">
+                <button id="sort-creator-dropdown-filter" type="button" class="btn btn-secondary dropdown-toggle sort-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Creator
                 </button>
-                  <div class="dropdown-menu" aria-labelledby="btnGroupCreator">
-                    <a id="ddCreatorAscFilterOrder" class="dropdown-item" >Ascending</a>
-                    <a id="ddCreatorDescFilterOrder" class="dropdown-item" >Descending</a>
+                  <div class="dropdown-menu" aria-labelledby="btn-group-creator">
+                    <a id="dd-creator-asc-filter-order" class="dropdown-item" >Ascending</a>
+                    <a id="dd-creator-desc-filter-order" class="dropdown-item" >Descending</a>
                   </div>
               </div>
-              <div class="btn-group" role="group" aria-label="Sort group">
-                <button id="SortLanguageDropDownFilter" type="button" class="btn btn-secondary dropdown-toggle sortFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Language
+              <div class="btn-group" role="group" aria-label="sort group">
+                <button id="sort-language-dropdown-filter" type="button" class="btn btn-secondary dropdown-toggle sort-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Language
                 </button>
-                  <div class="dropdown-menu" aria-labelledby="btnGroupCreator">
-                    <a id="ddLanguageAscFilterOrder" class="dropdown-item" >Ascending</a>
-                    <a id="ddLanguageDescFilterOrder" class="dropdown-item" >Descending</a>
+                  <div class="dropdown-menu" aria-labelledby="btn-group-creator">
+                    <a id="dd-language-asc-filter-order" class="dropdown-item" >Ascending</a>
+                    <a id="dd-language-desc-filter-order" class="dropdown-item" >Descending</a>
                   </div>
               </div>
-              <div class="btn-group" role="group" aria-label="Sort group">
-                <button id="SortDescriptionDropDownFilter" type="button" class="btn btn-secondary dropdown-toggle sortFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Description
+              <div class="btn-group" role="group" aria-label="sort group">
+                <button id="sort-description-dropdown-filter" type="button" class="btn btn-secondary dropdown-toggle sort-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Description
                 </button>
-                  <div class="dropdown-menu" aria-labelledby="btnGroupCreator">
-                    <a id="ddDescriptionAscFilterOrder" class="dropdown-item" >Ascending</a>
-                    <a id="ddDescriptionDescFilterOrder" class="dropdown-item" >Descending</a>
+                  <div class="dropdown-menu" aria-labelledby="btn-group-creator">
+                    <a id="dd-description-asc-filter-order" class="dropdown-item" >Ascending</a>
+                    <a id="dd-description-desc-filter-order" class="dropdown-item" >Descending</a>
                   </div>
               </div>
             </div>
@@ -289,10 +289,10 @@
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom" id="result-bar">
             <h2>Current Results</h2>
             <h2>Current Filter</h2>
-            <h2 id="currentFilter" class="bg-dark text-white"></h2>
+            <h2 id="current-filter" class="bg-dark text-white"></h2>
           </div>
           <div class="table-responsive">
-            <table id ="myTable" class="table table-hover table-dark sticky-header">
+            <table id ="my-table" class="table table-hover table-dark sticky-header">
               <thead>
                 <tr>
                   <th>#</th>
@@ -302,7 +302,7 @@
                   <th>Snippet</th>
                 </tr>
               </thead>
-              <tbody>                
+              <tbody>
               </tbody>
             </table>
           </div>
@@ -310,11 +310,11 @@
       </div>
     </div>
     <!-- MODALS -->
-    <div class="modal fade" id="dbModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="db-modal" tabindex="-1" role="dialog" aria-labelledby="example-modal-center-title" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered " role="document">
         <div class="modal-content ">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+            <h5 class="modal-title" id="example-modal-long-title"></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -335,7 +335,7 @@
     <script>
     function toggleTheme() {
       $('table').toggleClass('table-dark');
-      if(document.getElementById("themeCheckbox").checked === false){
+      if(document.getElementById("theme-checkbox").checked === false){
         $('main button').removeClass('btn-secondary');
         $('main button').addClass('btn-primary');
         $('#logo').attr('src','img/fj.ico');
@@ -354,290 +354,290 @@
       var snippetModel = {};
       var currentFilter = '';
       var currentCategory ='';
-      var currentCriteria ='';  
-      var IdFromRow,CreatorFromRow,LanguageFromRow,Description,SnippetFromRow; 
+      var currentCriteria ='';
+      var idFromRow,creatorFromRow,languageFromRow,descriptionFromRow,SnippetFromRow;
       $('h2,h3,a.navbar-brand,th,td').css({"color":"white"});
- 
+
       function initializeModel(){
-        $('#Category').val(0);
-        $('.sortNoFilter').show();
-        $('.sortFilter').hide();
+        $('#category').val(0);
+        $('.sort-no-filter').show();
+        $('.sort-filter').hide();
         $.getJSON("/snippets", function(data) {
           snippetModel = data.result;
-          BuildTableTR();
+          buildTableTR();
         });
       };
 
-      /// Views 
-      $('#dbModal').modal({backdrop: "static", keyboard: false, show:false}).on('show.bs.modal', function(){
-        IdFromRow = $(event.target).closest('tr').data('id');
-        CreatorFromRow = $(event.target).closest('tr').data('creator');
-        LanguageFromRow = $(event.target).closest('tr').data('language');
-        DescriptionFromRow = $(event.target).closest('tr').data('description');
+      /// Views
+      $('#db-modal').modal({backdrop: "static", keyboard: false, show:false}).on('show.bs.modal', function(){
+        idFromRow = $(event.target).closest('tr').data('id');
+        creatorFromRow = $(event.target).closest('tr').data('creator');
+        languageFromRow = $(event.target).closest('tr').data('language');
+        descriptionFromRow = $(event.target).closest('tr').data('description');
         SnippetFromRow = $(event.target).closest('tr').data('snippet');
-        BuildModalFromTable(this);
+        buildModalFromTable(this);
 
-        function BuildModalFromTable(table_this){
+        function buildModalFromTable(table_this){
 
-          $(table_this).find('.modal-header').html($(' <h2 class="text-danger"> Viewing ID # ' + IdFromRow + '</h2> '));            
-          $(table_this).find('.modal-body').html($('<p class="text-primary"> Creator: ' + CreatorFromRow + '</p><p class="text-primary"> Language: ' + LanguageFromRow + '</p><p class="text-primary"> Description: ' + DescriptionFromRow + '</p><p class="text-success">  Snippet: </p><code>' + SnippetFromRow + '</code>'));
+          $(table_this).find('.modal-header').html($(' <h2 class="text-danger"> Viewing ID # ' + idFromRow + '</h2> '));
+          $(table_this).find('.modal-body').html($('<p class="text-primary"> Creator: ' + creatorFromRow + '</p><p class="text-primary"> Language: ' + languageFromRow + '</p><p class="text-primary"> Description: ' + descriptionFromRow + '</p><p class="text-success">  Snippet: </p><code>' + SnippetFromRow + '</code>'));
         }
       });
 
-      $(document).on('click', '#ddCreatorAscFilterOrder', function(){
+      $(document).on('click', '#dd-creator-asc-filter-order', function(){
         if(currentCategory =='language'){
           $.getJSON("/filterLanguageOrderCreatorAsc?" + currentFilter, function(data) {
             snippetModel = data.result;
-            BuildTableTR();
+            buildTableTR();
           });
         }else if (currentCategory == 'description'){
           $.getJSON("/filterDescriptionOrderCreatorAsc?" + currentFilter, function(data) {
             snippetModel = data.result;
-            BuildTableTR();
+            buildTableTR();
           });
         }else{
           $.getJSON("/filterSnippetOrderCreatorAsc?" + currentFilter, function(data) {
             snippetModel = data.result;
-            BuildTableTR();
+            buildTableTR();
           });
-        }        
+        }
       });
 
-      $(document).on('click', '#ddCreatorDescFilterOrder', function(){
+      $(document).on('click', '#dd-creator-desc-filter-order', function(){
         if(currentCategory =='language'){
           $.getJSON("/filterLanguageOrderCreatorDesc?" + currentFilter, function(data) {
             snippetModel = data.result;
-            BuildTableTR();
+            buildTableTR();
           });
         }else if (currentCategory == 'description'){
           $.getJSON("/filterDescriptionOrderCreatorDesc?" + currentFilter, function(data) {
             snippetModel = data.result;
-            BuildTableTR();
+            buildTableTR();
           });
         }else{
           $.getJSON("/filterSnippetOrderCreatorDesc?" + currentFilter, function(data) {
             snippetModel = data.result;
-            BuildTableTR();
+            buildTableTR();
           });
-        }        
+        }
       });
 
-      $(document).on('click', '#ddDescriptionAscFilterOrder', function(){
+      $(document).on('click', '#dd-description-asc-filter-order', function(){
         if(currentCategory =='language'){
           $.getJSON("/filterLanguageOrderDescriptionAsc?" + currentFilter, function(data) {
             snippetModel = data.result;
-            BuildTableTR();
+            buildTableTR();
           });
         }else if (currentCategory == 'creator'){
           $.getJSON("/filterCreatorOrderDescriptionAsc?" + currentFilter, function(data) {
             snippetModel = data.result;
-            BuildTableTR();
+            buildTableTR();
           });
         }else{
           $.getJSON("/filterSnippetOrderDescriptionAsc?" + currentFilter, function(data) {
             snippetModel = data.result;
-            BuildTableTR();
+            buildTableTR();
           });
-        }        
+        }
       });
 
-      $(document).on('click', '#ddDescriptionDescFilterOrder', function(){
+      $(document).on('click', '#dd-description-desc-filter-order', function(){
         if(currentCategory =='language'){
           $.getJSON("/filterLanguageOrderDescriptionDesc?" + currentFilter, function(data) {
             snippetModel = data.result;
-            BuildTableTR();
+            buildTableTR();
           });
         }else if (currentCategory == 'creator'){
           $.getJSON("/filterCreatorOrderDescriptionDesc?" + currentFilter, function(data) {
             snippetModel = data.result;
-            BuildTableTR();
+            buildTableTR();
           });
         }else{
           $.getJSON("/filterSnippetOrderDescriptionDesc?" + currentFilter, function(data) {
             snippetModel = data.result;
-            BuildTableTR();
+            buildTableTR();
           });
-        }        
+        }
       });
 
-      $(document).on('click', '#ddLanguageAscFilterOrder', function(){
+      $(document).on('click', '#dd-language-asc-filter-order', function(){
         if(currentCategory =='description'){
           $.getJSON("/filterDescriptionOrderLanguageAsc?" + currentFilter, function(data) {
             snippetModel = data.result;
-            BuildTableTR();
+            buildTableTR();
           });
         }else if (currentCategory == 'creator'){
           $.getJSON("/filterCreatorOrderLanguageAsc?" + currentFilter, function(data) {
             snippetModel = data.result;
-            BuildTableTR();
+            buildTableTR();
           });
         }else{
           $.getJSON("/filterSnippetOrderLanguageAsc?" + currentFilter, function(data) {
             snippetModel = data.result;
-            BuildTableTR();
+            buildTableTR();
           });
-        }        
+        }
       });
 
-      $(document).on('click', '#ddLanguageDescFilterOrder', function(){
+      $(document).on('click', '#dd-language-desc-filter-order', function(){
         if(currentCategory =='description'){
           $.getJSON("/filterDescriptionOrderLanguageDesc?" + currentFilter, function(data) {
             snippetModel = data.result;
-            BuildTableTR();
+            buildTableTR();
           });
         }else if (currentCategory == 'creator'){
           $.getJSON("/filterCreatorOrderLanguageDesc?" + currentFilter, function(data) {
             snippetModel = data.result;
-            BuildTableTR();
+            buildTableTR();
           });
         }else{
           $.getJSON("/filterSnippetOrderLanguageDesc?" + currentFilter, function(data) {
             snippetModel = data.result;
-            BuildTableTR();
+            buildTableTR();
           });
-        }        
+        }
       });
 
-      $(document).on('click', '#ddCreatorAsc', function(){
+      $(document).on('click', '#dd-creator-asc', function(){
         $.getJSON("/SortByCreator", function(data) {
           snippetModel = data.result;
-          BuildTableTR();
-        });
-      });      
-
-      $(document).on('click', '#ddCreatorDesc', function(){
-        $.getJSON("/SortByCreatorByDesc", function(data) {
-          snippetModel = data.result;
-          BuildTableTR();
+          buildTableTR();
         });
       });
 
-      $(document).on('click', '#ddCreatorAscFilter', function(){
+      $(document).on('click', '#dd-creator-desc', function(){
+        $.getJSON("/SortByCreatorByDesc", function(data) {
+          snippetModel = data.result;
+          buildTableTR();
+        });
+      });
+
+      $(document).on('click', '#dd-creator-asc-filter', function(){
         $.getJSON("/sortFilterBySnippet", function(data) {
           snippetModel = data.result;
-          BuildTableTR();
+          buildTableTR();
         });
       });
 
-      $(document).on('click', '#ddCreatorDescFilter', function(){
+      $(document).on('click', '#dd-creator-desc-filter', function(){
         $.getJSON("/SortByCreatorByDesc", function(data) {
           snippetModel = data.result;
-          BuildTableTR();
+          buildTableTR();
         });
       });
 
-      $(document).on('click', '#ddLanguageAsc', function(){
+      $(document).on('click', '#dd-language-asc', function(){
         $.getJSON("/SortByLanguage", function(data) {
           snippetModel = data.result;
-          BuildTableTR();
+          buildTableTR();
         });
       });
 
-      $(document).on('click', '#ddLanguageDesc', function(){
+      $(document).on('click', '#dd-language-desc', function(){
         $.getJSON("/SortByLanguageByDesc", function(data) {
           snippetModel = data.result;
-          BuildTableTR();
+          buildTableTR();
         });
       });
 
-      $(document).on('click', '#ddDescriptionAsc', function(){
+      $(document).on('click', '#dd-description-asc', function(){
         $.getJSON("/SortByDescription", function(data) {
           snippetModel = data.result;
-          BuildTableTR();
+          buildTableTR();
         });
       });
 
-      $(document).on('click', '#ddDescriptionDesc', function(){
+      $(document).on('click', '#dd-description-desc', function(){
         $.getJSON("/SortByDescriptionByDesc", function(data) {
           snippetModel = data.result;
-          BuildTableTR();
+          buildTableTR();
         });
       });
 
       /// Search & Clear Search
-      $("#searchSubmit").click(function() {
-        if ($('#Criteria').val() == "" || $('#Criteria').val() == null || $('#Category').val() == 0 || $('#Category').val() == null) {
-          ClearSearch();
+      $("#search-submit").click(function() {
+        if ($('#criteria').val() == "" || $('#criteria').val() == null || $('#category').val() == 0 || $('#category').val() == null) {
+          clearSearch();
         } else {
-          SubmitForm();
+          submitForm();
         }
       });
 
-      function SubmitForm() {
-        $.getJSON(BuildFilterQueryString(), function(data) {
-          $('.sortNoFilter').hide();
-          $('.sortFilter').show();
+      function submitForm() {
+        $.getJSON(buildFilterQueryString(), function(data) {
+          $('.sort-no-filter').hide();
+          $('.sort-filter').show();
           if(currentCategory == 'creator'){
-            $('#SortCreatorDropDownFilter').hide();
+            $('#sort-creator-dropdown-filter').hide();
           }else if (currentCategory == 'language'){
-            $('#SortLanguageDropDownFilter').hide();
+            $('#sort-language-dropdown-filter').hide();
           }else if (currentCategory == 'description'){
-            $('#SortDescriptionDropDownFilter').hide();
+            $('#sort-description-dropdown-filter').hide();
           }
           snippetModel = data.result;
-          BuildTableTR();
+          buildTableTR();
         });
       }
 
       $(document).on('submit', '#search', function() {
-        if ($('#Criteria').val() == "" || $('#Criteria').val() == null || $('#Category').val() == 0 || $('#Category').val() == null) {
-          ClearSearch();
+        if ($('#criteria').val() == "" || $('#criteria').val() == null || $('#category').val() == 0 || $('#category').val() == null) {
+          clearSearch();
         } else {
-          SubmitForm();
+          submitForm();
         }
         return false;
       });
 
-      $("#clearSearch").click(function() {
+      $("#clear-search").click(function() {
         if(currentFilter != '');{
-          ClearSearch();
+          clearSearch();
         }
-        
+
       });
-      
+
       /// Helper Functions
-      function BuildTableTR(data){
-        $('#myTable tbody').empty();
+      function buildTableTR(data){
+        $('#my-table tbody').empty();
         for (let i = 0; i < snippetModel.length; i++) {
-          let tr = $('<tr data-toggle="modal" data-id="' + snippetModel[i].Id +'" data-target="#dbModal" data-backdrop="static" data-keyboard="false" data-creator="' + snippetModel[i].Creator + '" data-language="' + snippetModel[i].Language + '" data-description="' + snippetModel[i].Description + '" data-snippet="' + snippetModel[i].Snippet + '">');
+          let tr = $('<tr data-toggle="modal" data-id="' + snippetModel[i].Id +'" data-target="#db-modal" data-backdrop="static" data-keyboard="false" data-creator="' + snippetModel[i].Creator + '" data-language="' + snippetModel[i].Language + '" data-description="' + snippetModel[i].Description + '" data-snippet="' + snippetModel[i].Snippet + '">');
           $(tr).append("<th scope='row'>" + snippetModel[i].Id + "</th>");
           $(tr).append("<td>" + snippetModel[i].Creator + "</td>");
           $(tr).append("<td>" + snippetModel[i].Language + "</td>");
           $(tr).append("<td>" + snippetModel[i].Description + "</td>");
           $(tr).append("<td><code>" + snippetModel[i].Snippet + "</code></td>");
           $(tr).append("</tr>");
-          $('#myTable tbody').append(tr);
+          $('#my-table tbody').append(tr);
       }};
 
-      function ClearSearch() {
-        ResetTableCatch();
-        $('#Category').val(0);
-        WipeFilter();
+      function clearSearch() {
+        resetTableCatch();
+        $('#category').val(0);
+        wipeFilter();
         initializeModel();
       }
-      
-      function ResetTableCatch(){
-        if(document.getElementById("themeCheckbox").checked === true){
+
+      function resetTableCatch(){
+        if(document.getElementById("theme-checkbox").checked === true){
           $('tr').css({"color":"white"});
         }else{
           $('tr').css({"color":"black"});
         }
       }
-      function WipeFilter(){
-        $('#Criteria').val("");
+      function wipeFilter(){
+        $('#criteria').val("");
         currentFilter = '';
         currentCategory = '';
         currentCriteria = '';
-        $("#currentFilter").text('');
-        $('.sortNoFilter').show();
+        $("#current-filter").text('');
+        $('.sort-no-filter').show();
       }
 
-      function BuildFilterQueryString(){
-        currentCategory = $("#Category").val().toLowerCase() 
-        currentCriteria = $("#Criteria").val();
+      function buildFilterQueryString(){
+        currentCategory = $("#category").val().toLowerCase()
+        currentCriteria = $("#criteria").val();
         currentFilter = currentCategory + '=' + encodeURIComponent(currentCriteria);
-        $("div #currentFilter").text(currentCategory + "=" + currentCriteria);
-        let queryString = "/filter" + $("#Category").val() + "?" + currentFilter;
+        $("div #current-filter").text(currentCategory + "=" + currentCriteria);
+        let queryString = "/filter" + $("#category").val() + "?" + currentFilter;
         return queryString;
       }
 
