@@ -112,7 +112,7 @@ function filterSnippetsByCreator(req, res) {
   }
   else {
     connection.query("SELECT * FROM Snippets WHERE Creator LIKE ?", "%" + [req.query.creator] + "%", function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
@@ -129,7 +129,7 @@ function filterSnippetsByLanguage(req, res) {
   }
   else {
     connection.query("SELECT * FROM Snippets WHERE Lang LIKE ?", "%" + [req.query.language] + "%", function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
@@ -146,7 +146,7 @@ function filterSnippetsByDescription(req, res) {
   }
   else {
     connection.query("SELECT * FROM Snippets WHERE Description LIKE ?", "%" + [req.query.description] + "%", function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
@@ -163,7 +163,7 @@ function filterSnippetsBySnippet(req, res) {
   }
   else {
     connection.query("SELECT * FROM Snippets WHERE Code LIKE ?", "%" + [req.query.snippet] + "%", function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
@@ -173,7 +173,7 @@ function filterSnippetsBySnippet(req, res) {
   }
 }
 
-/// Sorting 
+/// Sorting
 function sortSnippetsByCreator(req, res) {
   let ip = req.ip;
   let filter = '';
@@ -255,7 +255,7 @@ function filterSnippetsByLanguageOrderCreatorAsc(req, res) {
   }
   else {
     connection.query("SELECT * FROM Snippets WHERE Lang LIKE ? ORDER BY Creator ASC", "%" + [req.query.language] + "%", function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
@@ -272,7 +272,7 @@ function filterSnippetsByLanguageOrderCreatorDesc(req, res) {
   }
   else {
     connection.query("SELECT * FROM Snippets WHERE Lang LIKE ? ORDER BY Creator DESC", "%" + [req.query.language] + "%", function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
@@ -290,7 +290,7 @@ function filterSnippetsByLanguageOrderDescriptionAsc(req, res) {
   else {
     console.log(ip," is filtering by Language");
     connection.query("SELECT * FROM Snippets WHERE Lang LIKE ? ORDER BY Description ASC", "%" + [req.query.language] + "%", function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
@@ -307,7 +307,7 @@ function filterSnippetsByLanguageOrderDescriptionDesc(req, res) {
   }
   else {
     connection.query("SELECT * FROM Snippets WHERE Lang LIKE ? ORDER BY Description DESC", "%" + [req.query.language] + "%", function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
@@ -324,7 +324,7 @@ function filterSnippetsByCreatorOrderLanguageAsc(req, res) {
   }
   else {
     connection.query("SELECT * FROM Snippets WHERE Creator LIKE ? ORDER BY Lang ASC", "%" + [req.query.creator] + "%", function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
@@ -341,7 +341,7 @@ function filterSnippetsByCreatorOrderLanguageDesc(req, res) {
   }
   else {
     connection.query("SELECT * FROM Snippets WHERE Creator LIKE ? ORDER BY Lang DESC", "%" + [req.query.creator] + "%", function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
@@ -358,7 +358,7 @@ function filterSnippetsByCreatorOrderDescriptionAsc(req, res) {
   }
   else {
     connection.query("SELECT * FROM Snippets WHERE Creator LIKE ? ORDER BY Description ASC", "%" + [req.query.creator] + "%", function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
@@ -375,7 +375,7 @@ function filterSnippetsByCreatorOrderDescriptionDesc(req, res) {
   }
   else {
     connection.query("SELECT * FROM Snippets WHERE Creator LIKE ? ORDER BY Description DESC", "%" + [req.query.creator] + "%", function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
@@ -392,7 +392,7 @@ function filterSnippetsByDescriptionOrderCreatorAsc(req, res) {
   }
   else {
     connection.query("SELECT * FROM Snippets WHERE Description LIKE ? ORDER BY Creator ASC", "%" + [req.query.description] + "%",  function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
@@ -409,7 +409,7 @@ function filterSnippetsByDescriptionOrderCreatorDesc(req, res) {
   }
   else {
     connection.query("SELECT * FROM Snippets WHERE Description LIKE ? ORDER BY Creator DESC", "%" + [req.query.description] + "%", function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
@@ -426,7 +426,7 @@ function filterSnippetsByDescriptionOrderLanguageAsc(req, res) {
   }
   else {
     connection.query("SELECT * FROM Snippets WHERE Description LIKE ? ORDER BY Lang ASC", "%" + [req.query.description] + "%",  function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
@@ -443,7 +443,7 @@ function filterSnippetsByDescriptionOrderLanguageDesc(req, res) {
   }
   else {
     connection.query("SELECT * FROM Snippets WHERE Description LIKE ? ORDER BY Lang DESC", "%" + [req.query.description] + "%", function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
@@ -460,7 +460,7 @@ function filterSnippetsBySnippetOrderCreatorAsc(req, res) {
   }
   else {
     connection.query("SELECT * FROM Snippets WHERE Code LIKE ? ORDER BY Creator ASC", "%" + [req.query.snippet] + "%",  function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
@@ -477,7 +477,7 @@ function filterSnippetsBySnippetOrderCreatorDesc(req, res) {
   }
   else {
     connection.query("SELECT * FROM Snippets WHERE Code LIKE ? ORDER BY Creator DESC", "%" + [req.query.snippet] + "%", function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
@@ -494,7 +494,7 @@ function filterSnippetsBySnippetOrderLanguageAsc(req, res) {
   }
   else {
     connection.query("SELECT * FROM Snippets WHERE Code LIKE ? ORDER BY Lang ASC", "%" + [req.query.snippet] + "%",  function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
@@ -511,7 +511,7 @@ function filterSnippetsBySnippetOrderLanguageDesc(req, res) {
   }
   else {
     connection.query("SELECT * FROM Snippets WHERE Code LIKE ? ORDER BY Lang DESC", "%" + [req.query.snippet] + "%", function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
@@ -528,7 +528,7 @@ function filterSnippetsBySnippetOrderDescriptionAsc(req, res) {
   }
   else {
     connection.query("SELECT * FROM Snippets WHERE Code LIKE ? ORDER BY Description ASC", "%" + [req.query.snippet] + "%",  function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
@@ -545,7 +545,7 @@ function filterSnippetsBySnippetOrderDescriptionDesc(req, res) {
   }
   else {
     connection.query("SELECT * FROM Snippets WHERE Code LIKE ? ORDER BY Description DESC", "%" + [req.query.snippet] + "%", function (err, dbResult) {
-      if (err) 
+      if (err)
         writeResult(res, {error : err.message});
       else {
         let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
