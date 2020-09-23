@@ -1,74 +1,24 @@
-dd-language-desc-filter-ordercriteria<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Function Junction</title>
+    <title>Snip This!</title>
     <meta charset="utf-8">
     <meta http-equiv="Pragma" content="no-cache">
-    <link rel="icon" type="image/ico" href="img/fj.ico"/>
+    <link rel="icon" type="image/ico" href="img/scissors.ico"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Contrail+One&display=swap"/>
     <style>
-      .modal-body p {
-        font-size: 24px;
-      }
+
       body {
         font-size: .875rem;
         font-family: 'Contrail One', cursive;
-        background-color: black;
-      }
-      /* SIDEBAR */
-      .sidebar {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 100; /* Behind the navbar */
-        padding: 48px 0 0; /* Height of navbar */
-        box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-      }
-      @media (max-width: 767.98px) {
-      	.sidebar {
-        	top: 5rem;
-      	}
-      }
-      .sidebar-sticky {
-        background-color: black;
-        position: relative;
-        top: 0;
-        height: calc(100vh - 48px);
-        padding-top: .5rem;
-        overflow-x: hidden;
-        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-      }
-      @supports ((position: -webkit-sticky) or (position: sticky)) {
-      	.sidebar-sticky {
-           position: -webkit-sticky;
-           position: sticky;
-        }
-      }
-      .sidebar .nav-link {
-        font-weight: 500;
-        color: #333;
-      }
-      .sidebar .nav-link .feather {
-        margin-right: 4px;
-        color: #999;
-      }
-      .sidebar .nav-link.active {
-        color: #007bff;
-      }
-      .sidebar .nav-link:hover .feather,
-      .sidebar .nav-link.active .feather {
-        color: inherit;
-      }
-      .sidebar-heading {
-        font-size: .75rem;
-        text-transform: uppercase;
+        background-color: rgb(133, 133, 133);
       }
       /* NAVBAR */
       .navbar{
-        background-color: black;
+        background-color: rgb(40, 40, 40);
+        color: rgb(230, 160, 29);
       }
       .form-control-dark {
         color: #fff;
@@ -118,100 +68,63 @@ dd-language-desc-filter-ordercriteria<!DOCTYPE html>
       }
       #sort-bar {
         margin-top: 6px;
+        border-bottom:1px solid rgb(40, 40, 40);
       }
       #result-bar {
         margin-top: 6px;
         margin-bottom:12px;
+        border-bottom:1px solid rgb(40, 40, 40);
       }
       #filter-bar {
         margin-bottom: 6px;
         padding-bottom: 1px;
+        margin-top: 6px;
+        border-bottom:1px solid rgb(40, 40, 40);
+      }
+      #current-filter {
+        background-color: rgb(230, 160, 29);
+        color: rgb(40, 40, 40);
+      }
+      .modal-header {
+        color: rgb(230, 160, 29);
       }
       .modal-content{
-        background-color: black;
+        background-color:rgb(40, 40, 40);
+        color: rgb(133, 133, 133);
       }
       .modal-body code {
         font-size: 14px;
+        color: rgb(230, 160, 29);
+      }
+      .modal-body p {
+        font-size: 24px;
+      }
+      #my-table {
+        background-color:rgb(40, 40, 40);
+        color: gray;
+      }
+      .table th, .table td, .table thead th {
+        border-color:rgb(133, 133, 133);
+      }
+      td code {
+        color: rgb(230, 160, 29);
       }
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
         }
       }
-      .switch {
-        position: relative;
-        display: inline-block;
-        width: 60px;
-        height: 34px;
-      }
-      .switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-      }
-      .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #ccc;
-        -webkit-transition: .4s;
-        transition: .4s;
-      }
-      .slider:before {
-        position: absolute;
-        content: "";
-        height: 26px;
-        width: 26px;
-        left: 4px;
-        bottom: 4px;
-        background-color: white;
-        -webkit-transition: .4s;
-        transition: .4s;
-      }
-      input:checked + .slider {
-        background-color: #555252;
-      }
-      input:checked + .slider:before {
-        -webkit-transform: translateX(26px);
-        -ms-transform: translateX(26px);
-        transform: translateX(26px);
-      }
-      /* Rounded sliders */
-      .slider.round {
-        border-radius: 34px;
-      }
-      .slider.round:before {
-        border-radius: 50%;
-      }
     </style>
   </head>
   <body>
     <nav class="navbar sticky-top ">
-      <h2>Function Junction</h2>
+      <h2>Snip This!</h2>
       <div class="justify-content-right"><h2>Welcome User<img id="logo" class="p-2" src="img/white_train.png" height="50em"></h2></div>
     </nav>
     <div class="container-fluid">
       <div class="row">
-        <nav id="sidebar-menu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
-          <div class="sidebar-sticky pt-3">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link active" >
-                  <h5>Theme Selector</h5>
-                  <label class="switch">
-                    <input type="checkbox" id="theme-checkbox" onchange="toggleTheme()" checked>
-                    <span class="slider round"></span>
-                  </label>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom" id="filter-bar">
+        <main role="main" class="col-md ml-sm-auto col-lg px-md-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center" id="filter-bar">
             <h2>Filter Options</h2>
             <form id="search" class="form-inline">
               <select class="custom-select  btn btn-secondary dropdown-toggle" id="category">
@@ -233,42 +146,66 @@ dd-language-desc-filter-ordercriteria<!DOCTYPE html>
                 </div>
             </form>
           </div>
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom" id="sort-bar">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center" id="sort-bar">
             <h2>Sort Options</h2>
             <div class="btn-toolbar" role="toolbar" id="sort-toolbar">
               <div class="btn-group" role="group" aria-label="sort group">
-                <button id="sort-creator" type="button" class="btn btn-secondary sort-no-filter" aria-haspopup="true" aria-expanded="false">  Creator
+                <button id="sort-creator-dropdown" type="button" class="btn btn-secondary dropdown-toggle sort-no-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Creator
                 </button>
+                  <div class="dropdown-menu" aria-labelledby="btn-group-creator">
+                    <a id="dd-creator-asc" class="dropdown-item" >Ascending</a>
+                    <a id="dd-creator-desc" class="dropdown-item" >Descending</a>
+                  </div>
               </div>
               <div class="btn-group" role="group" aria-label="sort group">
-                <button id="sort-language" type="button" class="btn btn-secondary sort-no-filter" aria-haspopup="true" aria-expanded="false">  Language
+                <button id="sort-language-dropdown" type="button" class="btn btn-secondary dropdown-toggle sort-no-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Language
                 </button>
+                  <div class="dropdown-menu" aria-labelledby="btn-group-language">
+                    <a id="dd-language-asc" class="dropdown-item" >Ascending</a>
+                    <a id="dd-language-desc" class="dropdown-item" >Descending</a>
+                  </div>
               </div>
               <div class="btn-group" role="group" aria-label="sort group">
-                <button id="sort-description" type="button" class="btn btn-secondary sort-no-filter" aria-haspopup="true" aria-expanded="false">  Description
+                <button id="sort-description-dropdown" type="button" class="btn btn-secondary dropdown-toggle sort-no-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Description
                 </button>
+                  <div class="dropdown-menu" aria-labelledby="btn-group-description">
+                    <a id="dd-description-asc" class="dropdown-item" >Ascending</a>
+                    <a id="dd-description-desc" class="dropdown-item" >Descending</a>
+                  </div>
               </div>
               <div class="btn-group" role="group" aria-label="sort group">
-                <button type="button" class="btn btn-secondary sort-filter" aria-haspopup="true" aria-expanded="false">  Creator
+                <button id="sort-creator-dropdown-filter" type="button" class="btn btn-secondary dropdown-toggle sort-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Creator
                 </button>
+                  <div class="dropdown-menu" aria-labelledby="btn-group-creator">
+                    <a id="dd-creator-asc-filter-order" class="dropdown-item" >Ascending</a>
+                    <a id="dd-creator-desc-filter-order" class="dropdown-item" >Descending</a>
+                  </div>
               </div>
               <div class="btn-group" role="group" aria-label="sort group">
-                <button type="button" class="btn btn-secondary sort-filter" aria-haspopup="true" aria-expanded="false">  Language
+                <button id="sort-language-dropdown-filter" type="button" class="btn btn-secondary dropdown-toggle sort-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Language
                 </button>
+                  <div class="dropdown-menu" aria-labelledby="btn-group-creator">
+                    <a id="dd-language-asc-filter-order" class="dropdown-item" >Ascending</a>
+                    <a id="dd-language-desc-filter-order" class="dropdown-item" >Descending</a>
+                  </div>
               </div>
               <div class="btn-group" role="group" aria-label="sort group">
-                <button type="button" class="btn btn-secondary sort-filter" aria-haspopup="true" aria-expanded="false">  Description
+                <button id="sort-description-dropdown-filter" type="button" class="btn btn-secondary dropdown-toggle sort-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Description
                 </button>
+                  <div class="dropdown-menu" aria-labelledby="btn-group-creator">
+                    <a id="dd-description-asc-filter-order" class="dropdown-item" >Ascending</a>
+                    <a id="dd-description-desc-filter-order" class="dropdown-item" >Descending</a>
+                  </div>
               </div>
             </div>
           </div>
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom" id="result-bar">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center" id="result-bar">
             <h2>Current Results</h2>
             <h2>Current Filter</h2>
-            <h2 id="current-filter" class="bg-dark text-white"></h2>
+            <h2 id="current-filter"></h2>
           </div>
           <div class="table-responsive">
-            <table id ="my-table" class="table table-hover table-dark sticky-header">
+            <table id="my-table" class="table table-hover sticky-header">
               <thead>
                 <tr>
                   <th>#</th>
@@ -309,184 +246,292 @@ dd-language-desc-filter-ordercriteria<!DOCTYPE html>
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-      function toggleTheme() {
-        $('table').toggleClass('table-dark');
-        if(document.getElementById("theme-checkbox").checked === false){
-          $('main button').removeClass('btn-secondary');
-          $('main button').addClass('btn-primary');
-          $('#logo').attr('src','img/fj.ico');
-          $('h2,h3,a.navbar-brand,th,td').css({"color":"black"});
-          $('body,.navbar-dark .navbar-brand,.sidebar-sticky,.modal-content,.navbar').css({"background-color":"white"});
-        } else {
-          $('main button').removeClass('btn-primary');
-          $('main button').addClass('btn-secondary');
-          $('#logo').attr('src','img/white_train.png');
-          $('h2,h3,a.navbar-brand,th,td').css({"color":"white"});
-          $('body,.navbar-dark .navbar-brand,.sidebar-sticky,.modal-content,.navbar').css({"background-color":"black"});
-      } }
 
-      $(document).ready(function() {
-        /// Model
-        let snippetModel = {};
-        let currentFilter = '';
-        let currentCategory ='';
-        let currentCriteria ='';
-        let idFromRow,creatorFromRow,languageFromRow,descriptionFromRow,SnippetFromRow;
-        $('h2, h3, a.navbar-brand, th, td').css({"color":"white"});
+    $(document).ready(function() {
+      /// Model
+      var snippetModel = {};
+      var currentFilter = '';
+      var currentCategory ='';
+      var currentCriteria ='';
+      var idFromRow,creatorFromRow,languageFromRow,descriptionFromRow,SnippetFromRow;
 
-        function initializeModel(){
-          $('#category').val(0);
-          $('.sort-no-filter').show();
-          $('.sort-filter').hide();
-          $.getJSON("/snippets", function(data) {
-            snippetModel = data.result;
-            buildTableTR();
-          });
-        };
-
-        // Views
-        $('#db-modal').modal({backdrop: "static", keyboard: false, show:false}).on('show.bs.modal', function(){
-          idFromRow = $(event.target).closest('tr').data('id');
-          creatorFromRow = $(event.target).closest('tr').data('creator');
-          languageFromRow = $(event.target).closest('tr').data('language');
-          descriptionFromRow = $(event.target).closest('tr').data('description');
-          SnippetFromRow = $(event.target).closest('tr').data('snippet');
-          buildModalFromTable(this);
-
-          function buildModalFromTable(table_this){
-
-            $(table_this).find('.modal-header').html($(' <h2 class="text-danger"> Viewing ID # ' + idFromRow + '</h2> '));
-            $(table_this).find('.modal-body').html($('<p class="text-primary"> Creator: ' + creatorFromRow + '</p><p class="text-primary"> Language: ' + languageFromRow + '</p><p class="text-primary"> Description: ' + descriptionFromRow + '</p><p class="text-success">  Snippet: </p><code>' + SnippetFromRow + '</code>'));
-          }
+      function initializeModel(){
+        $('#category').val(0);
+        $('.sort-no-filter').show();
+        $('.sort-filter').hide();
+        $.getJSON("/snippets", function(data) {
+          snippetModel = data.result;
+          buildTableTR();
         });
+      };
 
-        $(document).on('click', '#dd-creator-asc-filter-order', function(){
-          if(currentCategory =='language'){
-            $.getJSON("/filterLanguageOrderCreatorAsc?" + currentFilter, function(data) {
-              snippetModel = data.result;
-              buildTableTR();
-            });
-          }else if (currentCategory == 'description'){
-            $.getJSON("/filterDescriptionOrderCreatorAsc?" + currentFilter, function(data) {
-              snippetModel = data.result;
-              buildTableTR();
-            });
-          }else{
-            $.getJSON("/filterSnippetOrderCreatorAsc?" + currentFilter, function(data) {
-              snippetModel = data.result;
-              buildTableTR();
-            });
-          }
-        });
+      /// Views
+      $('#db-modal').modal({backdrop: "static", keyboard: false, show:false}).on('show.bs.modal', function(){
+        idFromRow = $(event.target).closest('tr').data('id');
+        creatorFromRow = $(event.target).closest('tr').data('creator');
+        languageFromRow = $(event.target).closest('tr').data('language');
+        descriptionFromRow = $(event.target).closest('tr').data('description');
+        SnippetFromRow = $(event.target).closest('tr').data('snippet');
+        buildModalFromTable(this);
 
-        // Sorting and Filtering
-        $('#sort-creator').click(function() {
-           $.getJSON("/sortByCreator", function(data) {
-             snippetModel = data.result;
-             buildTableTR();
-           });
-        });
+        function buildModalFromTable(table_this){
 
-        $('#sort-language').click(function() {
-           $.getJSON("/sortByLanguage", function(data) {
-             snippetModel = data.result;
-             buildTableTR();
-           });
-        });
-
-        $('#sort-description').click(function() {
-           $.getJSON("/sortByDescription", function(data) {
-             snippetModel = data.result;
-             buildTableTR();
-           });
-        });
-
-        $('#search-submit').click(function(){
-          $.getJSON("/filterSnippets" + currentFilter, function(data) {
-            snippetModel = data.result;
-            buildTableTR();
-          });
-        });
-
-        function submitForm() {
-          $.getJSON(buildFilterQueryString(), function(data) {
-            $('.sort-no-filter').hide();
-            $('.sort-filter').show();
-            if(currentCategory == 'creator'){
-              $('#sort-creator-dropdown-filter').hide();
-            }else if (currentCategory == 'language'){
-              $('#sort-language-dropdown-filter').hide();
-            }else if (currentCategory == 'description'){
-              $('#sort-description-dropdown-filter').hide();
-            }
-            snippetModel = data.result;
-            buildTableTR();
-          });
+          $(table_this).find('.modal-header').html($(' <h2> Viewing ID # ' + idFromRow + '</h2> '));
+          $(table_this).find('.modal-body').html($('<p> Creator: ' + creatorFromRow + '</p><p> Language: ' + languageFromRow + '</p><p> Description: ' + descriptionFromRow + '</p><p>  Snippet: </p><code>' + SnippetFromRow + '</code>'));
         }
-
-        $(document).on('submit', '#search', function() {
-          if ($('#criteria').val() == "" || $('#criteria').val() == null || $('#category').val() == 0 || $('#category').val() == null) {
-            clearSearch();
-          } else {
-            submitForm();
-          }
-          return false;
-        });
-
-        $("#clear-search").click(function() {
-          if(currentFilter != '');{
-            clearSearch();
-          }
-        });
-
-        /// Helper Functions
-        function buildTableTR(data){
-          $('#my-table tbody').empty();
-          for (let i = 0; i < snippetModel.length; i++) {
-            let tr = $('<tr data-toggle="modal" data-id="' + snippetModel[i].Id +'" data-target="#db-modal" data-backdrop="static" data-keyboard="false" data-creator="' + snippetModel[i].Creator + '" data-language="' + snippetModel[i].Language + '" data-description="' + snippetModel[i].Description + '" data-snippet="' + snippetModel[i].Snippet + '">');
-            $(tr).append("<th scope='row'>" + snippetModel[i].Id + "</th>");
-            $(tr).append("<td>" + snippetModel[i].Creator + "</td>");
-            $(tr).append("<td>" + snippetModel[i].Language + "</td>");
-            $(tr).append("<td>" + snippetModel[i].Description + "</td>");
-            $(tr).append("<td><code>" + snippetModel[i].Snippet + "</code></td>");
-            $(tr).append("</tr>");
-            $('#my-table tbody').append(tr);
-        }};
-
-        function clearSearch() {
-          resetTableCatch();
-          $('#category').val(0);
-          wipeFilter();
-          initializeModel();
-        }
-
-        function resetTableCatch(){
-          if(document.getElementById("theme-checkbox").checked === true){
-            $('tr').css({"color":"white"});
-          }else{
-            $('tr').css({"color":"black"});
-          }
-        }
-        function wipeFilter(){
-          $('#criteria').val("");
-          currentFilter = '';
-          currentCategory = '';
-          currentCriteria = '';
-          $("#current-filter").text('');
-          $('.sort-no-filter').show();
-        }
-
-        function buildFilterQueryString(){
-          currentCategory = $("#category").val().toLowerCase()
-          currentCriteria = $("#criteria").val();
-          currentFilter = currentCategory + '=' + encodeURIComponent(currentCriteria);
-          $("div #current-filter").text(currentCategory + "=" + currentCriteria);
-          let queryString = "/filter" + $("#category").val() + "?" + currentFilter;
-          return queryString;
-        }
-
-        initializeModel();
       });
+
+      $(document).on('click', '#dd-creator-asc-filter-order', function(){
+        if(currentCategory =='language'){
+          $.getJSON("/filterLanguageOrderCreatorAsc?" + currentFilter, function(data) {
+            snippetModel = data.result;
+            buildTableTR();
+          });
+        }else if (currentCategory == 'description'){
+          $.getJSON("/filterDescriptionOrderCreatorAsc?" + currentFilter, function(data) {
+            snippetModel = data.result;
+            buildTableTR();
+          });
+        }else{
+          $.getJSON("/filterSnippetOrderCreatorAsc?" + currentFilter, function(data) {
+            snippetModel = data.result;
+            buildTableTR();
+          });
+        }
+      });
+
+      $(document).on('click', '#dd-creator-desc-filter-order', function(){
+        if(currentCategory =='language'){
+          $.getJSON("/filterLanguageOrderCreatorDesc?" + currentFilter, function(data) {
+            snippetModel = data.result;
+            buildTableTR();
+          });
+        }else if (currentCategory == 'description'){
+          $.getJSON("/filterDescriptionOrderCreatorDesc?" + currentFilter, function(data) {
+            snippetModel = data.result;
+            buildTableTR();
+          });
+        }else{
+          $.getJSON("/filterSnippetOrderCreatorDesc?" + currentFilter, function(data) {
+            snippetModel = data.result;
+            buildTableTR();
+          });
+        }
+      });
+
+      $(document).on('click', '#dd-description-asc-filter-order', function(){
+        if(currentCategory =='language'){
+          $.getJSON("/filterLanguageOrderDescriptionAsc?" + currentFilter, function(data) {
+            snippetModel = data.result;
+            buildTableTR();
+          });
+        }else if (currentCategory == 'creator'){
+          $.getJSON("/filterCreatorOrderDescriptionAsc?" + currentFilter, function(data) {
+            snippetModel = data.result;
+            buildTableTR();
+          });
+        }else{
+          $.getJSON("/filterSnippetOrderDescriptionAsc?" + currentFilter, function(data) {
+            snippetModel = data.result;
+            buildTableTR();
+          });
+        }
+      });
+
+      $(document).on('click', '#dd-description-desc-filter-order', function(){
+        if(currentCategory =='language'){
+          $.getJSON("/filterLanguageOrderDescriptionDesc?" + currentFilter, function(data) {
+            snippetModel = data.result;
+            buildTableTR();
+          });
+        }else if (currentCategory == 'creator'){
+          $.getJSON("/filterCreatorOrderDescriptionDesc?" + currentFilter, function(data) {
+            snippetModel = data.result;
+            buildTableTR();
+          });
+        }else{
+          $.getJSON("/filterSnippetOrderDescriptionDesc?" + currentFilter, function(data) {
+            snippetModel = data.result;
+            buildTableTR();
+          });
+        }
+      });
+
+      $(document).on('click', '#dd-language-asc-filter-order', function(){
+        if(currentCategory =='description'){
+          $.getJSON("/filterDescriptionOrderLanguageAsc?" + currentFilter, function(data) {
+            snippetModel = data.result;
+            buildTableTR();
+          });
+        }else if (currentCategory == 'creator'){
+          $.getJSON("/filterCreatorOrderLanguageAsc?" + currentFilter, function(data) {
+            snippetModel = data.result;
+            buildTableTR();
+          });
+        }else{
+          $.getJSON("/filterSnippetOrderLanguageAsc?" + currentFilter, function(data) {
+            snippetModel = data.result;
+            buildTableTR();
+          });
+        }
+      });
+
+      $(document).on('click', '#dd-language-desc-filter-order', function(){
+        if(currentCategory =='description'){
+          $.getJSON("/filterDescriptionOrderLanguageDesc?" + currentFilter, function(data) {
+            snippetModel = data.result;
+            buildTableTR();
+          });
+        }else if (currentCategory == 'creator'){
+          $.getJSON("/filterCreatorOrderLanguageDesc?" + currentFilter, function(data) {
+            snippetModel = data.result;
+            buildTableTR();
+          });
+        }else{
+          $.getJSON("/filterSnippetOrderLanguageDesc?" + currentFilter, function(data) {
+            snippetModel = data.result;
+            buildTableTR();
+          });
+        }
+      });
+
+      $(document).on('click', '#dd-creator-asc', function(){
+        $.getJSON("/SortByCreator", function(data) {
+          snippetModel = data.result;
+          buildTableTR();
+        });
+      });
+
+      $(document).on('click', '#dd-creator-desc', function(){
+        $.getJSON("/SortByCreatorByDesc", function(data) {
+          snippetModel = data.result;
+          buildTableTR();
+        });
+      });
+
+      $(document).on('click', '#dd-creator-asc-filter', function(){
+        $.getJSON("/sortFilterBySnippet", function(data) {
+          snippetModel = data.result;
+          buildTableTR();
+        });
+      });
+
+      $(document).on('click', '#dd-creator-desc-filter', function(){
+        $.getJSON("/SortByCreatorByDesc", function(data) {
+          snippetModel = data.result;
+          buildTableTR();
+        });
+      });
+
+      $(document).on('click', '#dd-language-asc', function(){
+        $.getJSON("/SortByLanguage", function(data) {
+          snippetModel = data.result;
+          buildTableTR();
+        });
+      });
+
+      $(document).on('click', '#dd-language-desc', function(){
+        $.getJSON("/SortByLanguageByDesc", function(data) {
+          snippetModel = data.result;
+          buildTableTR();
+        });
+      });
+
+      $(document).on('click', '#dd-description-asc', function(){
+        $.getJSON("/SortByDescription", function(data) {
+          snippetModel = data.result;
+          buildTableTR();
+        });
+      });
+
+      $(document).on('click', '#dd-description-desc', function(){
+        $.getJSON("/SortByDescriptionByDesc", function(data) {
+          snippetModel = data.result;
+          buildTableTR();
+        });
+      });
+
+      /// Search & Clear Search
+      $("#search-submit").click(function() {
+        if ($('#criteria').val() == "" || $('#criteria').val() == null || $('#category').val() == 0 || $('#category').val() == null) {
+          clearSearch();
+        } else {
+          submitForm();
+        }
+      });
+
+      function submitForm() {
+        $.getJSON(buildFilterQueryString(), function(data) {
+          $('.sort-no-filter').hide();
+          $('.sort-filter').show();
+          if(currentCategory == 'creator'){
+            $('#sort-creator-dropdown-filter').hide();
+          }else if (currentCategory == 'language'){
+            $('#sort-language-dropdown-filter').hide();
+          }else if (currentCategory == 'description'){
+            $('#sort-description-dropdown-filter').hide();
+          }
+          snippetModel = data.result;
+          buildTableTR();
+        });
+      }
+
+      $(document).on('submit', '#search', function() {
+        if ($('#criteria').val() == "" || $('#criteria').val() == null || $('#category').val() == 0 || $('#category').val() == null) {
+          clearSearch();
+        } else {
+          submitForm();
+        }
+        return false;
+      });
+
+      $("#clear-search").click(function() {
+        if(currentFilter != '');{
+          clearSearch();
+        }
+
+      });
+
+      /// Helper Functions
+      function buildTableTR(data){
+        $('#my-table tbody').empty();
+        for (let i = 0; i < snippetModel.length; i++) {
+          let tr = $('<tr data-toggle="modal" data-id="' + snippetModel[i].Id +'" data-target="#db-modal" data-backdrop="static" data-keyboard="false" data-creator="' + snippetModel[i].Creator + '" data-language="' + snippetModel[i].Language + '" data-description="' + snippetModel[i].Description + '" data-snippet="' + snippetModel[i].Snippet + '">');
+          $(tr).append("<th scope='row'>" + snippetModel[i].Id + "</th>");
+          $(tr).append("<td>" + snippetModel[i].Creator + "</td>");
+          $(tr).append("<td>" + snippetModel[i].Language + "</td>");
+          $(tr).append("<td>" + snippetModel[i].Description + "</td>");
+          $(tr).append("<td><code>" + snippetModel[i].Snippet + "</code></td>");
+          $(tr).append("</tr>");
+          $('#my-table tbody').append(tr);
+      }};
+
+      function clearSearch() {
+        $('#category').val(0);
+        wipeFilter();
+        initializeModel();
+      }
+
+      function wipeFilter(){
+        $('#criteria').val("");
+        currentFilter = '';
+        currentCategory = '';
+        currentCriteria = '';
+        $("#current-filter").text('');
+        $('.sort-no-filter').show();
+      }
+
+      function buildFilterQueryString(){
+        currentCategory = $("#category").val().toLowerCase()
+        currentCriteria = $("#criteria").val();
+        currentFilter = currentCategory + '=' + encodeURIComponent(currentCriteria);
+        $("div #current-filter").text(currentCategory + "=" + currentCriteria);
+        let queryString = "/filter" + $("#category").val() + "?" + currentFilter;
+        return queryString;
+      }
+
+      initializeModel();
+    });
     </script>
   </body>
 </html>
