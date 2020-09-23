@@ -1,5 +1,8 @@
 # CSCI_452_ATeam
 
-Jon Dylan Alex could very well be the next Junction Function
+Snipster
 
-Alex is adding text
+Team
+Jon,
+Dylan,
+Alex

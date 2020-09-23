@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Snip This!</title>
+    <title>Snipster</title>
     <meta charset="utf-8">
     <meta http-equiv="Pragma" content="no-cache">
     <link rel="icon" type="image/ico" href="img/scissors.ico"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Contrail+One&display=swap"/>
+    <link href="https://fonts.googleapis.com/css2?family=Francois+One&display=swap" rel="stylesheet"> 
     <style>
 
       body {
-        font-size: .875rem;
-        font-family: 'Contrail One', cursive;
+        font-size: .8rem;
+        font-family: 'Francois One', sans-serif;
         background-color: rgb(133, 133, 133);
       }
       /* NAVBAR */
@@ -25,7 +25,8 @@
         height: 46px;
         border-radius: 50%;
         overflow: hidden;
-        margin-top: -6px;
+        margin-top: -3px;
+
       }
       td,th {
        font-size: 24px;
@@ -37,13 +38,26 @@
       #criteria {
         margin-bottom: 5px;
         margin-right: 5px;
+        font-size: 14px;
+        background-color: rgb(40, 40, 40);
+        color:rgb(66, 219, 173);
+        border: 1px solid black;
       }
       #filter-flag {
         margin-bottom: 5px;
-        height: 29px;
       }
-      #search-buttons {
+      #filter-flag p {
+        font-size: 14px;
+        color:rgb(66, 219, 173);
+        background-color:rgb(40, 40, 40);
+        border: none;
+        height: 32px;
+      }
+      #search-buttons button {
         margin-bottom: 5px;
+        font-size: 14px;
+        color: black;
+        border: 1px solid black;
       }
       #clear-search {
         margin-left: 3px;
@@ -78,14 +92,26 @@
       }
       .modal-header {
         color: rgb(230, 160, 29);
+        border-color:rgb(133, 133, 133);
       }
       .modal-content{
         background-color:rgb(40, 40, 40);
         color: rgb(133, 133, 133);
       }
+      .modal-footer {
+        border-color:rgb(133, 133, 133);
+      }
+      .modal-footer button {
+        color:rgb(40, 40, 40);
+        background-color: rgb(133, 133, 133);
+        font-size: 14px;
+      }
+      .modal-footer button:hover {
+        background-color:rgb(230, 160, 29);
+      }
       .modal-body code {
         font-size: 14px;
-        color: rgb(230, 160, 29);
+        color: rgb(66, 219, 173);
       }
       .modal-body p {
         font-size: 24px;
@@ -94,13 +120,47 @@
         background-color:rgb(40, 40, 40);
         color: gray;
       }
+      thead {
+        color:rgb(230, 160, 29);
+      }
+      tbody tr:hover {
+        background-color: rgb(17, 16, 15);
+      }
+      tbody tr th {
+        color:rgb(230, 160, 29);
+      }
       .table th, .table td, .table thead th {
         border-color:rgb(133, 133, 133);
       }
       td code {
-        color: rgb(230, 160, 29);
+        color: rgb(66, 219, 173);
       }
-      @media (min-width: 768px) {
+      #sort-toolbar button {
+        color:rgb(230, 160, 29);
+        background-color:rgb(40, 40, 40);
+        font-size: 14px;
+      }
+      #sort-toolbar .dropdown-menu {
+        background-color: rgb(70, 70, 70);
+        color: white;
+      }
+      #sort-toolbar .dropdown-menu a {
+        background-color: rgb(70, 70, 70);
+        color: white;
+        cursor: default;
+        font-family: sans-serif;
+        font-size: 14px;
+      }
+      #sort-toolbar .dropdown-menu a:hover {
+        background-color: rgb(50, 50, 50);
+      }
+      #search select {
+        background-color:rgb(40, 40, 40);
+        border-color: black;
+        color:rgb(230, 160, 29);
+        font-size: 14px;
+      }
+      @media (min-width: 800px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
         }
@@ -109,8 +169,8 @@
   </head>
   <body>
     <nav class="navbar sticky-top ">
-      <h2>Snip This!</h2>
-      <div class="justify-content-right"><h2>Welcome User<img id="logo" class="p-2" src="img/white_train.png" height="50em"></h2></div>
+      <h2>Snipster</h2>
+      <div class="justify-content-right"><h2 id="welcome-user">Welcome User<img id="logo" class="p-2" src="img/white_train.png" height="50em"></h2></div>
     </nav>
     <div class="container-fluid">
       <div class="row">
@@ -118,7 +178,7 @@
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center" id="filter-bar">
             <h2>Filter Options</h2>
             <form id="search" class="form-inline">
-              <select class="custom-select  btn btn-secondary dropdown-toggle" id="category">
+              <select class="custom-select  btn dropdown-toggle" id="category">
                 <option value="0" disabled selected hidden>Choose filter...</option>
                 <option value="Creator" >Creator</option>
                 <option value="Language">Language</option>
@@ -141,7 +201,7 @@
             <h2>Sort Options</h2>
             <div class="btn-toolbar" role="toolbar" id="sort-toolbar">
               <div class="btn-group" role="group" aria-label="sort group">
-                <button id="sort-creator-dropdown" type="button" class="btn btn-secondary dropdown-toggle sort-no-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Creator
+                <button id="sort-creator-dropdown" type="button" class="btn dropdown-toggle sort-no-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Creator
                 </button>
                   <div class="dropdown-menu" aria-labelledby="btn-group-creator">
                     <a id="dd-creator-asc" class="dropdown-item" >Ascending</a>
@@ -149,7 +209,7 @@
                   </div>
               </div>
               <div class="btn-group" role="group" aria-label="sort group">
-                <button id="sort-language-dropdown" type="button" class="btn btn-secondary dropdown-toggle sort-no-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Language
+                <button id="sort-language-dropdown" type="button" class="btn dropdown-toggle sort-no-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Language
                 </button>
                   <div class="dropdown-menu" aria-labelledby="btn-group-language">
                     <a id="dd-language-asc" class="dropdown-item" >Ascending</a>
@@ -157,7 +217,7 @@
                   </div>
               </div>
               <div class="btn-group" role="group" aria-label="sort group">
-                <button id="sort-description-dropdown" type="button" class="btn btn-secondary dropdown-toggle sort-no-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Description
+                <button id="sort-description-dropdown" type="button" class="btn dropdown-toggle sort-no-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Description
                 </button>
                   <div class="dropdown-menu" aria-labelledby="btn-group-description">
                     <a id="dd-description-asc" class="dropdown-item" >Ascending</a>
@@ -165,7 +225,7 @@
                   </div>
               </div>
               <div class="btn-group" role="group" aria-label="sort group">
-                <button id="sort-creator-dropdown-filter" type="button" class="btn btn-secondary dropdown-toggle sort-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Creator
+                <button id="sort-creator-dropdown-filter" type="button" class="btn dropdown-toggle sort-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Creator
                 </button>
                   <div class="dropdown-menu" aria-labelledby="btn-group-creator">
                     <a id="dd-creator-asc-filter-order" class="dropdown-item" >Ascending</a>
@@ -173,7 +233,7 @@
                   </div>
               </div>
               <div class="btn-group" role="group" aria-label="sort group">
-                <button id="sort-language-dropdown-filter" type="button" class="btn btn-secondary dropdown-toggle sort-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Language
+                <button id="sort-language-dropdown-filter" type="button" class="btn dropdown-toggle sort-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Language
                 </button>
                   <div class="dropdown-menu" aria-labelledby="btn-group-creator">
                     <a id="dd-language-asc-filter-order" class="dropdown-item" >Ascending</a>
@@ -181,7 +241,7 @@
                   </div>
               </div>
               <div class="btn-group" role="group" aria-label="sort group">
-                <button id="sort-description-dropdown-filter" type="button" class="btn btn-secondary dropdown-toggle sort-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Description
+                <button id="sort-description-dropdown-filter" type="button" class="btn dropdown-toggle sort-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Description
                 </button>
                   <div class="dropdown-menu" aria-labelledby="btn-group-creator">
                     <a id="dd-description-asc-filter-order" class="dropdown-item" >Ascending</a>
@@ -195,7 +255,7 @@
             <h2 id="current-filter"></h2>
           </div>
           <div class="table-responsive">
-            <table id="my-table" class="table table-hover sticky-header">
+            <table id="my-table" class="table sticky-header">
               <thead>
                 <tr>
                   <th>#</th>
@@ -224,7 +284,7 @@
           </div>
           <div class="modal-body"></div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
@@ -454,6 +514,7 @@
         $.getJSON(buildFilterQueryString(), function(data) {
           $('.sort-no-filter').hide();
           $('.sort-filter').show();
+          //// GET RID OF THIS EVENTUALLY
           if(currentCategory == 'creator'){
             $('#sort-creator-dropdown-filter').hide();
           }else if (currentCategory == 'language'){
@@ -461,6 +522,7 @@
           }else if (currentCategory == 'description'){
             $('#sort-description-dropdown-filter').hide();
           }
+          /////////////////////////////////
           snippetModel = data.result;
           buildTableTR();
         });
