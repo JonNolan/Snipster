@@ -1,7 +1,5 @@
-const http = require('http');
 const fs = require('fs');
 const express = require("express");
-const session = require("express-session");
 const mysql = require("mysql");
 const app = new express();
 
@@ -12,14 +10,6 @@ const dbInfo = {
   database: "SnippetsDB"
 };
 
-const sessionOptions = {
-  secret: "Yoyoyoyo",
-  resave: false,
-  saveUninitialized: false,
-  cookie: {maxAge: 600000}
-};
-
-app.use(session(sessionOptions));
 app.use(express.static('public'))
 app.all("/", serveIndex);
 app.get("/snippets", findSnippets);
@@ -43,18 +33,20 @@ function serveIndex(req, res) {
   res.end(index);
 }
 
-/// APP FUNCTIONS ///
+// APP FUNCTIONS
 function writeResult(res, object) {
   res.writeHead(200, {"Content-Type" : "application/json"});
   res.end(JSON.stringify(object));
 }
 
 function buildSnippet(dbObject) {
-  return {Id: dbObject.Id,
-          Creator: dbObject.Creator,
-          Language: dbObject.Lang,
-          Description: dbObject.Description,
-          Snippet: dbObject.Code};
+  return {
+    Id: dbObject.Id,
+    Creator: dbObject.Creator,
+    Language: dbObject.Lang,
+    Description: dbObject.Description,
+    Snippet: dbObject.Code
+  };
 }
 
 function findSnippets(req, res) {
@@ -92,7 +84,9 @@ function makeQuery(req, res) {
       writeResult(res, {'error' : "error @ makeQuery"})
     else {
       console.log("Query: " + queryStr);
-      let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
+      let snippets = dbResult.map(function(snippet) {
+        return buildSnippet(snippet)
+      });
       writeResult(res, {result: snippets});
     }
   });

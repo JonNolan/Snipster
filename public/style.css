@@ -27,7 +27,7 @@ td,th {
   margin-right: 5px;
   font-size: 14px;
   background-color: rgb(40, 40, 40);
-  color:rgb(66, 219, 173);
+  color: rgb(66, 219, 173);
   border: 1px solid black;
 }
 #filter-flag {
@@ -35,8 +35,8 @@ td,th {
 }
 #filter-flag p {
   font-size: 14px;
-  color:rgb(66, 219, 173);
-  background-color:rgb(40, 40, 40);
+  color: rgb(66, 219, 173);
+  background-color: rgb(40, 40, 40);
   border: none;
   height: 32px;
 }
@@ -60,18 +60,18 @@ td,th {
 }
 #sort-bar {
   margin-top: 6px;
-  border-bottom:1px solid rgb(40, 40, 40);
+  border-bottom: 1px solid rgb(40, 40, 40);
 }
 #result-bar {
   margin-top: 6px;
-  margin-bottom:12px;
-  border-bottom:1px solid rgb(40, 40, 40);
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgb(40, 40, 40);
 }
 #filter-bar {
   margin-bottom: 6px;
   padding-bottom: 1px;
   margin-top: 6px;
-  border-bottom:1px solid rgb(40, 40, 40);
+  border-bottom: 1px solid rgb(40, 40, 40);
 }
 #current-filter {
   background-color: rgb(230, 160, 29);
@@ -79,22 +79,22 @@ td,th {
 }
 .modal-header {
   color: rgb(230, 160, 29);
-  border-color:rgb(133, 133, 133);
+  border-color: rgb(133, 133, 133);
 }
 .modal-content{
-  background-color:rgb(40, 40, 40);
+  background-color: rgb(40, 40, 40);
   color: rgb(133, 133, 133);
 }
 .modal-footer {
-  border-color:rgb(133, 133, 133);
+  border-color: rgb(133, 133, 133);
 }
 .modal-footer button {
-  color:rgb(40, 40, 40);
+  color: rgb(40, 40, 40);
   background-color: rgb(133, 133, 133);
   font-size: 14px;
 }
 .modal-footer button:hover {
-  background-color:rgb(230, 160, 29);
+  background-color: rgb(230, 160, 29);
 }
 .modal-body code {
   font-size: 14px;
@@ -104,27 +104,27 @@ td,th {
   font-size: 24px;
 }
 #my-table {
-  background-color:rgb(40, 40, 40);
+  background-color: rgb(40, 40, 40);
   color: gray;
 }
 thead {
-  color:rgb(230, 160, 29);
+  color: rgb(230, 160, 29);
 }
 tbody tr:hover {
   background-color: rgb(17, 16, 15);
 }
 tbody tr th {
-  color:rgb(230, 160, 29);
+  color: rgb(230, 160, 29);
 }
 .table th, .table td, .table thead th {
-  border-color:rgb(133, 133, 133);
+  border-color: rgb(133, 133, 133);
 }
 td code {
   color: rgb(66, 219, 173);
 }
 #sort-toolbar button {
-  color:rgb(230, 160, 29);
-  background-color:rgb(40, 40, 40);
+  color: rgb(230, 160, 29);
+  background-color: rgb(40, 40, 40);
   font-size: 14px;
 }
 #sort-toolbar .dropdown-menu {
@@ -142,9 +142,9 @@ td code {
   background-color: rgb(50, 50, 50);
 }
 #search select {
-  background-color:rgb(40, 40, 40);
+  background-color: rgb(40, 40, 40);
   border-color: black;
-  color:rgb(230, 160, 29);
+  color: rgb(230, 160, 29);
   font-size: 14px;
 }
 @media (min-width: 800px) {

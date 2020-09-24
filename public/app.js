@@ -2,11 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   $(document).ready(function() {
     /// Model
-    var snippetModel = {};
-    var currentFilter = '';
-    var currentCategory ='';
-    var currentCriteria ='';
-    var idFromRow,creatorFromRow,languageFromRow,descriptionFromRow,SnippetFromRow;
+    let snippetModel = {};
+    let currentFilter = '';
+    let currentCategory ='';
+    let currentCriteria ='';
+    let idFromRow,creatorFromRow,languageFromRow,descriptionFromRow,SnippetFromRow;
 
     function initializeModel(){
       $('#category').val(0);
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     };
 
-    /// Views
+    // Views
     $('#db-modal').modal({backdrop: "static", keyboard: false, show:false}).on('show.bs.modal', function(){
       idFromRow = $(event.target).closest('tr').data('id');
       creatorFromRow = $(event.target).closest('tr').data('creator');
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    /// Search & Clear Search
+    // Search & Clear Search
     $("#search-submit").click(function() {
       if ($('#criteria').val() == "" || $('#criteria').val() == null || $('#category').val() == 0 || $('#category').val() == null) {
         clearSearch();
@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
       $.getJSON(buildFilterQueryString(), function(data) {
         $('.sort-no-filter').hide();
         $('.sort-filter').show();
-        //// GET RID OF THIS EVENTUALLY
+        // GET RID OF THIS EVENTUALLY
         if(currentCategory == 'Creator'){
           $('#sort-creator-dropdown-filter').hide();
         }else if (currentCategory == 'Lang'){
@@ -211,13 +211,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }else if (currentCategory == 'Description'){
           $('#sort-description-dropdown-filter').hide();
         }
-        /////////////////////////////////
         snippetModel = data.result;
         buildTableTR();
       });
     }
 
-    ///////// BUILD FILTER QUERY
+    // BUILD FILTER QUERY
     function buildFilterQueryString(){
       currentCategory = $("#category").val();
       currentCriteria = $("#criteria").val();
@@ -257,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
       $('.sort-no-filter').show();
     }
 
-    /// Helper Functions
+    // Helper Functions
     function buildTableTR(data){
       $('#my-table tbody').empty();
       for (let i = 0; i < snippetModel.length; i++) {
