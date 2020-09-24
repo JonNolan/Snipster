@@ -1,0 +1,154 @@
+body {
+  font-size: .8rem;
+  font-family: 'Francois One', sans-serif;
+  background-color: rgb(133, 133, 133);
+}
+/* NAVBAR */
+.navbar{
+  background-color: rgb(40, 40, 40);
+  color: rgb(230, 160, 29);
+}
+.logo-image {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-top: -3px;
+}
+td,th {
+ font-size: 24px;
+}
+#category {
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+#criteria {
+  margin-bottom: 5px;
+  margin-right: 5px;
+  font-size: 14px;
+  background-color: rgb(40, 40, 40);
+  color:rgb(66, 219, 173);
+  border: 1px solid black;
+}
+#filter-flag {
+  margin-bottom: 5px;
+}
+#filter-flag p {
+  font-size: 14px;
+  color:rgb(66, 219, 173);
+  background-color:rgb(40, 40, 40);
+  border: none;
+  height: 32px;
+}
+#search-buttons button {
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: black;
+  border: 1px solid black;
+}
+#clear-search {
+  margin-left: 3px;
+}
+#sort-toolbar {
+  margin-bottom: 8px;
+}
+.sort-filter {
+  margin-left: 5px;
+}
+.sort-no-filter {
+  margin-left: 5px;
+}
+#sort-bar {
+  margin-top: 6px;
+  border-bottom:1px solid rgb(40, 40, 40);
+}
+#result-bar {
+  margin-top: 6px;
+  margin-bottom:12px;
+  border-bottom:1px solid rgb(40, 40, 40);
+}
+#filter-bar {
+  margin-bottom: 6px;
+  padding-bottom: 1px;
+  margin-top: 6px;
+  border-bottom:1px solid rgb(40, 40, 40);
+}
+#current-filter {
+  background-color: rgb(230, 160, 29);
+  color: rgb(40, 40, 40);
+}
+.modal-header {
+  color: rgb(230, 160, 29);
+  border-color:rgb(133, 133, 133);
+}
+.modal-content{
+  background-color:rgb(40, 40, 40);
+  color: rgb(133, 133, 133);
+}
+.modal-footer {
+  border-color:rgb(133, 133, 133);
+}
+.modal-footer button {
+  color:rgb(40, 40, 40);
+  background-color: rgb(133, 133, 133);
+  font-size: 14px;
+}
+.modal-footer button:hover {
+  background-color:rgb(230, 160, 29);
+}
+.modal-body code {
+  font-size: 14px;
+  color: rgb(66, 219, 173);
+}
+.modal-body p {
+  font-size: 24px;
+}
+#my-table {
+  background-color:rgb(40, 40, 40);
+  color: gray;
+}
+thead {
+  color:rgb(230, 160, 29);
+}
+tbody tr:hover {
+  background-color: rgb(17, 16, 15);
+}
+tbody tr th {
+  color:rgb(230, 160, 29);
+}
+.table th, .table td, .table thead th {
+  border-color:rgb(133, 133, 133);
+}
+td code {
+  color: rgb(66, 219, 173);
+}
+#sort-toolbar button {
+  color:rgb(230, 160, 29);
+  background-color:rgb(40, 40, 40);
+  font-size: 14px;
+}
+#sort-toolbar .dropdown-menu {
+  background-color: rgb(70, 70, 70);
+  color: white;
+}
+#sort-toolbar .dropdown-menu a {
+  background-color: rgb(70, 70, 70);
+  color: white;
+  cursor: default;
+  font-family: sans-serif;
+  font-size: 14px;
+}
+#sort-toolbar .dropdown-menu a:hover {
+  background-color: rgb(50, 50, 50);
+}
+#search select {
+  background-color:rgb(40, 40, 40);
+  border-color: black;
+  color:rgb(230, 160, 29);
+  font-size: 14px;
+}
+@media (min-width: 800px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}

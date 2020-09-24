@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Snipster</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/ico" href="img/scissors.ico"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css2?family=Francois+One&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <script src="app.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <nav class="navbar sticky-top ">
+      <h2>Snipster</h2>
+      <div class="justify-content-right"><h2 id="welcome-user">Welcome User<img id="logo" class="p-2" src="img/white_train.png" height="50em"></h2></div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <main role="main" class="col-md ml-sm-auto col-lg px-md-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center" id="filter-bar">
+            <h2>Filter Options</h2>
+            <form id="search" class="form-inline">
+              <select class="custom-select  btn dropdown-toggle" id="category">
+                <option value="0" disabled selected hidden>Choose filter...</option>
+                <option value="Creator" >Creator</option>
+                <option value="Lang">Language</option>
+                <option value="Description">Description</option>
+                <option value="Code">Snippet</option>
+              </select>
+              <div class="input-group" id="filter-box">
+                <div class="input-group-prepend" id="filter-flag">
+                  <p class="input-group-text">Filter</p>
+                </div>
+                  <input type="text" class="form-control" placeholder="Enter criteria..." id="criteria">
+                </div>
+                <div id="search-buttons">
+                  <button id="search-submit" class="btn btn-success">Submit</button>
+                  <button id="clear-search" class="btn btn-danger">Clear Filter</button>
+                </div>
+            </form>
+          </div>
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center" id="sort-bar">
+            <h2>Sort Options</h2>
+            <div class="btn-toolbar" role="toolbar" id="sort-toolbar">
+              <div class="btn-group" role="group" aria-label="sort group">
+                <button id="sort-creator-dropdown" type="button" class="btn dropdown-toggle sort-no-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Creator
+                </button>
+                  <div class="dropdown-menu" aria-labelledby="btn-group-creator">
+                    <a id="dd-creator-asc" class="dropdown-item" >Ascending</a>
+                    <a id="dd-creator-desc" class="dropdown-item" >Descending</a>
+                  </div>
+              </div>
+              <div class="btn-group" role="group" aria-label="sort group">
+                <button id="sort-language-dropdown" type="button" class="btn dropdown-toggle sort-no-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Language
+                </button>
+                  <div class="dropdown-menu" aria-labelledby="btn-group-language">
+                    <a id="dd-language-asc" class="dropdown-item" >Ascending</a>
+                    <a id="dd-language-desc" class="dropdown-item" >Descending</a>
+                  </div>
+              </div>
+              <div class="btn-group" role="group" aria-label="sort group">
+                <button id="sort-description-dropdown" type="button" class="btn dropdown-toggle sort-no-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Description
+                </button>
+                  <div class="dropdown-menu" aria-labelledby="btn-group-description">
+                    <a id="dd-description-asc" class="dropdown-item" >Ascending</a>
+                    <a id="dd-description-desc" class="dropdown-item" >Descending</a>
+                  </div>
+              </div>
+              <div class="btn-group" role="group" aria-label="sort group">
+                <button id="sort-creator-dropdown-filter" type="button" class="btn dropdown-toggle sort-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Creator
+                </button>
+                  <div class="dropdown-menu" aria-labelledby="btn-group-creator">
+                    <a id="dd-creator-asc-filter-order" class="dropdown-item" >Ascending</a>
+                    <a id="dd-creator-desc-filter-order" class="dropdown-item" >Descending</a>
+                  </div>
+              </div>
+              <div class="btn-group" role="group" aria-label="sort group">
+                <button id="sort-language-dropdown-filter" type="button" class="btn dropdown-toggle sort-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Language
+                </button>
+                  <div class="dropdown-menu" aria-labelledby="btn-group-creator">
+                    <a id="dd-language-asc-filter-order" class="dropdown-item" >Ascending</a>
+                    <a id="dd-language-desc-filter-order" class="dropdown-item" >Descending</a>
+                  </div>
+              </div>
+              <div class="btn-group" role="group" aria-label="sort group">
+                <button id="sort-description-dropdown-filter" type="button" class="btn dropdown-toggle sort-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Description
+                </button>
+                  <div class="dropdown-menu" aria-labelledby="btn-group-creator">
+                    <a id="dd-description-asc-filter-order" class="dropdown-item" >Ascending</a>
+                    <a id="dd-description-desc-filter-order" class="dropdown-item" >Descending</a>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center" id="result-bar">
+            <h2>Current Filter</h2>
+            <h2 id="current-filter"></h2>
+          </div>
+          <div class="table-responsive">
+            <table id="my-table" class="table sticky-header">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Creator</th>
+                  <th>Language</th>
+                  <th>Description</th>
+                  <th>Snippet</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+    </div>
+    <!-- MODALS -->
+    <div class="modal fade" id="db-modal" tabindex="-1" role="dialog" aria-labelledby="example-modal-center-title" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content ">
+          <div class="modal-header">
+            <h5 class="modal-title" id="example-modal-long-title"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
