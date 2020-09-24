@@ -270,7 +270,6 @@ document.addEventListener('DOMContentLoaded', () => {
       let queryString = "/snippets?filterOn=" + $("#category").val() + "&" + currentFilter;
       return queryString;
     }
-
     initializeModel();
   });
 })
