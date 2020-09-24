@@ -180,9 +180,9 @@
               <select class="custom-select  btn dropdown-toggle" id="category">
                 <option value="0" disabled selected hidden>Choose filter...</option>
                 <option value="Creator" >Creator</option>
-                <option value="Language">Language</option>
+                <option value="Lang">Language</option>
                 <option value="Description">Description</option>
-                <option value="Snippet">Snippet</option>
+                <option value="Code">Snippet</option>
               </select>
               <div class="input-group" id="filter-box">
                 <div class="input-group-prepend" id="filter-flag">
@@ -331,18 +331,18 @@
       });
 
       $(document).on('click', '#dd-creator-asc-filter-order', function(){
-        if(currentCategory =='language'){
-          $.getJSON("/filterLanguageOrderCreatorAsc?" + currentFilter, function(data) {
+        if(currentCategory =='Lang'){
+          $.getJSON("/snippets?filterOn=Lang&" + currentFilter + "&sortOn=Creator&order=ASC", function(data) {
             snippetModel = data.result;
             buildTableTR();
           });
-        }else if (currentCategory == 'description'){
-          $.getJSON("/filterDescriptionOrderCreatorAsc?" + currentFilter, function(data) {
+        }else if (currentCategory == 'Description'){
+          $.getJSON("/snippets?filterOn=Description&" + currentFilter + "&sortOn=Creator&order=ASC", function(data) {
             snippetModel = data.result;
             buildTableTR();
           });
         }else{
-          $.getJSON("/filterSnippetOrderCreatorAsc?" + currentFilter, function(data) {
+          $.getJSON("/snippets?filterOn=Code&" + currentFilter + "&sortOn=Creator&order=ASC", function(data) {
             snippetModel = data.result;
             buildTableTR();
           });
@@ -350,18 +350,18 @@
       });
 
       $(document).on('click', '#dd-creator-desc-filter-order', function(){
-        if(currentCategory =='language'){
-          $.getJSON("/filterLanguageOrderCreatorDesc?" + currentFilter, function(data) {
+        if(currentCategory =='Lang'){
+          $.getJSON("/snippets?filterOn=Lang&" + currentFilter + "&sortOn=Creator&order=DESC", function(data) {
             snippetModel = data.result;
             buildTableTR();
           });
-        }else if (currentCategory == 'description'){
-          $.getJSON("/filterDescriptionOrderCreatorDesc?" + currentFilter, function(data) {
+        }else if (currentCategory == 'Description'){
+          $.getJSON("/snippets?filterOn=Description&" + currentFilter + "&sortOn=Creator&order=DESC", function(data) {
             snippetModel = data.result;
             buildTableTR();
           });
         }else{
-          $.getJSON("/filterSnippetOrderCreatorDesc?" + currentFilter, function(data) {
+          $.getJSON("/snippets?filterOn=Code&" + currentFilter + "&sortOn=Creator&order=DESC", function(data) {
             snippetModel = data.result;
             buildTableTR();
           });
@@ -369,18 +369,18 @@
       });
 
       $(document).on('click', '#dd-description-asc-filter-order', function(){
-        if(currentCategory =='language'){
-          $.getJSON("/filterLanguageOrderDescriptionAsc?" + currentFilter, function(data) {
+        if(currentCategory =='Lang'){
+          $.getJSON("/snippets?filterOn=Lang&" + currentFilter + "&sortOn=Description&order=ASC", function(data) {
             snippetModel = data.result;
             buildTableTR();
           });
-        }else if (currentCategory == 'creator'){
-          $.getJSON("/filterCreatorOrderDescriptionAsc?" + currentFilter, function(data) {
+        }else if (currentCategory == 'Creator'){
+          $.getJSON("/snippets?filterOn=Creator&" + currentFilter + "&sortOn=Description&order=ASC", function(data) {
             snippetModel = data.result;
             buildTableTR();
           });
         }else{
-          $.getJSON("/filterSnippetOrderDescriptionAsc?" + currentFilter, function(data) {
+          $.getJSON("/snippets?filterOn=Code&" + currentFilter + "&sortOn=Description&order=ASC", function(data) {
             snippetModel = data.result;
             buildTableTR();
           });
@@ -388,18 +388,18 @@
       });
 
       $(document).on('click', '#dd-description-desc-filter-order', function(){
-        if(currentCategory =='language'){
-          $.getJSON("/filterLanguageOrderDescriptionDesc?" + currentFilter, function(data) {
+        if(currentCategory =='Lang'){
+          $.getJSON("/snippets?filterOn=Lang&" + currentFilter + "&sortOn=Description&order=DESC", function(data) {
             snippetModel = data.result;
             buildTableTR();
           });
-        }else if (currentCategory == 'creator'){
-          $.getJSON("/filterCreatorOrderDescriptionDesc?" + currentFilter, function(data) {
+        }else if (currentCategory == 'Creator'){
+          $.getJSON("/snippets?filterOn=Creator&" + currentFilter + "&sortOn=Description&order=DESC", function(data) {
             snippetModel = data.result;
             buildTableTR();
           });
         }else{
-          $.getJSON("/filterSnippetOrderDescriptionDesc?" + currentFilter, function(data) {
+          $.getJSON("/snippets?filterOn=Code&" + currentFilter + "&sortOn=Description&order=DESC", function(data) {
             snippetModel = data.result;
             buildTableTR();
           });
@@ -407,18 +407,18 @@
       });
 
       $(document).on('click', '#dd-language-asc-filter-order', function(){
-        if(currentCategory =='description'){
-          $.getJSON("/filterDescriptionOrderLanguageAsc?" + currentFilter, function(data) {
+        if(currentCategory =='Description'){
+          $.getJSON("/snippets?filterOn=Description&" + currentFilter + "&sortOn=Lang&order=ASC", function(data) {
             snippetModel = data.result;
             buildTableTR();
           });
-        }else if (currentCategory == 'creator'){
-          $.getJSON("/filterCreatorOrderLanguageAsc?" + currentFilter, function(data) {
+        }else if (currentCategory == 'Creator'){
+          $.getJSON("/snippets?filterOn=Creator&" + currentFilter + "&sortOn=Lang&order=ASC", function(data) {
             snippetModel = data.result;
             buildTableTR();
           });
         }else{
-          $.getJSON("/filterSnippetOrderLanguageAsc?" + currentFilter, function(data) {
+          $.getJSON("/snippets?filterOn=Code&" + currentFilter + "&sortOn=Lang&order=ASC", function(data) {
             snippetModel = data.result;
             buildTableTR();
           });
@@ -426,18 +426,18 @@
       });
 
       $(document).on('click', '#dd-language-desc-filter-order', function(){
-        if(currentCategory =='description'){
-          $.getJSON("/filterDescriptionOrderLanguageDesc?" + currentFilter, function(data) {
+        if(currentCategory =='Description'){
+          $.getJSON("/snippets?filterOn=Description&" + currentFilter + "&sortOn=Lang&order=DESC", function(data) {
             snippetModel = data.result;
             buildTableTR();
           });
-        }else if (currentCategory == 'creator'){
-          $.getJSON("/filterCreatorOrderLanguageDesc?" + currentFilter, function(data) {
+        }else if (currentCategory == 'Creator'){
+          $.getJSON("/snippets?filterOn=Creator&" + currentFilter + "&sortOn=Lang&order=DESC", function(data) {
             snippetModel = data.result;
             buildTableTR();
           });
         }else{
-          $.getJSON("/filterSnippetOrderLanguageDesc?" + currentFilter, function(data) {
+          $.getJSON("/snippets?filterOn=Code&" + currentFilter + "&sortOn=Lang&order=DESC", function(data) {
             snippetModel = data.result;
             buildTableTR();
           });
@@ -445,56 +445,42 @@
       });
 
       $(document).on('click', '#dd-creator-asc', function(){
-        $.getJSON("/SortByCreator", function(data) {
+        $.getJSON("/snippets?sortOn=creator&order=ASC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
       });
 
       $(document).on('click', '#dd-creator-desc', function(){
-        $.getJSON("/SortByCreatorByDesc", function(data) {
-          snippetModel = data.result;
-          buildTableTR();
-        });
-      });
-
-      $(document).on('click', '#dd-creator-asc-filter', function(){
-        $.getJSON("/sortFilterBySnippet", function(data) {
-          snippetModel = data.result;
-          buildTableTR();
-        });
-      });
-
-      $(document).on('click', '#dd-creator-desc-filter', function(){
-        $.getJSON("/SortByCreatorByDesc", function(data) {
+        $.getJSON("/snippets?sortOn=creator&order=DESC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
       });
 
       $(document).on('click', '#dd-language-asc', function(){
-        $.getJSON("/SortByLanguage", function(data) {
+        $.getJSON("/snippets?sortOn=Lang&order=ASC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
       });
 
       $(document).on('click', '#dd-language-desc', function(){
-        $.getJSON("/SortByLanguageByDesc", function(data) {
+        $.getJSON("/snippets?sortOn=Lang&order=DESC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
       });
 
       $(document).on('click', '#dd-description-asc', function(){
-        $.getJSON("/SortByDescription", function(data) {
+        $.getJSON("/snippets?sortOn=description&order=ASC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
       });
 
       $(document).on('click', '#dd-description-desc', function(){
-        $.getJSON("/SortByDescriptionByDesc", function(data) {
+        $.getJSON("/snippets?sortOn=description&order=DESC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
@@ -509,16 +495,17 @@
         }
       });
 
+      //// SEND FILTER QUERY
       function submitForm() {
         $.getJSON(buildFilterQueryString(), function(data) {
           $('.sort-no-filter').hide();
           $('.sort-filter').show();
           //// GET RID OF THIS EVENTUALLY
-          if(currentCategory == 'creator'){
+          if(currentCategory == 'Creator'){
             $('#sort-creator-dropdown-filter').hide();
-          }else if (currentCategory == 'language'){
+          }else if (currentCategory == 'Lang'){
             $('#sort-language-dropdown-filter').hide();
-          }else if (currentCategory == 'description'){
+          }else if (currentCategory == 'Description'){
             $('#sort-description-dropdown-filter').hide();
           }
           /////////////////////////////////
@@ -570,13 +557,13 @@
         $("#current-filter").text('');
         $('.sort-no-filter').show();
       }
-
+      ///////// BUILD FILTER QUERY
       function buildFilterQueryString(){
-        currentCategory = $("#category").val().toLowerCase()
+        currentCategory = $("#category").val();
         currentCriteria = $("#criteria").val();
-        currentFilter = currentCategory + '=' + encodeURIComponent(currentCriteria);
+        currentFilter = 'filter=' + encodeURIComponent(currentCriteria);
         $("div #current-filter").text(currentCategory + "=" + currentCriteria);
-        let queryString = "/filter" + $("#category").val() + "?" + currentFilter;
+        let queryString = "/snippets?filterOn=" + $("#category").val() + "&" + currentFilter;
         return queryString;
       }
 
