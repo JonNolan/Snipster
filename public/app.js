@@ -199,7 +199,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    //// SEND FILTER QUERY
     function submitForm() {
       $.getJSON(buildFilterQueryString(), function(data) {
         $('.sort-no-filter').hide();
@@ -218,6 +217,16 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    ///////// BUILD FILTER QUERY
+    function buildFilterQueryString(){
+      currentCategory = $("#category").val();
+      currentCriteria = $("#criteria").val();
+      currentFilter = 'filter=' + encodeURIComponent(currentCriteria);
+      $("div #current-filter").text(currentCategory + "=" + currentCriteria);
+      let queryString = "/snippets?filterOn=" + $("#category").val() + "&" + currentFilter;
+      return queryString;
+    }
+
     $(document).on('submit', '#search', function() {
       if ($('#criteria').val() == "" || $('#criteria').val() == null || $('#category').val() == 0 || $('#category').val() == null) {
         clearSearch();
@@ -233,20 +242,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    /// Helper Functions
-    function buildTableTR(data){
-      $('#my-table tbody').empty();
-      for (let i = 0; i < snippetModel.length; i++) {
-        let tr = $('<tr data-toggle="modal" data-id="' + snippetModel[i].Id +'" data-target="#db-modal" data-backdrop="static" data-keyboard="false" data-creator="' + snippetModel[i].Creator + '" data-language="' + snippetModel[i].Language + '" data-description="' + snippetModel[i].Description + '" data-snippet="' + snippetModel[i].Snippet + '">');
-        $(tr).append("<th scope='row'>" + snippetModel[i].Id + "</th>");
-        $(tr).append("<td>" + snippetModel[i].Creator + "</td>");
-        $(tr).append("<td>" + snippetModel[i].Language + "</td>");
-        $(tr).append("<td>" + snippetModel[i].Description + "</td>");
-        $(tr).append("<td><code>" + snippetModel[i].Snippet + "</code></td>");
-        $(tr).append("</tr>");
-        $('#my-table tbody').append(tr);
-    }};
-
     function clearSearch() {
       $('#category').val(0);
       wipeFilter();
@@ -261,15 +256,20 @@ document.addEventListener('DOMContentLoaded', () => {
       $("#current-filter").text('');
       $('.sort-no-filter').show();
     }
-    ///////// BUILD FILTER QUERY
-    function buildFilterQueryString(){
-      currentCategory = $("#category").val();
-      currentCriteria = $("#criteria").val();
-      currentFilter = 'filter=' + encodeURIComponent(currentCriteria);
-      $("div #current-filter").text(currentCategory + "=" + currentCriteria);
-      let queryString = "/snippets?filterOn=" + $("#category").val() + "&" + currentFilter;
-      return queryString;
-    }
+
+    /// Helper Functions
+    function buildTableTR(data){
+      $('#my-table tbody').empty();
+      for (let i = 0; i < snippetModel.length; i++) {
+        let tr = $('<tr data-toggle="modal" data-id="' + snippetModel[i].Id +'" data-target="#db-modal" data-backdrop="static" data-keyboard="false" data-creator="' + snippetModel[i].Creator + '" data-language="' + snippetModel[i].Language + '" data-description="' + snippetModel[i].Description + '" data-snippet="' + snippetModel[i].Snippet + '">');
+        $(tr).append("<th scope='row'>" + snippetModel[i].Id + "</th>");
+        $(tr).append("<td>" + snippetModel[i].Creator + "</td>");
+        $(tr).append("<td>" + snippetModel[i].Language + "</td>");
+        $(tr).append("<td>" + snippetModel[i].Description + "</td>");
+        $(tr).append("<td><code>" + snippetModel[i].Snippet + "</code></td>");
+        $(tr).append("</tr>");
+        $('#my-table tbody').append(tr);
+    }};
     initializeModel();
   });
 })

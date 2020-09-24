@@ -32,9 +32,9 @@ connection.connect(function(err) {
 });
 
 function startHandler() {
-  console.log("Server listening at http://localhost:3000")
-  console.log("\x1b[31m", " FUNCTION JUNCTION is Aware");
+  console.log("\x1b[31m", "\n         Snip This.");
   console.log("\x1b[37m","\x1b[41m","    ̿' ̿'\̵͇̿̿\з=(◕_◕)=ε/̵͇̿̿/'̿'̿ ̿     ","\x1b[0m");
+  console.log("\n   Waiting for a request...\n")
 }
 
 function serveIndex(req, res) {
@@ -43,13 +43,12 @@ function serveIndex(req, res) {
   res.end(index);
 }
 
-/// APP FUNCTIONS BELOW
+/// APP FUNCTIONS ///
 function writeResult(res, object) {
   res.writeHead(200, {"Content-Type" : "application/json"});
   res.end(JSON.stringify(object));
 }
 
-/// Initial Page Load
 function buildSnippet(dbObject) {
   return {Id: dbObject.Id,
           Creator: dbObject.Creator,
@@ -59,11 +58,11 @@ function buildSnippet(dbObject) {
 }
 
 function findSnippets(req, res) {
-  let ip = req.ip;
-  console.log(ip," is connecting");
-  var sql= "SELECT * FROM Snippets";
-  var queryString = [];
+  let requesterIP = req.ip;
+  let sql= "SELECT * FROM Snippets";
+  let queryString = [];
   queryString.push(sql);
+  console.log(requesterIP + " is making a query.");
   if(req.query.filterOn && !req.query.sortOn){
     queryString.push(" WHERE " + req.query.filterOn + " LIKE \'%" + req.query.filter + "%\'");
     makeQuery(queryString, res);
@@ -77,7 +76,7 @@ function findSnippets(req, res) {
     queryString.push(" ORDER BY " + req.query.sortOn + " " + req.query.order);
     makeQuery(queryString, res);
   }
-  else{
+  else {
     makeQuery(queryString, res);
   }
 }
@@ -90,8 +89,9 @@ function makeQuery(req, res) {
   queryStr.replace(",", "");
   connection.query(queryStr + ";", function (err, dbResult) {
     if (err)
-      writeResult(res, {'error' : "error @ makeQuery"});
+      writeResult(res, {'error' : "error @ makeQuery"})
     else {
+      console.log("Query: " + queryStr);
       let snippets = dbResult.map(function(snippet) {return buildSnippet(snippet)});
       writeResult(res, {result: snippets});
     }
