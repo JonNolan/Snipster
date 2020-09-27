@@ -13,6 +13,15 @@ CREATE TABLE Snippets(
   PRIMARY KEY(Id)
 );
 
+CREATE TABLE Users(
+  Id int NOT NULL AUTO_INCREMENT,
+  FirstName varchar (255) NOT NULL,
+  LastName varchar (255) NOT NULL,
+  Email varchar (255) UNIQUE NOT NULL,
+  Password varchar (255) NOT NULL,
+  PRIMARY KEY(Id)
+);
+
 INSERT INTO Snippets(Creator, Lang, Description, Code)
 VALUES ("Dylan", "SQL", "Wildcard", "SELECT * FROM Customers WHERE City LIKE 'ber%';");
 INSERT INTO Snippets(Creator, Lang, Description, Code)

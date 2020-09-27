@@ -73,6 +73,26 @@ function findSnippets(req, res) {
   }
 }
 
+function register(req, res){
+  if(req.query.email == undefined)
+    writeResult(res, {'error' : 'Please enter a valid email!'});
+  if(req.query.password == undefined)
+    writeResult(res, {'error' : 'Please enter a password!'});
+  connection.connect(function(err){
+    if(err)
+      writeResult(res, {'error' : err});
+    else {
+      connection.query("INSERT INTO Users (FirstName, LastName, Email, Password) VALUES (?, ?)", [req.query.firstname, req.query.lastname, req.query.email, req.query.password], function (err, result, fields){
+        if (err){
+          if (err.code == "ER_DUP_ENTRY")
+            err = "User account already exists.";
+          writeResult(req, res, {'error' : err});
+        }
+      });
+    }
+  });
+}
+
 function makeQuery(req, res) {
   let queryStr = "";
   for (let i = 0; i < req.length; i++) {
