@@ -97,7 +97,7 @@ function register(req, res){
       writeResult(res, {'error' : err});
     else {
       let hash = bcryptjs.hashSync(req.query.password, 12);
-      connection.query("INSERT INTO Users (FirstName, LastName, Email, Password) VALUES (?, ?)", [req.query.firstname, req.query.lastname, req.query.email, hash], function (err, result, fields){
+      connection.query("INSERT INTO Users (FirstName, LastName, Email, Password) VALUES (?, ?, ?, ?)", [req.query.firstname, req.query.lastname, req.query.email, hash], function (err, result, fields){
         if (err){
           if (err.code == "ER_DUP_ENTRY")
             err = "User account already exists.";
