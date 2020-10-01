@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentFilter = '';
     let currentCategory ='';
     let currentCriteria ='';
+    let sorted = false;
     let idFromRow, creatorFromRow, languageFromRow, descriptionFromRow, SnippetFromRow;
 
     function initializeModel() {
@@ -150,6 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $('#dd-creator-asc').click(function() {
       $.getJSON("/snippets?sortOn=creator&order=ASC", function(data) {
+        sorted = true;
         snippetModel = data.result;
         buildTableTR();
       });
@@ -157,6 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $('#dd-creator-desc').click(function() {
       $.getJSON("/snippets?sortOn=creator&order=DESC", function(data) {
+        sorted = true;
         snippetModel = data.result;
         buildTableTR();
       });
@@ -164,6 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $('#dd-language-asc').click(function() {
       $.getJSON("/snippets?sortOn=Lang&order=ASC", function(data) {
+        sorted = true;
         snippetModel = data.result;
         buildTableTR();
       });
@@ -171,6 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $('#dd-language-desc').click(function() {
       $.getJSON("/snippets?sortOn=Lang&order=DESC", function(data) {
+        sorted = true;
         snippetModel = data.result;
         buildTableTR();
       });
@@ -178,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $('#dd-description-asc').click(function() {
       $.getJSON("/snippets?sortOn=description&order=ASC", function(data) {
+        sorted = true;
         snippetModel = data.result;
         buildTableTR();
       });
@@ -185,6 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $('#dd-description-desc').click(function() {
       $.getJSON("/snippets?sortOn=description&order=DESC", function(data) {
+        sorted = true;
         snippetModel = data.result;
         buildTableTR();
       });
@@ -304,9 +311,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     $("#clear-search").click(function() {
-      if(currentFilter != '') {
+      if(currentFilter != '' || sorted == true) {
         clearSearch();
+        sorted = false;
       }
+      return false;
     });
 
     function clearSearch() {
