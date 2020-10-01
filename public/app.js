@@ -235,16 +235,13 @@ document.addEventListener('DOMContentLoaded', () => {
       $('#pwd-text:password').val("");
     }
 
-
     function validateForm() {
       let fname = $('#first-name-text:text').val();
       let lname = $('#last-name-text:text').val();
       let email = $('#email-text:text').val();
       let password = $('#pwd-text:password').val();
-      
       let mailFormat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       let passwordFormat = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-
       if (fname == null || fname == "") {
         alert("You must enter a first name.");
         return false;
