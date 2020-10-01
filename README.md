@@ -2,7 +2,7 @@
 
 Snipster
 
-Team
+Team: 
 Jon,
 Dylan,
 Alex
