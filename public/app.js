@@ -192,13 +192,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // User input
     $("#register-submit").click(function() {
-      submitRegistration();
-      clearRegistration();
+      if (validateForm() == true) {
+        submitRegistration();
+        clearRegistration();
+        $('#modal-login-form').modal('hide');
+      } else{
+        return;
+      }
     });
 
     $(document).on('submit', '#register-form', function() {
-      submitRegistration();
-      clearRegistration();
+      if (validateForm() == true) {
+        submitRegistration();
+        clearRegistration();
+        $('#modal.login-form').modal('hide');
+      } else {
+        return;
+      }
     });
 
     function submitRegistration() {
@@ -216,6 +226,43 @@ document.addEventListener('DOMContentLoaded', () => {
       $('#last-name-text:text').val("");
       $('#email-text:text').val("");
       $('#pwd-text:password').val("");
+    }
+
+
+    function validateForm() {
+      let fname = $('#first-name-text:text').val();
+      let lname = $('#last-name-text:text').val();
+      let email = $('#email-text:text').val();
+      let password = $('#pwd-text:password').val();
+      
+      let mailFormat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      let passwordFormat = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+      if (fname == null || fname == "") {
+        alert("You must enter a first name.");
+        return false;
+      } else if (lname == null || lname == "") {
+        alert("You must enter a last name.");
+        return false;
+      } else if (email == null || email == "") {
+        alert("You must enter an email address.");
+        return false;
+      } else if (!email.match(mailFormat)) {
+        alert("Invalid Email Format");
+        return false;
+      } else if (password == null || password == "") {
+        alert("You must enter a password.");
+        return false;
+      } else if (!password.match(passwordFormat)) {
+        alert("Invalid password format. Must contain letters >= 1, numbers >= 1, and whole password >= 8 characters.");
+        return false;
+      } else {
+        return true;
+      }
+    }
+
+    function alert(outputString) {
+      $('#register-alert-text').text(outputString);
     }
 
     // Search & Clear Search

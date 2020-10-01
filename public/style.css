@@ -168,6 +168,9 @@ td code {
   border: 1px solid black;
   font-size: 14px;
 }
+#register-alert-text {
+  color: rgb(40, 40, 40);
+}
 @media (min-width: 800px) {
   .bd-placeholder-img-lg {
     font-size: 3.5rem;
