@@ -3,7 +3,6 @@ body {
   font-family: 'Francois One', sans-serif;
   background-color: rgb(133, 133, 133);
 }
-/* NAVBAR */
 .navbar{
   background-color: rgb(40, 40, 40);
   color: rgb(230, 160, 29);
@@ -88,12 +87,12 @@ td,th {
 .modal-footer {
   border-color: rgb(133, 133, 133);
 }
-.modal-footer button {
+#db-modal button {
   color: rgb(40, 40, 40);
   background-color: rgb(133, 133, 133);
   font-size: 14px;
 }
-.modal-footer button:hover {
+#db-modal button:hover {
   background-color: rgb(230, 160, 29);
 }
 .modal-body code {
@@ -145,6 +144,29 @@ td code {
   background-color: rgb(40, 40, 40);
   border-color: black;
   color: rgb(230, 160, 29);
+  font-size: 14px;
+}
+#register-form label {
+  margin-left:25%;
+  width: 15%;
+  font-size: 14px;
+  color: rgb(40, 40, 40);
+}
+#register-form input {
+  color: rgb(66, 219, 173);
+  background-color: rgb(40, 40, 40);
+  font-size: 14px;
+  padding: 5px;
+  margin-bottom: 5px;
+  border-radius: 3px;
+  border: 1px solid black;
+}
+#modal-login-form .modal-body {
+  background-color: rgb(133, 133, 133);
+}
+#modal-login-form button, #register-btn {
+  color: rgb(40, 40, 40);
+  border: 1px solid black;
   font-size: 14px;
 }
 @media (min-width: 800px) {

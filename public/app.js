@@ -6,9 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentFilter = '';
     let currentCategory ='';
     let currentCriteria ='';
-    let idFromRow,creatorFromRow,languageFromRow,descriptionFromRow,SnippetFromRow;
+    let idFromRow, creatorFromRow, languageFromRow, descriptionFromRow, SnippetFromRow;
 
-    function initializeModel(){
+    function initializeModel() {
       $('#category').val(0);
       $('.sort-no-filter').show();
       $('.sort-filter').hide();
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Views
-    $('#db-modal').modal({backdrop: "static", keyboard: false, show:false}).on('show.bs.modal', function(){
+    $('#db-modal').modal({backdrop: "static", keyboard: false, show:false}).on('show.bs.modal', function() {
       idFromRow = $(event.target).closest('tr').data('id');
       creatorFromRow = $(event.target).closest('tr').data('creator');
       languageFromRow = $(event.target).closest('tr').data('language');
@@ -27,20 +27,20 @@ document.addEventListener('DOMContentLoaded', () => {
       SnippetFromRow = $(event.target).closest('tr').data('snippet');
       buildModalFromTable(this);
 
-      function buildModalFromTable(table_this){
+      function buildModalFromTable(table_this) {
 
         $(table_this).find('.modal-header').html($(' <h2> Viewing ID # ' + idFromRow + '</h2> '));
         $(table_this).find('.modal-body').html($('<p> Creator: ' + creatorFromRow + '</p><p> Language: ' + languageFromRow + '</p><p> Description: ' + descriptionFromRow + '</p><p>  Snippet: </p><code>' + SnippetFromRow + '</code>'));
       }
     });
 
-    $(document).on('click', '#dd-creator-asc-filter-order', function(){
-      if(currentCategory =='Lang'){
+    $('#dd-creator-asc-filter-order').click(function() {
+      if(currentCategory =='Lang') {
         $.getJSON("/snippets?filterOn=Lang&" + currentFilter + "&sortOn=Creator&order=ASC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
-      }else if (currentCategory == 'Description'){
+      }else if (currentCategory == 'Description') {
         $.getJSON("/snippets?filterOn=Description&" + currentFilter + "&sortOn=Creator&order=ASC", function(data) {
           snippetModel = data.result;
           buildTableTR();
@@ -53,13 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    $(document).on('click', '#dd-creator-desc-filter-order', function(){
-      if(currentCategory =='Lang'){
+    $('#dd-creator-desc-filter-order').click(function() {
+      if(currentCategory =='Lang') {
         $.getJSON("/snippets?filterOn=Lang&" + currentFilter + "&sortOn=Creator&order=DESC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
-      }else if (currentCategory == 'Description'){
+      }else if (currentCategory == 'Description') {
         $.getJSON("/snippets?filterOn=Description&" + currentFilter + "&sortOn=Creator&order=DESC", function(data) {
           snippetModel = data.result;
           buildTableTR();
@@ -72,13 +72,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    $(document).on('click', '#dd-description-asc-filter-order', function(){
-      if(currentCategory =='Lang'){
+    $('#dd-description-asc-filter-order').click(function() {
+      if(currentCategory =='Lang') {
         $.getJSON("/snippets?filterOn=Lang&" + currentFilter + "&sortOn=Description&order=ASC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
-      }else if (currentCategory == 'Creator'){
+      }else if (currentCategory == 'Creator') {
         $.getJSON("/snippets?filterOn=Creator&" + currentFilter + "&sortOn=Description&order=ASC", function(data) {
           snippetModel = data.result;
           buildTableTR();
@@ -91,13 +91,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    $(document).on('click', '#dd-description-desc-filter-order', function(){
-      if(currentCategory =='Lang'){
+    $('#dd-description-desc-filter-order').click(function() {
+      if(currentCategory =='Lang') {
         $.getJSON("/snippets?filterOn=Lang&" + currentFilter + "&sortOn=Description&order=DESC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
-      }else if (currentCategory == 'Creator'){
+      }else if (currentCategory == 'Creator') {
         $.getJSON("/snippets?filterOn=Creator&" + currentFilter + "&sortOn=Description&order=DESC", function(data) {
           snippetModel = data.result;
           buildTableTR();
@@ -110,13 +110,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    $(document).on('click', '#dd-language-asc-filter-order', function(){
-      if(currentCategory =='Description'){
+    $('#dd-language-asc-filter-order').click(function() {
+      if(currentCategory =='Description') {
         $.getJSON("/snippets?filterOn=Description&" + currentFilter + "&sortOn=Lang&order=ASC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
-      }else if (currentCategory == 'Creator'){
+      }else if (currentCategory == 'Creator') {
         $.getJSON("/snippets?filterOn=Creator&" + currentFilter + "&sortOn=Lang&order=ASC", function(data) {
           snippetModel = data.result;
           buildTableTR();
@@ -129,13 +129,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    $(document).on('click', '#dd-language-desc-filter-order', function(){
-      if(currentCategory =='Description'){
+    $('#dd-language-desc-filter-order').click(function() {
+      if(currentCategory =='Description') {
         $.getJSON("/snippets?filterOn=Description&" + currentFilter + "&sortOn=Lang&order=DESC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
-      }else if (currentCategory == 'Creator'){
+      }else if (currentCategory == 'Creator') {
         $.getJSON("/snippets?filterOn=Creator&" + currentFilter + "&sortOn=Lang&order=DESC", function(data) {
           snippetModel = data.result;
           buildTableTR();
@@ -148,62 +148,92 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    $(document).on('click', '#dd-creator-asc', function(){
+    $('#dd-creator-asc').click(function() {
       $.getJSON("/snippets?sortOn=creator&order=ASC", function(data) {
         snippetModel = data.result;
         buildTableTR();
       });
     });
 
-    $(document).on('click', '#dd-creator-desc', function(){
+    $('#dd-creator-desc').click(function() {
       $.getJSON("/snippets?sortOn=creator&order=DESC", function(data) {
         snippetModel = data.result;
         buildTableTR();
       });
     });
 
-    $(document).on('click', '#dd-language-asc', function(){
+    $('#dd-language-asc').click(function() {
       $.getJSON("/snippets?sortOn=Lang&order=ASC", function(data) {
         snippetModel = data.result;
         buildTableTR();
       });
     });
 
-    $(document).on('click', '#dd-language-desc', function(){
+    $('#dd-language-desc').click(function() {
       $.getJSON("/snippets?sortOn=Lang&order=DESC", function(data) {
         snippetModel = data.result;
         buildTableTR();
       });
     });
 
-    $(document).on('click', '#dd-description-asc', function(){
+    $('#dd-description-asc').click(function() {
       $.getJSON("/snippets?sortOn=description&order=ASC", function(data) {
         snippetModel = data.result;
         buildTableTR();
       });
     });
 
-    $(document).on('click', '#dd-description-desc', function(){
+    $('#dd-description-desc').click(function() {
       $.getJSON("/snippets?sortOn=description&order=DESC", function(data) {
         snippetModel = data.result;
         buildTableTR();
       });
     });
 
+    // User input
+    $("#register-submit").click(function() {
+      submitRegistration();
+      clearRegistration();
+    });
+
+    $(document).on('submit', '#register-form', function() {
+      submitRegistration();
+      clearRegistration();
+    });
+
+    function submitRegistration() {
+      let fname = $('#first-name-text:text').val();
+      let lname = $('#last-name-text:text').val();
+      let email = encodeURIComponent($('#email-text:text').val());
+      let password = encodeURIComponent($('#pwd-text:password').val());
+      $.getJSON("/register?firstname=" + fname + "&lastname=" + lname + "&email=" + email + "&password=" + password, function(data) {
+        console.log("requesting add user");
+      });
+    }
+
+    function clearRegistration() {
+      $('#first-name-text:text').val("");
+      $('#last-name-text:text').val("");
+      $('#email-text:text').val("");
+      $('#pwd-text:password').val("");
+    }
+
     // Search & Clear Search
-    $("#search-submit").click(function() {
+    $(document).on('submit', '#search', function() {
       if ($('#criteria').val() == "" || $('#criteria').val() == null || $('#category').val() == 0 || $('#category').val() == null) {
         clearSearch();
       } else {
         submitForm();
+        return false;
       }
+      return false;
     });
 
     function submitForm() {
       $.getJSON(buildFilterQueryString(), function(data) {
         $('.sort-no-filter').hide();
         $('.sort-filter').show();
-        // GET RID OF THIS EVENTUALLY
+        // SORT BUTTON CONTROL BASED ON CATEGORY
         if(currentCategory == 'Creator'){
           $('#sort-creator-dropdown-filter').hide();
         }else if (currentCategory == 'Lang'){
@@ -226,17 +256,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return queryString;
     }
 
-    $(document).on('submit', '#search', function() {
-      if ($('#criteria').val() == "" || $('#criteria').val() == null || $('#category').val() == 0 || $('#category').val() == null) {
-        clearSearch();
-      } else {
-        submitForm();
-      }
-      return false;
-    });
-
     $("#clear-search").click(function() {
-      if(currentFilter != '');{
+      if(currentFilter != '') {
         clearSearch();
       }
     });
@@ -248,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function wipeFilter(){
-      $('#criteria').val("");
+      $('#criteria').val('');
       currentFilter = '';
       currentCategory = '';
       currentCriteria = '';
@@ -268,7 +289,8 @@ document.addEventListener('DOMContentLoaded', () => {
         $(tr).append("<td><code>" + snippetModel[i].Snippet + "</code></td>");
         $(tr).append("</tr>");
         $('#my-table tbody').append(tr);
-    }};
+      }
+    };
     initializeModel();
   });
-})
+});

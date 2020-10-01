@@ -14,7 +14,10 @@
   <body>
     <nav class="navbar sticky-top ">
       <h2>Snipster</h2>
-      <div class="justify-content-right"><h2 id="welcome-user">Welcome User<img id="logo" class="p-2" src="img/white_train.png" height="50em"></h2></div>
+      <button id="register-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-login-form">Register</button>
+      <div class="justify-content-right">
+        <h2 id="welcome-user">Welcome User<img id="logo" class="p-2" src="img/white_train.png" height="50em"></h2>
+      </div>
     </nav>
     <div class="container-fluid">
       <div class="row">
@@ -33,12 +36,12 @@
                 <div class="input-group-prepend" id="filter-flag">
                   <p class="input-group-text">Filter</p>
                 </div>
-                  <input type="text" class="form-control" placeholder="Enter criteria..." id="criteria">
+                <input type="text" class="form-control" placeholder="Enter criteria..." id="criteria">
               </div>
               <div id="search-buttons">
-                  <button id="search-submit" class="btn btn-success">Submit</button>
-                  <button id="clear-search" class="btn btn-danger">Clear Filter</button>
-                </div>
+                <button id="search-submit" class="btn btn-success">Submit</button>
+                <button id="clear-search" class="btn btn-danger">Clear Filter</button>
+              </div>
             </form>
           </div>
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center" id="sort-bar">
@@ -117,7 +120,7 @@
       </div>
     </div>
     <div class="modal fade" id="db-modal" tabindex="-1" role="dialog" aria-labelledby="example-modal-center-title" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered " role="document">
+      <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content ">
           <div class="modal-header">
             <h5 class="modal-title" id="example-modal-long-title"></h5>
@@ -129,6 +132,31 @@
           <div class="modal-footer">
             <button type="button" class="btn" data-dismiss="modal">Close</button>
           </div>
+        </div>
+      </div>
+    </div>
+    <div id="modal-login-form" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="example-modal-center-title" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title">Register</h1>
+          </div>
+          <div class="modal-body">
+            <form id="register-form">
+  		      <label for="first-name-text">First Name:</label>
+		        <input type="text" id="first-name-text" name="firstname"><br>
+		        <label for="last-name-text">Last Name:</label>
+	        	<input type="text" id="last-name-text" name="lastname"><br>
+		        <label for="email-text">Email:</label>
+		        <input type="text" id="email-text" name="email"><br>
+	          <label for="pwd-text">Password:</label>
+            <input type="password" id="pwd-text" class="pw" name="password"><br>
+          </div>
+          <div class="modal-footer">
+            <button id="register-submit" type="button" class="btn btn-success" data-dismiss="modal">Submit</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Close</button>
+          </div>
+        </form>
         </div>
       </div>
     </div>
