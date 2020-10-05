@@ -27,6 +27,7 @@ app.use(session(sessionOptions));
 app.all("/", serveIndex);
 app.get("/snippets", findSnippets);
 app.get("/register", register);
+app.get("/login", login);
 
 app.listen(3000, process.env.IP, startHandler());
 
@@ -83,20 +84,50 @@ function register(req, res){
     console.log(req.query.email);
     writeResult(res, {"error" : "Please enter a valid email!"});
     return;
-  } 
+  }
   if (req.query.password == undefined || !validatePassword(req.query.password)) {
     writeResult(res, {"error" : "Please enter a password!"});
     return;
   }
   let hash = bcryptjs.hashSync(req.query.password, 12);
-  connection.query("INSERT INTO Users (FirstName, LastName, Email, Password) VALUES (?, ?, ?, ?)", [req.query.firstname, req.query.lastname, req.query.email, hash], function (err, result, fields){
+  connection.query("INSERT INTO Users (Username, Email, Password) VALUES (?, ?, ?)", [req.query.username, req.query.email, hash], function (err, result, fields){
     if (err) {
       if (err.code == "ER_DUP_ENTRY")
         err = "User account already exists.";
       writeResult(res, {"error" : err});
       return;
-    } else {
+    }
+    else {
       console.log("User added.");
+    }
+  });
+}
+
+function login(req, res) {
+  if(!req.query.email || !req.query.password) {
+    writeResult(res, {error: "Please enter an email and a password."});
+    return;
+  }
+  connection.connect(function(err) {
+    if(err)
+      writeResult(res, {error: "Error connecting to the database: " + err.message});
+    else {
+      connection.query("SELECT Id, Username, Email, Password FROM Users WHERE Email = ?", [req.query.email], function(err, dbResult) {
+        if(err)
+          writeResult(res, {error: err.message});
+        else {
+          let result = {};
+          if(dbResult.length == 1 && bcrypt.compareSync(req.query.password, dbResult[0].Password)) {
+            req.session.user = {id: dbResult[0].Id, username: dbResult[0].Username};
+            result = {user: req.session.user};
+            console.log("User logged in.");
+          }
+          else {
+            result = {error: "Invalid email or password."};
+          }
+          writeResult(res, result);
+        }
+      });
     }
   });
 }
