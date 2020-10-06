@@ -15,8 +15,7 @@ CREATE TABLE Snippets(
 
 CREATE TABLE Users(
   Id int NOT NULL AUTO_INCREMENT,
-  FirstName varchar (255) NOT NULL,
-  LastName varchar (255) NOT NULL,
+  Username varchar (255) UNIQUE NOT NULL,
   Email varchar (255) UNIQUE NOT NULL,
   Password varchar (255) NOT NULL,
   PRIMARY KEY(Id)
