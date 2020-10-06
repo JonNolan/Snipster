@@ -104,15 +104,15 @@ function register(req, res){
 }
 
 function login(req, res) {
-  if(!req.query.email || !req.query.password) {
-    writeResult(res, {error: "Please enter an email and a password."});
+  if(!req.query.username || !req.query.password) {
+    writeResult(res, {error: "Please enter a username and a password."});
     return;
   }
   connection.connect(function(err) {
     if(err)
       writeResult(res, {error: "Error connecting to the database: " + err.message});
     else {
-      connection.query("SELECT Id, Username, Email, Password FROM Users WHERE Email = ?", [req.query.email], function(err, dbResult) {
+      connection.query("SELECT Id, Username, Email, Password FROM Users WHERE Username = ?", [req.query.username], function(err, dbResult) {
         if(err)
           writeResult(res, {error: err.message});
         else {
