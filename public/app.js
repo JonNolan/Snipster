@@ -208,7 +208,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    $(document).on('submit', '#register-form', function() {
+    $("#signin-submit").click(function() {	//Dylan edit
+      if (validateForm() == true) {
+        submitRegistration();
+        signIn();
+        $('#modal-signin-form').modal('hide');
+	//$('#register-btn').hide();
+      } else{
+        return;
+      }
+    });
+
+    $(document).on('submit', '#register-form', '#signin-submit', function() {
       if (validateForm() == true) {
         submitRegistration();
         clearRegistration();
@@ -267,6 +278,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function alert(outputString) {
       $('#register-alert-text').text(outputString);
+    }
+
+    function signIn() {		//Dylan Edit
+      let username = $('#username-text:text').val();
+      let password = encodeURIComponent($('#pwd-text:password').val());
+      $.getJSON("/login?username=" + username + "&password=" + password, function(data) {
+        console.log("logging in user");
+      });
     }
 
     // Search & Clear Search
