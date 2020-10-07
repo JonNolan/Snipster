@@ -15,6 +15,7 @@
     <nav class="navbar sticky-top ">
       <h2>Snipster</h2>
       <button id="register-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-login-form">Register</button>
+      <button id="signin-btn" type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-signin-form">Sign In<button>
       <div class="justify-content-right">
         <h2 id="welcome-user">Welcome User<img id="logo" class="p-2" src="img/white_train.png" height="50em"></h2>
       </div>
@@ -150,6 +151,32 @@
 	        	<input type="text" id="last-name-text" name="lastname"><br>
 		        <label for="email-text">Email:</label>
 		        <input type="text" id="email-text" name="email"><br>
+	          <label for="pwd-text">Password:</label>
+            <input type="password" id="pwd-text" class="pw" name="password"><br>
+          </div>
+          <div class="modal-footer">
+            <button id="register-submit" type="button" class="btn btn-success">Submit</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">Close</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+    <div id="modal-signin-form" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="example-modal-center-title" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title">Sign In</h1>
+          </div>
+          <div class="modal-body">
+            <form id="signin-form">
+            <p id="register-alert-text"></p>
+  		  <label for="first-name-text">First Name:</label>
+		  <input type="text" id="first-name-text" name="firstname"><br>
+		  <label for="last-name-text">Last Name:</label>
+	       	  <input type="text" id="last-name-text" name="lastname"><br>
+		  <label for="email-text">Email:</label>
+		  <input type="text" id="email-text" name="email"><br>
 	          <label for="pwd-text">Password:</label>
             <input type="password" id="pwd-text" class="pw" name="password"><br>
           </div>
