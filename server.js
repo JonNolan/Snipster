@@ -21,7 +21,8 @@ const sessionOptions = {
 
 const usernameRegex = /^(?=[a-zA-Z0-9_\d]*[a-zA-Z])[a-zA-Z0-9_\d]{3,}$/;
 const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+const passwordRegex = /^(?=.[A-Za-z0-9])(?=.*)[A-Za-z0-9]{8,}$/;
+//const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
 app.use(express.static("public"))
 app.use(session(sessionOptions));
@@ -90,7 +91,7 @@ function register(req, res){
     return;
   }
   if (req.query.password == undefined || !validatePassword(req.query.password)) {
-    writeResult(res, {"error" : "Please enter a valid password! (must be at least eight characters long and contain at least one number and one character)"});
+    writeResult(res, {"error" : "Please enter a valid password! (must be at least eight characters long and may contain letters and/or numbers)"});
     return;
   }
   let hash = bcryptjs.hashSync(req.query.password, 12);
