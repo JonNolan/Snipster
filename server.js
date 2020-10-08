@@ -19,6 +19,7 @@ const sessionOptions = {
   cookie: {maxAge: 600000}
 };
 
+const usernameRegex = /^(?=[a-zA-Z0-9_\d]*[a-zA-Z])[a-zA-Z0-9_\d]{3,}$/;
 const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
@@ -75,23 +76,21 @@ function findSnippets(req, res) {
   if(req.query.sortOn && req.query.order) {
     queryString.push(" ORDER BY " + req.query.sortOn + " " + req.query.order);
   }
-  makeQuery(queryString, res);
+  executeQuery(queryString, res);
   console.log(requesterIP + " is requesting snippets.");
 }
 
 function register(req, res){
-  if (req.query.username == undefined) {
-    //console.log(req.query.username);
-    writeResult(res, {"error" : "Please enter a username!"});
+  if (req.query.username == undefined || !validateUsername(req.query.username)) {
+    writeResult(res, {"error" : "Please enter a username! (only letters and numbers and (_) are allowed. Minimum of 3 characters. Must contain a letter."});
     return;
   }
   if (req.query.email == undefined || !validateEmail(req.query.email)) {
-    //console.log(req.query.email);
     writeResult(res, {"error" : "Please enter a valid email!"});
     return;
   }
   if (req.query.password == undefined || !validatePassword(req.query.password)) {
-    writeResult(res, {"error" : "Please enter a valid password!"});
+    writeResult(res, {"error" : "Please enter a valid password! (must be at least eight characters long and contain at least one number and one character)"});
     return;
   }
   let hash = bcryptjs.hashSync(req.query.password, 12);
@@ -135,6 +134,13 @@ function login(req, res) {
   });
 }
 
+function validateUsername(username) {
+  if (!username) {
+    return false;
+  }
+  return usernameRegex.test(username.toLowerCase());
+}
+
 function validateEmail(email) {
   if(!email)
     return false;
@@ -147,7 +153,7 @@ function validatePassword(password) {
   return passwordRegex.test(password);
 }
 
-function makeQuery(req, res) {
+function executeQuery(req, res) {
   let queryStr = "";
   for (let i = 0; i < req.length; i++) {
     queryStr += req[i];
@@ -155,7 +161,7 @@ function makeQuery(req, res) {
   queryStr.replace(",", "");
   connection.query(queryStr + ";", function (err, dbResult) {
     if (err) {
-      writeResult(res, {"error" : "error @ makeQuery"})
+      writeResult(res, {"error" : "error @ executeQuery"});
       return;
     }
     else {

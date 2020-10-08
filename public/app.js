@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentCategory ='';
     let currentCriteria ='';
     let sorted = false;
-    let idFromRow, creatorFromRow, languageFromRow, descriptionFromRow, SnippetFromRow;
+    let idFromRow, creatorFromRow, languageFromRow, descriptionFromRow, snippetFromRow;
 
     $('#logout-btn').hide();
 
@@ -29,13 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
       creatorFromRow = $(event.target).closest('tr').data('creator');
       languageFromRow = $(event.target).closest('tr').data('language');
       descriptionFromRow = $(event.target).closest('tr').data('description');
-      SnippetFromRow = $(event.target).closest('tr').data('snippet');
+      snippetFromRow = $(event.target).closest('tr').data('snippet');
       buildModalFromTable(this);
 
       function buildModalFromTable(table_this) {
 
         $(table_this).find('.modal-header').html($(' <h2> Viewing ID # ' + idFromRow + '</h2> '));
-        $(table_this).find('.modal-body').html($('<p> Creator: ' + creatorFromRow + '</p><p> Language: ' + languageFromRow + '</p><p> Description: ' + descriptionFromRow + '</p><p>  Snippet: </p><code>' + SnippetFromRow + '</code>'));
+        $(table_this).find('.modal-body').html($('<p> Creator: ' + creatorFromRow + '</p><p> Language: ' + languageFromRow + '</p><p> Description: ' + descriptionFromRow + '</p><p>  Snippet: </p><code>' + snippetFromRow + '</code>'));
       }
     });
 
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-creator-desc-filter-order').click(function() {
-      if(currentCategory =='Lang') {
+      if(currentCategory == 'Lang') {
         $.getJSON("/snippets?filterOn=Lang&" + currentFilter + "&sortOn=Creator&order=DESC", function(data) {
           snippetModel = data.result;
           buildTableTR();
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-description-asc-filter-order').click(function() {
-      if(currentCategory =='Lang') {
+      if(currentCategory == 'Lang') {
         $.getJSON("/snippets?filterOn=Lang&" + currentFilter + "&sortOn=Description&order=ASC", function(data) {
           snippetModel = data.result;
           buildTableTR();
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-description-desc-filter-order').click(function() {
-      if(currentCategory =='Lang') {
+      if(currentCategory == 'Lang') {
         $.getJSON("/snippets?filterOn=Lang&" + currentFilter + "&sortOn=Description&order=DESC", function(data) {
           snippetModel = data.result;
           buildTableTR();
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-language-asc-filter-order').click(function() {
-      if(currentCategory =='Description') {
+      if(currentCategory == 'Description') {
         $.getJSON("/snippets?filterOn=Description&" + currentFilter + "&sortOn=Lang&order=ASC", function(data) {
           snippetModel = data.result;
           buildTableTR();
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-language-desc-filter-order').click(function() {
-      if(currentCategory =='Description') {
+      if(currentCategory == 'Description') {
         $.getJSON("/snippets?filterOn=Description&" + currentFilter + "&sortOn=Lang&order=DESC", function(data) {
           snippetModel = data.result;
           buildTableTR();
@@ -201,10 +201,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // User input
-
     //************** REGISTER *************/
-    $("#register-submit").click(function() {
+    $('#register-submit').click(function() {
       if (validateRegistrationForm() == true) {
         submitRegistration();
         return false;
@@ -271,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
       $('#register-modal-alert-text').text(outputString);
     }
 // ****************** LOG IN ********************
-    $("#login-submit").click(function() {
+    $('#login-submit').click(function() {
       if (validateLoginForm() == true) {
         submitLogin();
         return false;
@@ -326,8 +324,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function clearLogin() {
-      $('#login-modal-username-text:text').val("");
-      $('#login-modal-pwd-text:password').val("");
+      $('#login-modal-username-text:text').val('');
+      $('#login-modal-pwd-text:password').val('');
+      $('#login-modal-alert-text').text('');
       $('#modal-login-form').modal('hide');
     }
 
@@ -341,6 +340,12 @@ document.addEventListener('DOMContentLoaded', () => {
         clearLogin();
         $('#db-modal').modal('hide');
       }
+    });
+
+    ////////// LOG OUT ////////////
+    $('#logout-btn').click(function() {
+      location.reload();
+      return false;
     });
 
     $('body').click(function() {
@@ -380,15 +385,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // BUILD FILTER QUERY
     function buildFilterQueryString(){
-      currentCategory = $("#category").val();
-      currentCriteria = $("#criteria").val();
+      currentCategory = $('#category').val();
+      currentCriteria = $('#criteria').val();
       currentFilter = 'filter=' + encodeURIComponent(currentCriteria);
-      $("div #current-filter").text(currentCategory + "=" + currentCriteria);
-      let queryString = "/snippets?filterOn=" + $("#category").val() + "&" + currentFilter;
+      $('div #current-filter').text(currentCategory + "=" + currentCriteria);
+      let queryString = "/snippets?filterOn=" + $('#category').val() + "&" + currentFilter;
       return queryString;
     }
 
-    $("#clear-search").click(function() {
+    $('#clear-search').click(function() {
       if(currentFilter != '' || sorted == true) {
         clearSearch();
         sorted = false;
@@ -408,10 +413,10 @@ document.addEventListener('DOMContentLoaded', () => {
       currentCategory = '';
       currentCriteria = '';
       $("#current-filter").text('');
-      $('.sort-no-filter').show();
+      $('.sort-no-filter').show(); 
     }
 
-    // Helper Functions
+    // Build snippet Table
     function buildTableTR(data){
       $('#my-table tbody').empty();
       for (let i = 0; i < snippetModel.length; i++) {
