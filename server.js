@@ -80,13 +80,18 @@ function findSnippets(req, res) {
 }
 
 function register(req, res){
+  if (req.query.username == undefined) {
+    //console.log(req.query.username);
+    writeResult(res, {"error" : "Please enter a username!"});
+    return;
+  }
   if (req.query.email == undefined || !validateEmail(req.query.email)) {
-    console.log(req.query.email);
+    //console.log(req.query.email);
     writeResult(res, {"error" : "Please enter a valid email!"});
     return;
   }
   if (req.query.password == undefined || !validatePassword(req.query.password)) {
-    writeResult(res, {"error" : "Please enter a password!"});
+    writeResult(res, {"error" : "Please enter a valid password!"});
     return;
   }
   let hash = bcryptjs.hashSync(req.query.password, 12);
@@ -98,6 +103,7 @@ function register(req, res){
       return;
     }
     else {
+      writeResult(res, {"Success" : "User added."});
       console.log("User added.");
     }
   });
@@ -108,26 +114,23 @@ function login(req, res) {
     writeResult(res, {error: "Please enter a username and a password."});
     return;
   }
-  connection.connect(function(err) {
+  console.log(req.query.username);
+  console.log(req.query.password);
+  console.log("trying to login");
+  connection.query("SELECT Id, Username, Email, Password FROM Users WHERE Username = ?", [req.query.username], function(err, dbResult) {
     if(err)
-      writeResult(res, {error: "Error connecting to the database: " + err.message});
+      writeResult(res, {error: err.message});
     else {
-      connection.query("SELECT Id, Username, Email, Password FROM Users WHERE Username = ?", [req.query.username], function(err, dbResult) {
-        if(err)
-          writeResult(res, {error: err.message});
-        else {
-          let result = {};
-          if(dbResult.length == 1 && bcrypt.compareSync(req.query.password, dbResult[0].Password)) {
-            req.session.user = {id: dbResult[0].Id, username: dbResult[0].Username};
-            result = {user: req.session.user};
-            console.log("User logged in.");
-          }
-          else {
-            result = {error: "Invalid email or password."};
-          }
-          writeResult(res, result);
-        }
-      });
+      let result = {};
+      if(dbResult.length == 1 && bcryptjs.compareSync(req.query.password, dbResult[0].Password)) {
+        req.session.user = {id: dbResult[0].Id, username: dbResult[0].Username};
+        result = {user: req.session.user};
+        console.log(dbResult[0].Username + " logged in.");
+      }
+      else {
+        result = {error: "Username or password is incorrect."};
+      }
+      writeResult(res, {result: result});
     }
   });
 }

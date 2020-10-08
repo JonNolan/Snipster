@@ -2,12 +2,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   $(document).ready(function() {
     /// Model
+    let userModel = {};
     let snippetModel = {};
     let currentFilter = '';
     let currentCategory ='';
     let currentCriteria ='';
     let sorted = false;
     let idFromRow, creatorFromRow, languageFromRow, descriptionFromRow, SnippetFromRow;
+
+    $('#logout-btn').hide();
 
     function initializeModel() {
       $('#category').val(0);
@@ -17,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         snippetModel = data.result;
         buildTableTR();
       });
+      userModel.user = {};
     };
 
     // Views
@@ -198,95 +202,153 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // User input
+
+    //************** REGISTER *************/
     $("#register-submit").click(function() {
-      if (validateForm() == true) {
+      if (validateRegistrationForm() == true) {
         submitRegistration();
-        clearRegistration();
-        $('#modal-login-form').modal('hide');
+        return false;
       } else{
-        return;
+        return false;
       }
     });
 
-    $("#signin-submit").click(function() {	//Dylan edit
-      if (validateForm() == true) {
-        submitRegistration();
-        signIn();
-        $('#modal-signin-form').modal('hide');
-	//$('#register-btn').hide();
-      } else{
-        return;
-      }
+    $('#register-close').click(function() {
+      clearRegistration();
     });
 
-    $(document).on('submit', '#register-form', '#signin-submit', function() {
-      if (validateForm() == true) {
+    $('form').on('submit', '#register-form', function() {
+      if (validateRegistrationForm() == true) {
         submitRegistration();
-        clearRegistration();
-        $('#modal.login-form').modal('hide');
+        return false;
       } else {
-        return;
+        return false;
       }
     });
 
     function submitRegistration() {
-      let fname = $('#first-name-text:text').val();
-      let lname = $('#last-name-text:text').val();
-      let email = encodeURIComponent($('#email-text:text').val());
-      let password = encodeURIComponent($('#pwd-text:password').val());
-      $.getJSON("/register?firstname=" + fname + "&lastname=" + lname + "&email=" + email + "&password=" + password, function(data) {
+      let uname = $('#registration-modal-username-text:text').val();
+      let email = encodeURIComponent($('#registration-modal-email-text:text').val());
+      let password = encodeURIComponent($('#registration-modal-pwd-text:password').val());
+      $.getJSON("/register?username=" + uname + "&email=" + email + "&password=" + password, function(data) {
         console.log("requesting add user");
+        if (data.error) {
+          registerAlert("" + data.error);
+        } else {
+          $('#welcome-user').text("User successfully added!");
+          clearRegistration();
+        }
       });
     }
 
     function clearRegistration() {
-      $('#first-name-text:text').val("");
-      $('#last-name-text:text').val("");
-      $('#email-text:text').val("");
-      $('#pwd-text:password').val("");
+      $('#registration-modal-username-text:text').val("");
+      $('#registration-modal-email-text:text').val("");
+      $('#registration-modal-pwd-text:password').val("");
+      $('#register-modal-alert-text').text("");
+      $('#modal-register-form').modal('hide');
     }
 
-    function validateForm() {
-      let fname = $('#first-name-text:text').val();
-      let lname = $('#last-name-text:text').val();
-      let email = $('#email-text:text').val();
-      let password = $('#pwd-text:password').val();
-      let mailFormat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      let passwordFormat = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-      if (fname == null || fname == "") {
-        alert("You must enter a first name.");
-        return false;
-      } else if (lname == null || lname == "") {
-        alert("You must enter a last name.");
+    function validateRegistrationForm() {
+      let uname = $('#registration-modal-username-text:text').val();
+      let email = $('#registration-modal-email-text:text').val();
+      let password = $('#registration-modal-pwd-text:password').val();
+      if (uname == null || uname == "") {
+        registerAlert("You must enter a username.");
         return false;
       } else if (email == null || email == "") {
-        alert("You must enter an email address.");
-        return false;
-      } else if (!email.match(mailFormat)) {
-        alert("Invalid Email Format");
+        registerAlert("You must enter an email address.");
         return false;
       } else if (password == null || password == "") {
-        alert("You must enter a password.");
-        return false;
-      } else if (!password.match(passwordFormat)) {
-        alert("Invalid password format. Must contain letters >= 1, numbers >= 1, and whole password >= 8 characters.");
+        registerAlert("You must enter a password.");
         return false;
       } else {
         return true;
       }
     }
 
-    function alert(outputString) {
-      $('#register-alert-text').text(outputString);
+    function registerAlert(outputString) {
+      $('#register-modal-alert-text').text(outputString);
     }
+// ****************** LOG IN ********************
+    $("#login-submit").click(function() {
+      if (validateLoginForm() == true) {
+        submitLogin();
+        return false;
+      } else{
+        return false;
+      }
+    });
 
-    function signIn() {		//Dylan Edit
-      let username = $('#username-text:text').val();
-      let password = encodeURIComponent($('#pwd-text:password').val());
+    $('#login-close').click(function() {
+      clearLogin();
+    });
+
+    $('form').on('submit', '#login-form', function() {
+      if (validateLoginForm() == true) {
+        submitLogin();
+        return false;
+      } else{
+        return false;
+      }
+    });
+
+    function submitLogin() {
+      let username = $('#login-modal-username-text:text').val();
+      let password = encodeURIComponent($('#login-modal-pwd-text:password').val());
       $.getJSON("/login?username=" + username + "&password=" + password, function(data) {
-        console.log("logging in user");
+        console.log(username + " wants to log in.");
+        userModel = data.result;
+        if (userModel.error) {
+          $('#login-modal-alert-text').text("Username or password is incorrect.");
+        } else {
+          $('#welcome-user').text("Welcome " + userModel.user.username + "!");
+          $('#register-btn').hide();
+          $('#login-btn').hide();
+          $('#logout-btn').show();
+          clearLogin();
+        }
       });
     }
+
+    function validateLoginForm() {
+      let uname = $('#login-modal-username-text:text').val();
+      let password = $('#login-modal-pwd-text:password').val();
+      if (uname == null || uname == "") {
+        loginAlert("You must enter a username.");
+        return false;
+      } else if (password == null || password == "") {
+        loginAlert("You must enter a password.");
+        return false;
+      } else {
+       return true;
+      }
+    }
+
+    function clearLogin() {
+      $('#login-modal-username-text:text').val("");
+      $('#login-modal-pwd-text:password').val("");
+      $('#modal-login-form').modal('hide');
+    }
+
+    function loginAlert(outputString) {
+      $('#login-modal-alert-text').text(outputString);
+    }
+
+    $(document).on('keyup', function(event) {
+      if(event.key == "Escape") {
+        clearRegistration();
+        clearLogin();
+        $('#db-modal').modal('hide');
+      }
+    });
+
+    $('body').click(function() {
+      if (!$(event.target).closest('.modal').length && !$(event.target).is('.modal')) {
+        clearRegistration();
+        clearLogin();
+      }
+    });
 
     // Search & Clear Search
     $(document).on('submit', '#search', function() {

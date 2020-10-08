@@ -20,10 +20,12 @@ td,th {
 #category {
   margin-right: 5px;
   margin-bottom: 5px;
+  height: 35px;
 }
 #criteria {
   margin-bottom: 5px;
   margin-right: 5px;
+  height: 35px;
   font-size: 14px;
   background-color: rgb(40, 40, 40);
   color: rgb(66, 219, 173);
@@ -38,12 +40,7 @@ td,th {
   background-color: rgb(40, 40, 40);
   border: none;
 }
-#search-buttons button {
-  margin-bottom: 5px;
-  font-size: 14px;
-  color: black;
-  border: 1px solid black;
-}
+
 #clear-search {
   margin-left: 3px;
 }
@@ -85,14 +82,6 @@ td,th {
 }
 .modal-footer {
   border-color: rgb(133, 133, 133);
-}
-#db-modal button {
-  color: rgb(40, 40, 40);
-  background-color: rgb(133, 133, 133);
-  font-size: 14px;
-}
-#db-modal button:hover {
-  background-color: rgb(230, 160, 29);
 }
 .modal-body code {
   font-size: 14px;
@@ -145,13 +134,13 @@ td code {
   color: rgb(230, 160, 29);
   font-size: 14px;
 }
-#register-form label {
+#register-form label, #login-form label {
   margin-left:25%;
   width: 15%;
   font-size: 14px;
   color: rgb(40, 40, 40);
 }
-#register-form input {
+#register-form input, #login-form input {
   color: rgb(66, 219, 173);
   background-color: rgb(40, 40, 40);
   font-size: 14px;
@@ -160,16 +149,24 @@ td code {
   border-radius: 3px;
   border: 1px solid black;
 }
-#modal-login-form .modal-body {
-  background-color: rgb(133, 133, 133);
-}
-#modal-login-form button, #register-btn {
+.custom-button {
   color: rgb(40, 40, 40);
-  border: 1px solid black;
   font-size: 14px;
+}
+#search-buttons button {
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: black;
+}
+#user-buttons button {
+  margin-left: 4px;
 }
 #register-alert-text {
   color: rgb(40, 40, 40);
+}
+#welcome-user {
+  margin-top: 10px;
+  margin-right: 15px;
 }
 @media (min-width: 800px) {
   .bd-placeholder-img-lg {
