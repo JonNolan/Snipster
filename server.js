@@ -98,7 +98,7 @@ function register(req, res){
   connection.query("INSERT INTO Users (Username, Email, Password) VALUES (?, ?, ?)", [req.query.username, req.query.email, hash], function (err, result, fields){
     if (err) {
       if (err.code == "ER_DUP_ENTRY")
-        err = "User account already exists.";
+        err = "User account already exists. Try a different username and/or email address.";
       writeResult(res, {"error" : err});
       return;
     }
