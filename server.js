@@ -60,6 +60,7 @@ function buildSnippet(dbObject) {
   return {
     Id: dbObject.Id,
     Creator: dbObject.Creator,
+    Email: dbObject.Email,
     Language: dbObject.Lang,
     Description: dbObject.Description,
     Snippet: dbObject.Code
@@ -72,7 +73,12 @@ function findSnippets(req, res) {
   let queryString = [];
   queryString.push(sql);
   if(req.query.filterOn && req.query.filter) {
-    queryString.push(" WHERE " + req.query.filterOn + " LIKE \'%" + req.query.filter + "%\'");
+    if(req.query.filter.includes("@", ".")) {
+      queryString.push(" WHERE Email LIKE \'%" + req.query.filter + "%\'");
+    }
+    else {
+      queryString.push(" WHERE " + req.query.filterOn + " LIKE \'%" + req.query.filter + "%\'");
+    }
   }
   if(req.query.sortOn && req.query.order) {
     queryString.push(" ORDER BY " + req.query.sortOn + " " + req.query.order);
