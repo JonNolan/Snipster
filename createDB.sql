@@ -17,9 +17,11 @@ CREATE TABLE Snippets(
   Lang varchar (255) NOT NULL,
   Description varchar (255) NOT NULL,
   Code varchar (255) NOT NULL,
-  CreatorID int NOT NULL,
+  Creator varchar (255) NOT NULL,
+  Email varchar (255) NOT NULL,
   PRIMARY KEY(Id),
-  FOREIGN KEY(CreatorID) REFERENCES Users(Id)
+  FOREIGN KEY(Creator) REFERENCES Users(Username),
+  FOREIGN KEY(Email) REFERENCES Users(Email)
 );
 
 INSERT INTO Users(Username, Email, Password)
@@ -33,37 +35,37 @@ VALUES ("Josh", "josh@abc.com", "Password4");
 INSERT INTO Users(Username, Email, Password)
 VALUES ("Jon", "jon@abc.com", "Password5");
 
-INSERT INTO Snippets(Lang, Description, Code, CreatorID)
-VALUES ("SQL", "Wildcard", "SELECT * FROM Customers WHERE City LIKE 'ber%';", 1);
-INSERT INTO Snippets(Lang, Description, Code, CreatorID)
-VALUES ("SQL", "AUTO_INCREMENT", "CREATE TABLE Persons (Personid int NOT NULL AUTO_INCREMENT, LastName varchar(255) NOT NULL, FirstName varchar(255), Age int, PRIMARY KEY (Personid));", 1);
-INSERT INTO Snippets(Lang, Description, Code, CreatorID)
-VALUES ("Java", "String Length", "var txt = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; var sln = txt.length;", 1);
-INSERT INTO Snippets(Lang, Description, Code, CreatorID)
-VALUES ("Python", "Casting", "Python Casting", 2);
-INSERT INTO Snippets(Lang, Description, Code, CreatorID)
-VALUES ("Java", "DB connect from Function Junction", "function buildSnippet(dbObject) {return {creator: dbObject.User, language: dbObject.Language, description: dbObject.Description, Snip: dbObject.Snippet};}", 2);
-INSERT INTO Snippets(Lang, Description, Code, CreatorID)
-VALUES ("C++", "Creating Pointers", "string food = 'Pizza'; string* ptr = &food;", 2);
-INSERT INTO Snippets(Lang, Description, Code, CreatorID)
-VALUES ("Python", "Python Dictionaries", " thisdict =  {'brand': 'Ford', 'model': 'Mustang', 'year': 1964} print(thisdict)", 2);
-INSERT INTO Snippets(Lang, Description, Code, CreatorID)
-VALUES ("Linux", "Echo into file", " echo 'hello world' > world.txt", 3);
-INSERT INTO Snippets(Lang, Description, Code, CreatorID)
-VALUES ("Linux", "Get a list of all node process ids", "ps aux | grep node", 3);
-INSERT INTO Snippets(Lang, Description, Code, CreatorID)
-VALUES ("jQuery", "Hiding", " $(this).hide();", 3);
-INSERT INTO Snippets(Lang, Description, Code, CreatorID)
-VALUES ("Java", "Objects", "var car = {type:'Fiat', model:'500', color:'white'};", 4);
-INSERT INTO Snippets(Lang, Description, Code, CreatorID)
-VALUES ("Python", "If", "a = 33 b = 200 if b > a: print('b is greater than a')", 4);
-INSERT INTO Snippets(Lang, Description, Code, CreatorID)
-VALUES ("C++", "Switch", "switch(expression) {case x: break; case y: break; default: }", 4);
-INSERT INTO Snippets(Lang, Description, Code, CreatorID)
-VALUES ("Python", "Swap values between two variable", "a = 1 b = 2 a, b = b, a print(a) print", 5);
-INSERT INTO Snippets(Lang, Description, Code, CreatorID)
-VALUES ("Linux", "Change BASH prompt TEMP", "export PS1='\u >'", 5);
-INSERT INTO Snippets(Lang, Description, Code, CreatorID)
-VALUES ("C++", "Break", "for (int i = 0; i < 10; i++) {if (i == 4) {break;} cout << i << '\n';}", 5);
-INSERT INTO Snippets(Lang, Description, Code, CreatorID)
-VALUES ("C#", "Get User Input", "// Type your username and press enter Console.WriteLine('Enter username:'); string userName = Console.ReadLine(); Console.WriteLine('Username is: '' + userName);", 5);
+INSERT INTO Snippets(Lang, Description, Code, Creator, Email)
+VALUES ("SQL", "Wildcard", "SELECT * FROM Customers WHERE City LIKE 'ber%';", "Dylan", "dylan@abc.com");
+INSERT INTO Snippets(Lang, Description, Code, Creator, Email)
+VALUES ("SQL", "AUTO_INCREMENT", "CREATE TABLE Persons (Personid int NOT NULL AUTO_INCREMENT, LastName varchar(255) NOT NULL, FirstName varchar(255), Age int, PRIMARY KEY (Personid));", "Dylan", "dylan@abc.com");
+INSERT INTO Snippets(Lang, Description, Code, Creator, Email)
+VALUES ("Java", "String Length", "var txt = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; var sln = txt.length;", "Dylan", "dylan@abc.com");
+INSERT INTO Snippets(Lang, Description, Code, Creator, Email)
+VALUES ("Python", "Casting", "Python Casting", "Alex", "alex@abc.com");
+INSERT INTO Snippets(Lang, Description, Code, Creator, Email)
+VALUES ("Java", "DB connect from Function Junction", "function buildSnippet(dbObject) {return {creator: dbObject.User, language: dbObject.Language, description: dbObject.Description, Snip: dbObject.Snippet};}", "Alex", "alex@abc.com");
+INSERT INTO Snippets(Lang, Description, Code, Creator, Email)
+VALUES ("C++", "Creating Pointers", "string food = 'Pizza'; string* ptr = &food;", "Alex", "alex@abc.com");
+INSERT INTO Snippets(Lang, Description, Code, Creator, Email)
+VALUES ("Python", "Python Dictionaries", " thisdict =  {'brand': 'Ford', 'model': 'Mustang', 'year': 1964} print(thisdict)", "Alex", "alex@abc.com");
+INSERT INTO Snippets(Lang, Description, Code, Creator, Email)
+VALUES ("Linux", "Echo into file", " echo 'hello world' > world.txt", "Jason", "jason@abc.com");
+INSERT INTO Snippets(Lang, Description, Code, Creator, Email)
+VALUES ("Linux", "Get a list of all node process ids", "ps aux | grep node", "Jason", "jason@abc.com");
+INSERT INTO Snippets(Lang, Description, Code, Creator, Email)
+VALUES ("jQuery", "Hiding", " $(this).hide();", "Jason", "jason@abc.com");
+INSERT INTO Snippets(Lang, Description, Code, Creator, Email)
+VALUES ("Java", "Objects", "var car = {type:'Fiat', model:'500', color:'white'};", "Josh", "josh@abc.com");
+INSERT INTO Snippets(Lang, Description, Code, Creator, Email)
+VALUES ("Python", "If", "a = 33 b = 200 if b > a: print('b is greater than a')", "Josh", "josh@abc.com");
+INSERT INTO Snippets(Lang, Description, Code, Creator, Email)
+VALUES ("C++", "Switch", "switch(expression) {case x: break; case y: break; default: }", "Josh", "josh@abc.com");
+INSERT INTO Snippets(Lang, Description, Code, Creator, Email)
+VALUES ("Python", "Swap values between two variable", "a = 1 b = 2 a, b = b, a print(a) print", "Jon", "jon@abc.com");
+INSERT INTO Snippets(Lang, Description, Code, Creator, Email)
+VALUES ("Linux", "Change BASH prompt TEMP", "export PS1='\u >'", "Jon", "jon@abc.com");
+INSERT INTO Snippets(Lang, Description, Code, Creator, Email)
+VALUES ("C++", "Break", "for (int i = 0; i < 10; i++) {if (i == 4) {break;} cout << i << '\n';}", "Jon", "jon@abc.com");
+INSERT INTO Snippets(Lang, Description, Code, Creator, Email)
+VALUES ("C#", "Get User Input", "// Type your username and press enter Console.WriteLine('Enter username:'); string userName = Console.ReadLine(); Console.WriteLine('Username is: '' + userName);", "Jon", "jon@abc.com");
