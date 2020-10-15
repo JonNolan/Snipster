@@ -12,24 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $('#logout-btn').hide();
 
-    $.getJSON('/who', function(data) {
-      if (data.result.user) {
-        userModel = data.result;
-        $('#welcome-user').text('Welcome ' + userModel.user.username + '!');
-        $('#register-btn').hide();
-        $('#login-btn').hide();
-        $('#logout-btn').show();
-      } else {
-        $('#welcome-user').text(data.result.noUser);
-        userModel = {};
-      }
-    });
-
     function initializeModel() {
       $('#category').val(0);
       $('.sort-no-filter').show();
       $('.sort-filter').hide();
-      $.getJSON('/snippets', function(data) {
+      $.getJSON("/snippets", function(data) {
         snippetModel = data.result;
         buildTableTR();
       });
@@ -40,31 +27,31 @@ document.addEventListener('DOMContentLoaded', () => {
     $('#db-modal').modal({backdrop: "static", keyboard: false, show:false}).on('show.bs.modal', function() {
       idFromRow = $(event.target).closest('tr').data('id');
       creatorFromRow = $(event.target).closest('tr').data('creator');
-      emailFromRow = $(event.target).closest('tr').data('email');
       languageFromRow = $(event.target).closest('tr').data('language');
       descriptionFromRow = $(event.target).closest('tr').data('description');
       snippetFromRow = $(event.target).closest('tr').data('snippet');
       buildModalFromTable(this);
 
       function buildModalFromTable(table_this) {
+
         $(table_this).find('.modal-header').html($(' <h2> Viewing ID # ' + idFromRow + '</h2> '));
-        $(table_this).find('.modal-body').html($('<p> Creator: ' + creatorFromRow + ' &lt' + emailFromRow + '&gt' + '</p><p> Language: ' + languageFromRow + '</p><p> Description: ' + descriptionFromRow + '</p><p>  Snippet: </p><code>' + snippetFromRow + '</code>'));
+        $(table_this).find('.modal-body').html($('<p> Creator: ' + creatorFromRow + '</p><p> Language: ' + languageFromRow + '</p><p> Description: ' + descriptionFromRow + '</p><p>  Snippet: </p><code>' + snippetFromRow + '</code>'));
       }
     });
 
     $('#dd-creator-asc-filter-order').click(function() {
-      if (currentCategory =='Lang') {
-        $.getJSON('/snippets?filterOn=Lang&' + currentFilter + '&sortOn=Creator&order=ASC', function(data) {
+      if(currentCategory =='Lang') {
+        $.getJSON("/snippets?filterOn=Lang&" + currentFilter + "&sortOn=Creator&order=ASC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
-      } else if (currentCategory == 'Description') {
-        $.getJSON('/snippets?filterOn=Description&' + currentFilter + '&sortOn=Creator&order=ASC', function(data) {
+      }else if (currentCategory == 'Description') {
+        $.getJSON("/snippets?filterOn=Description&" + currentFilter + "&sortOn=Creator&order=ASC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
-      } else {
-        $.getJSON('/snippets?filterOn=Code&' + currentFilter + '&sortOn=Creator&order=ASC', function(data) {
+      }else{
+        $.getJSON("/snippets?filterOn=Code&" + currentFilter + "&sortOn=Creator&order=ASC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
@@ -72,18 +59,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-creator-desc-filter-order').click(function() {
-      if (currentCategory == 'Lang') {
-        $.getJSON('/snippets?filterOn=Lang&' + currentFilter + '&sortOn=Creator&order=DESC', function(data) {
+      if(currentCategory == 'Lang') {
+        $.getJSON("/snippets?filterOn=Lang&" + currentFilter + "&sortOn=Creator&order=DESC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
-      } else if (currentCategory == 'Description') {
-        $.getJSON('/snippets?filterOn=Description&' + currentFilter + '&sortOn=Creator&order=DESC', function(data) {
+      }else if (currentCategory == 'Description') {
+        $.getJSON("/snippets?filterOn=Description&" + currentFilter + "&sortOn=Creator&order=DESC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
-      } else {
-        $.getJSON('/snippets?filterOn=Code&' + currentFilter + '&sortOn=Creator&order=DESC', function(data) {
+      }else{
+        $.getJSON("/snippets?filterOn=Code&" + currentFilter + "&sortOn=Creator&order=DESC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
@@ -91,18 +78,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-description-asc-filter-order').click(function() {
-      if (currentCategory == 'Lang') {
-        $.getJSON('/snippets?filterOn=Lang&' + currentFilter + '&sortOn=Description&order=ASC', function(data) {
+      if(currentCategory == 'Lang') {
+        $.getJSON("/snippets?filterOn=Lang&" + currentFilter + "&sortOn=Description&order=ASC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
-      } else if (currentCategory == 'Creator') {
-        $.getJSON('/snippets?filterOn=Creator&' + currentFilter + '&sortOn=Description&order=ASC', function(data) {
+      }else if (currentCategory == 'Creator') {
+        $.getJSON("/snippets?filterOn=Creator&" + currentFilter + "&sortOn=Description&order=ASC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
-      } else {
-        $.getJSON('/snippets?filterOn=Code&' + currentFilter + '&sortOn=Description&order=ASC', function(data) {
+      }else{
+        $.getJSON("/snippets?filterOn=Code&" + currentFilter + "&sortOn=Description&order=ASC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
@@ -110,18 +97,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-description-desc-filter-order').click(function() {
-      if (currentCategory == 'Lang') {
-        $.getJSON('/snippets?filterOn=Lang&' + currentFilter + '&sortOn=Description&order=DESC', function(data) {
+      if(currentCategory == 'Lang') {
+        $.getJSON("/snippets?filterOn=Lang&" + currentFilter + "&sortOn=Description&order=DESC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
-      } else if (currentCategory == 'Creator') {
-        $.getJSON('/snippets?filterOn=Creator&' + currentFilter + '&sortOn=Description&order=DESC', function(data) {
+      }else if (currentCategory == 'Creator') {
+        $.getJSON("/snippets?filterOn=Creator&" + currentFilter + "&sortOn=Description&order=DESC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
-      } else {
-        $.getJSON('/snippets?filterOn=Code&' + currentFilter + '&sortOn=Description&order=DESC', function(data) {
+      }else{
+        $.getJSON("/snippets?filterOn=Code&" + currentFilter + "&sortOn=Description&order=DESC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
@@ -129,18 +116,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-language-asc-filter-order').click(function() {
-      if (currentCategory == 'Description') {
-        $.getJSON('/snippets?filterOn=Description&' + currentFilter + '&sortOn=Lang&order=ASC', function(data) {
+      if(currentCategory == 'Description') {
+        $.getJSON("/snippets?filterOn=Description&" + currentFilter + "&sortOn=Lang&order=ASC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
-      } else if (currentCategory == 'Creator') {
-        $.getJSON('/snippets?filterOn=Creator&' + currentFilter + '&sortOn=Lang&order=ASC', function(data) {
+      }else if (currentCategory == 'Creator') {
+        $.getJSON("/snippets?filterOn=Creator&" + currentFilter + "&sortOn=Lang&order=ASC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
-      } else {
-        $.getJSON('/snippets?filterOn=Code&' + currentFilter + '&sortOn=Lang&order=ASC', function(data) {
+      }else{
+        $.getJSON("/snippets?filterOn=Code&" + currentFilter + "&sortOn=Lang&order=ASC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
@@ -148,18 +135,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-language-desc-filter-order').click(function() {
-      if (currentCategory == 'Description') {
-        $.getJSON('/snippets?filterOn=Description&' + currentFilter + '&sortOn=Lang&order=DESC', function(data) {
+      if(currentCategory == 'Description') {
+        $.getJSON("/snippets?filterOn=Description&" + currentFilter + "&sortOn=Lang&order=DESC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
-      } else if (currentCategory == 'Creator') {
-        $.getJSON('/snippets?filterOn=Creator&' + currentFilter + '&sortOn=Lang&order=DESC', function(data) {
+      }else if (currentCategory == 'Creator') {
+        $.getJSON("/snippets?filterOn=Creator&" + currentFilter + "&sortOn=Lang&order=DESC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
-      } else {
-        $.getJSON('/snippets?filterOn=Code&' + currentFilter + '&sortOn=Lang&order=DESC', function(data) {
+      }else{
+        $.getJSON("/snippets?filterOn=Code&" + currentFilter + "&sortOn=Lang&order=DESC", function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
@@ -167,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-creator-asc').click(function() {
-      $.getJSON('/snippets?sortOn=creator&order=ASC', function(data) {
+      $.getJSON("/snippets?sortOn=creator&order=ASC", function(data) {
         sorted = true;
         snippetModel = data.result;
         buildTableTR();
@@ -175,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-creator-desc').click(function() {
-      $.getJSON('/snippets?sortOn=creator&order=DESC', function(data) {
+      $.getJSON("/snippets?sortOn=creator&order=DESC", function(data) {
         sorted = true;
         snippetModel = data.result;
         buildTableTR();
@@ -183,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-language-asc').click(function() {
-      $.getJSON('/snippets?sortOn=Lang&order=ASC', function(data) {
+      $.getJSON("/snippets?sortOn=Lang&order=ASC", function(data) {
         sorted = true;
         snippetModel = data.result;
         buildTableTR();
@@ -191,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-language-desc').click(function() {
-      $.getJSON('/snippets?sortOn=Lang&order=DESC', function(data) {
+      $.getJSON("/snippets?sortOn=Lang&order=DESC", function(data) {
         sorted = true;
         snippetModel = data.result;
         buildTableTR();
@@ -199,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-description-asc').click(function() {
-      $.getJSON('/snippets?sortOn=description&order=ASC', function(data) {
+      $.getJSON("/snippets?sortOn=description&order=ASC", function(data) {
         sorted = true;
         snippetModel = data.result;
         buildTableTR();
@@ -207,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-description-desc').click(function() {
-      $.getJSON('/snippets?sortOn=description&order=DESC', function(data) {
+      $.getJSON("/snippets?sortOn=description&order=DESC", function(data) {
         sorted = true;
         snippetModel = data.result;
         buildTableTR();
@@ -241,25 +228,22 @@ document.addEventListener('DOMContentLoaded', () => {
       let uname = $('#registration-modal-username-text:text').val();
       let email = encodeURIComponent($('#registration-modal-email-text:text').val());
       let password = encodeURIComponent($('#registration-modal-pwd-text:password').val());
-      $.getJSON('/register?username=' + uname + '&email=' + email + '&password=' + password, function(data) {
+      $.getJSON("/register?username=" + uname + "&email=" + email + "&password=" + password, function(data) {
         console.log("requesting add user");
         if (data.error) {
           registerAlert("" + data.error);
         } else {
-          $('#welcome-user').text('Welcome ' + uname + '!');
-          $('#register-btn').hide();
-          $('#login-btn').hide();
-          $('#logout-btn').show();
+          $('#welcome-user').text("User successfully added!");
           clearRegistration();
         }
       });
     }
 
     function clearRegistration() {
-      $('#registration-modal-username-text:text').val('');
-      $('#registration-modal-email-text:text').val('');
-      $('#registration-modal-pwd-text:password').val('');
-      $('#register-modal-alert-text').text('');
+      $('#registration-modal-username-text:text').val("");
+      $('#registration-modal-email-text:text').val("");
+      $('#registration-modal-pwd-text:password').val("");
+      $('#register-modal-alert-text').text("");
       $('#modal-register-form').modal('hide');
     }
 
@@ -268,13 +252,13 @@ document.addEventListener('DOMContentLoaded', () => {
       let email = $('#registration-modal-email-text:text').val();
       let password = $('#registration-modal-pwd-text:password').val();
       if (uname == null || uname == "") {
-        registerAlert('You must enter a username.');
+        registerAlert("You must enter a username.");
         return false;
       } else if (email == null || email == "") {
-        registerAlert('You must enter an email address.');
+        registerAlert("You must enter an email address.");
         return false;
       } else if (password == null || password == "") {
-        registerAlert('You must enter a password.');
+        registerAlert("You must enter a password.");
         return false;
       } else {
         return true;
@@ -284,12 +268,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function registerAlert(outputString) {
       $('#register-modal-alert-text').text(outputString);
     }
-    // ****************** LOG IN ********************
+// ****************** LOG IN ********************
     $('#login-submit').click(function() {
       if (validateLoginForm() == true) {
         submitLogin();
         return false;
-      } else {
+      } else{
         return false;
       }
     });
@@ -302,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (validateLoginForm() == true) {
         submitLogin();
         return false;
-      } else {
+      } else{
         return false;
       }
     });
@@ -310,13 +294,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function submitLogin() {
       let username = $('#login-modal-username-text:text').val();
       let password = encodeURIComponent($('#login-modal-pwd-text:password').val());
-      $.getJSON('/login?username=' + username + '&password=' + password, function(data) {
+      $.getJSON("/login?username=" + username + "&password=" + password, function(data) {
         console.log(username + " wants to log in.");
         userModel = data.result;
         if (userModel.error) {
-          $('#login-modal-alert-text').text('Username or password is incorrect.');
+          $('#login-modal-alert-text').text("Username or password is incorrect.");
         } else {
-          $('#welcome-user').text('Welcome ' + userModel.user.username + '!');
+          $('#welcome-user').text("Welcome " + userModel.user.username + "!");
           $('#register-btn').hide();
           $('#login-btn').hide();
           $('#logout-btn').show();
@@ -351,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     $(document).on('keyup', function(event) {
-      if(event.key == 'Escape') {
+      if(event.key == "Escape") {
         clearRegistration();
         clearLogin();
         $('#db-modal').modal('hide');
@@ -360,13 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     ////////// LOG OUT ////////////
     $('#logout-btn').click(function() {
-      $.getJSON('/logout', function(data) {
-        userModel = {};
-        $('#welcome-user').text(data.message);
-        $('#register-btn').show();
-        $('#login-btn').show();
-        $('#logout-btn').hide();
-      });
+      location.reload();
       return false;
     });
 
@@ -411,7 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
       currentCriteria = $('#criteria').val();
       currentFilter = 'filter=' + encodeURIComponent(currentCriteria);
       $('div #current-filter').text(currentCategory + "=" + currentCriteria);
-      let queryString = '/snippets?filterOn=' + $('#category').val() + '&' + currentFilter;
+      let queryString = "/snippets?filterOn=" + $('#category').val() + "&" + currentFilter;
       return queryString;
     }
 
@@ -434,7 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
       currentFilter = '';
       currentCategory = '';
       currentCriteria = '';
-      $('#current-filter').text('');
+      $("#current-filter").text('');
       $('.sort-no-filter').show(); 
     }
 
@@ -442,7 +420,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function buildTableTR(data){
       $('#my-table tbody').empty();
       for (let i = 0; i < snippetModel.length; i++) {
-        let tr = $('<tr data-toggle="modal" data-id="' + snippetModel[i].Id +'" data-target="#db-modal" data-backdrop="static" data-keyboard="false" data-creator="' + snippetModel[i].Creator + '"data-email="' + snippetModel[i].Email + '" data-language="' + snippetModel[i].Language + '" data-description="' + snippetModel[i].Description + '" data-snippet="' + snippetModel[i].Snippet + '">');
+        let tr = $('<tr data-toggle="modal" data-id="' + snippetModel[i].Id +'" data-target="#db-modal" data-backdrop="static" data-keyboard="false" data-creator="' + snippetModel[i].Creator + '" data-language="' + snippetModel[i].Language + '" data-description="' + snippetModel[i].Description + '" data-snippet="' + snippetModel[i].Snippet + '">');
         $(tr).append("<th scope='row'>" + snippetModel[i].Id + "</th>");
         $(tr).append("<td>" + snippetModel[i].Creator + "</td>");
         $(tr).append("<td>" + snippetModel[i].Language + "</td>");

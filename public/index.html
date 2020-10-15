@@ -20,7 +20,7 @@
         <button id="logout-btn" type="button" class="btn btn-danger custom-button">Log Out</button>
       </div>
       <div class="justify-content-right" onclick="return">
-        <h2 class="float-left" id="welcome-user">Register and log in!</h2>
+        <h2 class="float-left" id="welcome-user"></h2>
         <img id="logo" class="p-2" src="img/white_train.png" height="50em">
       </div>
     </nav>
@@ -53,52 +53,46 @@
             <h2>Sort Options</h2>
             <div class="btn-toolbar" role="toolbar" id="sort-toolbar">
               <div class="btn-group" role="group" aria-label="sort group">
-                <button id="sort-creator-dropdown" type="button" class="btn dropdown-toggle sort-no-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Creator
-                </button>
-                  <div class="dropdown-menu" aria-labelledby="btn-group-creator">
-                    <a id="dd-creator-asc" class="dropdown-item" >Ascending</a>
-                    <a id="dd-creator-desc" class="dropdown-item" >Descending</a>
-                  </div>
+                <button id="sort-creator-dropdown" type="button" class="btn dropdown-toggle sort-no-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Creator</button>
+                <div class="dropdown-menu" aria-labelledby="btn-group-creator">
+                  <a id="dd-creator-asc" class="dropdown-item" >Ascending</a>
+                  <a id="dd-creator-desc" class="dropdown-item" >Descending</a>
+                </div>
               </div>
               <div class="btn-group" role="group" aria-label="sort group">
-                <button id="sort-language-dropdown" type="button" class="btn dropdown-toggle sort-no-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Language
-                </button>
-                  <div class="dropdown-menu" aria-labelledby="btn-group-language">
-                    <a id="dd-language-asc" class="dropdown-item" >Ascending</a>
-                    <a id="dd-language-desc" class="dropdown-item" >Descending</a>
-                  </div>
+                <button id="sort-language-dropdown" type="button" class="btn dropdown-toggle sort-no-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Language</button>
+                <div class="dropdown-menu" aria-labelledby="btn-group-language">
+                  <a id="dd-language-asc" class="dropdown-item" >Ascending</a>
+                  <a id="dd-language-desc" class="dropdown-item" >Descending</a>
+                </div>
               </div>
               <div class="btn-group" role="group" aria-label="sort group">
-                <button id="sort-description-dropdown" type="button" class="btn dropdown-toggle sort-no-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Description
-                </button>
-                  <div class="dropdown-menu" aria-labelledby="btn-group-description">
-                    <a id="dd-description-asc" class="dropdown-item" >Ascending</a>
-                    <a id="dd-description-desc" class="dropdown-item" >Descending</a>
-                  </div>
+                <button id="sort-description-dropdown" type="button" class="btn dropdown-toggle sort-no-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Description</button>
+                <div class="dropdown-menu" aria-labelledby="btn-group-description">
+                  <a id="dd-description-asc" class="dropdown-item" >Ascending</a>
+                  <a id="dd-description-desc" class="dropdown-item" >Descending</a>
+                </div>
               </div>
               <div class="btn-group" role="group" aria-label="sort group">
-                <button id="sort-creator-dropdown-filter" type="button" class="btn dropdown-toggle sort-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Creator
-                </button>
-                  <div class="dropdown-menu" aria-labelledby="btn-group-creator">
-                    <a id="dd-creator-asc-filter-order" class="dropdown-item" >Ascending</a>
-                    <a id="dd-creator-desc-filter-order" class="dropdown-item" >Descending</a>
-                  </div>
+                <button id="sort-creator-dropdown-filter" type="button" class="btn dropdown-toggle sort-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Creator</button>
+                <div class="dropdown-menu" aria-labelledby="btn-group-creator">
+                  <a id="dd-creator-asc-filter-order" class="dropdown-item" >Ascending</a>
+                  <a id="dd-creator-desc-filter-order" class="dropdown-item" >Descending</a>
+                </div>
               </div>
               <div class="btn-group" role="group" aria-label="sort group">
-                <button id="sort-language-dropdown-filter" type="button" class="btn dropdown-toggle sort-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Language
-                </button>
-                  <div class="dropdown-menu" aria-labelledby="btn-group-creator">
-                    <a id="dd-language-asc-filter-order" class="dropdown-item" >Ascending</a>
-                    <a id="dd-language-desc-filter-order" class="dropdown-item" >Descending</a>
-                  </div>
+                <button id="sort-language-dropdown-filter" type="button" class="btn dropdown-toggle sort-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Language</button>
+                <div class="dropdown-menu" aria-labelledby="btn-group-creator">
+                  <a id="dd-language-asc-filter-order" class="dropdown-item" >Ascending</a>
+                  <a id="dd-language-desc-filter-order" class="dropdown-item" >Descending</a>
+                </div>
               </div>
               <div class="btn-group" role="group" aria-label="sort group">
-                <button id="sort-description-dropdown-filter" type="button" class="btn dropdown-toggle sort-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Description
-                </button>
-                  <div class="dropdown-menu" aria-labelledby="btn-group-creator">
-                    <a id="dd-description-asc-filter-order" class="dropdown-item" >Ascending</a>
-                    <a id="dd-description-desc-filter-order" class="dropdown-item" >Descending</a>
-                  </div>
+                <button id="sort-description-dropdown-filter" type="button" class="btn dropdown-toggle sort-filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  Description</button>
+                <div class="dropdown-menu" aria-labelledby="btn-group-creator">
+                  <a id="dd-description-asc-filter-order" class="dropdown-item" >Ascending</a>
+                  <a id="dd-description-desc-filter-order" class="dropdown-item" >Descending</a>
+                </div>
               </div>
             </div>
           </div>
@@ -147,10 +141,10 @@
             <div class="modal-body">
               <p id="register-modal-alert-text"></p>
               <label for="registration-modal-username-text">Userame:</label>
-		          <input type="text" id="registration-modal-username-text" name="username"><br>
-		          <label for="registration-modal-email-text">Email:</label>
-		          <input type="text" id="registration-modal-email-text" name="email"><br>
-	            <label for="registration-modal-pwd-text">Password:</label>
+              <input type="text" id="registration-modal-username-text" name="username"><br>
+              <label for="registration-modal-email-text">Email:</label>
+              <input type="text" id="registration-modal-email-text" name="email"><br>
+              <label for="registration-modal-pwd-text">Password:</label>
               <input type="password" id="registration-modal-pwd-text" class="pw" name="password"><br>
             </div>
             <div class="modal-footer">
@@ -170,9 +164,9 @@
           <form id="login-form" href="#">
             <div class="modal-body">
               <p id="login-modal-alert-text"></p>
-  		        <label for="login-modal-username-text">Username:</label>
-		          <input type="text" id="login-modal-username-text" name="username"><br>
-	            <label for="login-modal-pwd-text">Password:</label>
+              <label for="login-modal-username-text">Username:</label>
+              <input type="text" id="login-modal-username-text" name="username"><br>
+              <label for="login-modal-pwd-text">Password:</label>
               <input type="password" id="login-modal-pwd-text" class="pw" name="password"><br>
             </div>
             <div class="modal-footer">

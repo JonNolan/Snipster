@@ -21,15 +21,16 @@ const sessionOptions = {
 
 const usernameRegex = /^(?=[a-zA-Z0-9_\d]*[a-zA-Z])[a-zA-Z0-9_\d]{3,}$/;
 const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const passwordRegex = /^(?=.[A-Za-z0-9])(?=.*)[A-Za-z0-9]{8,}$/;
-//const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
-app.use(express.static("public"))
+app.use(express.static("public"));
 app.use(session(sessionOptions));
 app.all("/", serveIndex);
 app.get("/snippets", findSnippets);
 app.get("/register", register);
 app.get("/login", login);
+app.get("/logout", logout);
+app.get("/who", whoIsLoggedIn);
 
 app.listen(3000, process.env.IP, startHandler());
 
@@ -56,6 +57,17 @@ function writeResult(res, object) {
   res.end(JSON.stringify(object));
 }
 
+function whoIsLoggedIn(req, res) {
+  let result = {};
+  if (req.session.user == undefined) {
+    result = {noUser : "Register or login!"};
+  }
+  else {
+    result = {user : req.session.user};
+  }
+  writeResult(res, {result: result});
+}
+
 function buildSnippet(dbObject) {
   return {
     Id: dbObject.Id,
@@ -73,7 +85,7 @@ function findSnippets(req, res) {
   let queryString = [];
   queryString.push(sql);
   if(req.query.filterOn && req.query.filter) {
-    if(req.query.filter.includes("@", ".")) {
+    if (req.query.filterOn == "Creator" && req.query.filter.includes("@", ".")) {
       queryString.push(" WHERE Email LIKE \'%" + req.query.filter + "%\'");
     }
     else {
@@ -97,7 +109,7 @@ function register(req, res){
     return;
   }
   if (req.query.password == undefined || !validatePassword(req.query.password)) {
-    writeResult(res, {"error" : "Please enter a valid password! (must be at least eight characters long and may contain letters and/or numbers)"});
+    writeResult(res, {"error" : "Please enter a valid password! (must be at least eight characters long and must contain an uppercase letter, a lowercase letter, and a number)"});
     return;
   }
   let hash = bcryptjs.hashSync(req.query.password, 12);
@@ -106,6 +118,7 @@ function register(req, res){
       if (err.code == "ER_DUP_ENTRY")
         err = "User account already exists. Try a different username and/or email address.";
       writeResult(res, {"error" : err});
+      login(req);
       return;
     }
     else {
@@ -141,6 +154,15 @@ function login(req, res) {
   });
 }
 
+function logout(req, res) {
+  console.log(req.session.user.username + " is trying to log out.");
+  let u = req.session.user.username;
+  let uMessage = u + " has logged out.";
+  req.session.user = undefined;
+  console.log(uMessage);
+  writeResult(res, {message: uMessage});
+}
+
 function validateUsername(username) {
   if (!username) {
     return false;
@@ -149,14 +171,16 @@ function validateUsername(username) {
 }
 
 function validateEmail(email) {
-  if(!email)
+  if(!email) {
     return false;
+  }
   return emailRegex.test(email.toLowerCase());
 }
 
 function validatePassword(password) {
-  if(!password)
+  if(!password) {
     return false;
+  }
   return passwordRegex.test(password);
 }
 
