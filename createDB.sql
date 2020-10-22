@@ -23,47 +23,29 @@ CREATE TABLE Snippets(
 );
 
 INSERT INTO Users(Username, Email, Password)
-VALUES ("Dylan", "dylan@abc.com", "Password1");
-INSERT INTO Users(Username, Email, Password)
-VALUES ("Alex", "alex@abc.com", "Password2");
-INSERT INTO Users(Username, Email, Password)
-VALUES ("Jason", "jason@abc.com", "Password3");
-INSERT INTO Users(Username, Email, Password)
-VALUES ("Josh", "josh@abc.com", "Password4");
-INSERT INTO Users(Username, Email, Password)
-VALUES ("Jon", "jon@abc.com", "Password5");
+VALUES 
+  ("Dylan", "dylan@abc.com", "Password1"),
+  ("Alex", "alex@abc.com", "Password2"),
+  ("Jason", "jason@abc.com", "Password3"),
+  ("Josh", "josh@abc.com", "Password4"),
+  ("Jon", "jon@abc.com", "Password5");
 
 INSERT INTO Snippets(Lang, Description, Code, UserId)
-VALUES ("SQL", "Wildcard", "SELECT * FROM Customers WHERE City LIKE 'ber%';", 1);
-INSERT INTO Snippets(Lang, Description, Code, UserId)
-VALUES ("SQL", "AUTO_INCREMENT", "CREATE TABLE Persons (Personid int NOT NULL AUTO_INCREMENT, LastName varchar(255) NOT NULL, FirstName varchar(255), Age int, PRIMARY KEY (Personid));", 1);
-INSERT INTO Snippets(Lang, Description, Code, UserId)
-VALUES ("Java", "String Length", "var txt = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; var sln = txt.length;", 1);
-INSERT INTO Snippets(Lang, Description, Code, UserId)
-VALUES ("Python", "Casting", "Python Casting", 2);
-INSERT INTO Snippets(Lang, Description, Code, UserId)
-VALUES ("Java", "DB connect from Function Junction", "function buildSnippet(dbObject) {return {creator: dbObject.User, language: dbObject.Language, description: dbObject.Description, Snip: dbObject.Snippet};}", 2);
-INSERT INTO Snippets(Lang, Description, Code, UserId)
-VALUES ("C++", "Creating Pointers", "string food = 'Pizza'; string* ptr = &food;", 2);
-INSERT INTO Snippets(Lang, Description, Code, UserId)
-VALUES ("Python", "Python Dictionaries", " thisdict =  {'brand': 'Ford', 'model': 'Mustang', 'year': 1964} print(thisdict)", 2);
-INSERT INTO Snippets(Lang, Description, Code, UserId)
-VALUES ("Linux", "Echo into file", " echo 'hello world' > world.txt", 3);
-INSERT INTO Snippets(Lang, Description, Code, UserId)
-VALUES ("Linux", "Get a list of all node process ids", "ps aux | grep node", 3);
-INSERT INTO Snippets(Lang, Description, Code, UserId)
-VALUES ("jQuery", "Hiding", " $(this).hide();", 3);
-INSERT INTO Snippets(Lang, Description, Code, UserId)
-VALUES ("Java", "Objects", "var car = {type:'Fiat', model:'500', color:'white'};", 4);
-INSERT INTO Snippets(Lang, Description, Code, UserId)
-VALUES ("Python", "If", "a = 33 b = 200 if b > a: print('b is greater than a')", 4);
-INSERT INTO Snippets(Lang, Description, Code, UserId)
-VALUES ("C++", "Switch", "switch(expression) {case x: break; case y: break; default: }", 4);
-INSERT INTO Snippets(Lang, Description, Code, UserId)
-VALUES ("Python", "Swap values between two variable", "a = 1 b = 2 a, b = b, a print(a) print", 5);
-INSERT INTO Snippets(Lang, Description, Code, UserId)
-VALUES ("Linux", "Change BASH prompt TEMP", "export PS1='\u >'", 5);
-INSERT INTO Snippets(Lang, Description, Code, UserId)
-VALUES ("C++", "Break", "for (int i = 0; i < 10; i++) {if (i == 4) {break;} cout << i << '\n';}", 5);
-INSERT INTO Snippets(Lang, Description, Code, UserId)
-VALUES ("C#", "Get User Input", "// Type your username and press enter Console.WriteLine('Enter username:'); string userName = Console.ReadLine(); Console.WriteLine('Username is: '' + userName);", 5);
+VALUES
+  ("SQL", "Wildcard", "SELECT * FROM Customers WHERE City LIKE 'ber%';", 1),
+  ("SQL", "AUTO_INCREMENT", "CREATE TABLE Persons (Personid int NOT NULL AUTO_INCREMENT, LastName varchar(255) NOT NULL, FirstName varchar(255), Age int, PRIMARY KEY (Personid));", 1),
+  ("Java", "String Length", "var txt = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; var sln = txt.length;", 1),
+  ("Python", "Casting", "Python Casting", 2),
+  ("Java", "DB connect from Function Junction", "function buildSnippet(dbObject) {return {creator: dbObject.User, language: dbObject.Language, description: dbObject.Description, Snip: dbObject.Snippet};}", 2),
+  ("C++", "Creating Pointers", "string food = 'Pizza'; string* ptr = &food;", 2),
+  ("Python", "Python Dictionaries", " thisdict =  {'brand': 'Ford', 'model': 'Mustang', 'year': 1964} print(thisdict)", 2),
+  ("Linux", "Echo into file", " echo 'hello world' > world.txt", 3),
+  ("Linux", "Get a list of all node process ids", "ps aux | grep node", 3),
+  ("jQuery", "Hiding", " $(this).hide();", 3),
+  ("Java", "Objects", "var car = {type:'Fiat', model:'500', color:'white'};", 4),
+  ("Python", "If", "a = 33 b = 200 if b > a: print('b is greater than a')", 4),
+  ("C++", "Switch", "switch(expression) {case x: break; case y: break; default: }", 4),
+  ("Python", "Swap  between two variable", "a = 1 b = 2 a, b = b, a print(a) print", 5),
+  ("Linux", "Change BASH prompt TEMP", "export PS1='\u >'", 5),
+  ("C++", "Break", "for (int i = 0; i < 10; i++) {if (i == 4) {break;} cout << i << '\n';}", 5),
+  ("C#", "Get User Input", "// Type your username and press enter Console.WriteLine('Enter username:'); string userName = Console.ReadLine(); Console.WriteLine('Username is: '' + userName);", 5);
