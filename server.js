@@ -71,7 +71,7 @@ function whoIsLoggedIn(req, res) {
 function buildSnippet(dbObject) {
   return {
     Id: dbObject.Id,
-    Creator: dbObject.Creator,
+    Creator: dbObject.Username,
     Email: dbObject.Email,
     Language: dbObject.Lang,
     Description: dbObject.Description,
@@ -81,19 +81,25 @@ function buildSnippet(dbObject) {
 
 function findSnippets(req, res) {
   let requesterIP = req.ip;
-  let sql = "SELECT * FROM Snippets";
+  let sql = "SELECT Snippets.Id, Snippets.Lang, Snippets.Description, Snippets.Code, Users.Username, Users.Email FROM Snippets, Users WHERE Snippets.UserId = Users.Id"
   let queryString = [];
   queryString.push(sql);
   if(req.query.filterOn && req.query.filter) {
     if (req.query.filterOn == "Creator" && validateEmail(req.query.filter)) {
-      queryString.push(" WHERE Email LIKE \'%" + req.query.filter + "%\'");
-    }
-    else {
-      queryString.push(" WHERE " + req.query.filterOn + " LIKE \'%" + req.query.filter + "%\'");
+      queryString.push(" AND Users.Email LIKE \'%" + req.query.filter + "%\'");
+    } else if (req.query.filterOn == "Creator") {
+      queryString.push(" AND Users.Username LIKE \'%" + req.query.filter + "%\'");
+    } else {
+      queryString.push(" AND " + req.query.filterOn + " LIKE \'%" + req.query.filter + "%\'");
     }
   }
   if(req.query.sortOn && req.query.order) {
-    queryString.push(" ORDER BY " + req.query.sortOn + " " + req.query.order);
+    if (req.query.sortOn == "creator") {
+      queryString.push(" ORDER BY Users.Username " + req.query.order);
+    } else {
+      queryString.push(" ORDER BY " + req.query.sortOn + " " + req.query.order);
+    }
+
   }
   executeQuery(queryString, res);
   console.log(requesterIP + " is requesting snippets.");
@@ -116,8 +122,8 @@ function register(req, res) {
   connection.query("INSERT INTO Users (Username, Email, Password) VALUES (?, ?, ?)", [req.query.username, req.query.email, hash], function (err, result, fields){
     console.log(req.query.username + " is trying to register")
     if (err) {
-      if (err.code == "ER_DUP_ENTRY")
-        err = "User account already exists. Try a different username and/or email address.";
+      if (err.code == "ER_ENTRY")
+        err = "User accou_DUPnt already exists. Try a different username and/or email address.";
       writeResult(res, {"error" : err});
       return;
     }
