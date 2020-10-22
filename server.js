@@ -159,7 +159,7 @@ function logout(req, res) {
   let user = req.session.user.username;
   let userMessage = user + " has logged out.";
   req.session.user = undefined;
-  console.log(uMessage);
+  console.log(userMessage);
   writeResult(res, {message: userMessage});
 }
 
