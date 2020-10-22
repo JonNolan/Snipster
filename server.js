@@ -99,7 +99,6 @@ function findSnippets(req, res) {
     } else {
       queryString.push(" ORDER BY " + req.query.sortOn + " " + req.query.order);
     }
-
   }
   executeQuery(queryString, res);
   console.log(requesterIP + " is requesting snippets.");
