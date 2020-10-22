@@ -85,7 +85,7 @@ function findSnippets(req, res) {
   let queryString = [];
   queryString.push(sql);
   if(req.query.filterOn && req.query.filter) {
-    if (req.query.filterOn == "Creator" && req.query.filter.includes("@", ".")) {
+    if (req.query.filterOn == "Creator" && validateEmail(req.query.filter)) {
       queryString.push(" WHERE Email LIKE \'%" + req.query.filter + "%\'");
     }
     else {
@@ -156,11 +156,11 @@ function login(req, res) {
 
 function logout(req, res) {
   console.log(req.session.user.username + " is trying to log out.");
-  let u = req.session.user.username;
-  let uMessage = u + " has logged out.";
+  let user = req.session.user.username;
+  let userMessage = user + " has logged out.";
   req.session.user = undefined;
   console.log(uMessage);
-  writeResult(res, {message: uMessage});
+  writeResult(res, {message: userMessage});
 }
 
 function validateUsername(username) {
