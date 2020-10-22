@@ -99,7 +99,7 @@ function findSnippets(req, res) {
   console.log(requesterIP + " is requesting snippets.");
 }
 
-function register(req, res){
+function register(req, res) {
   if (req.query.username == undefined || !validateUsername(req.query.username)) {
     writeResult(res, {"error" : "Please enter a username! (only letters and numbers and (_) are allowed. Minimum of 3 characters. Must contain a letter."});
     return;
@@ -114,11 +114,11 @@ function register(req, res){
   }
   let hash = bcryptjs.hashSync(req.query.password, 12);
   connection.query("INSERT INTO Users (Username, Email, Password) VALUES (?, ?, ?)", [req.query.username, req.query.email, hash], function (err, result, fields){
+    console.log(req.query.username + " is trying to register")
     if (err) {
       if (err.code == "ER_DUP_ENTRY")
         err = "User account already exists. Try a different username and/or email address.";
       writeResult(res, {"error" : err});
-      login(req);
       return;
     }
     else {
@@ -133,9 +133,7 @@ function login(req, res) {
     writeResult(res, {error: "Please enter a username and a password."});
     return;
   }
-  console.log(req.query.username);
-  console.log(req.query.password);
-  console.log("trying to login");
+  console.log(req.query.username + " is trying to login");
   connection.query("SELECT Id, Username, Email, Password FROM Users WHERE Username = ?", [req.query.username], function(err, dbResult) {
     if(err)
       writeResult(res, {error: err.message});

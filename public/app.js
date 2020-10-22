@@ -238,21 +238,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function submitRegistration() {
-      let uname = $('#registration-modal-username-text:text').val();
-      let email = encodeURIComponent($('#registration-modal-email-text:text').val());
-      let password = encodeURIComponent($('#registration-modal-pwd-text:password').val());
-      $.getJSON('/register?username=' + uname + '&email=' + email + '&password=' + password, function(data) {
+      let userName = $('#registration-modal-username-text:text').val();
+      let encodedEmail = encodeURIComponent($('#registration-modal-email-text:text').val());
+      let password = $('#registration-modal-pwd-text:password').val();
+      let encodedPassword = encodeURIComponent($('#registration-modal-pwd-text:password').val());
+      $.getJSON('/register?username=' + userName + '&email=' + encodedEmail + '&password=' + encodedPassword, function(data) {
         console.log("requesting add user");
         if (data.error) {
           registerAlert("" + data.error);
         } else {
-          $('#welcome-user').text('Welcome ' + uname + '!');
+          $('#welcome-user').text('Welcome ' + userName + '!');
           $('#register-btn').hide();
           $('#login-btn').hide();
           $('#logout-btn').show();
           clearRegistration();
         }
       });
+      $('#login-modal-username-text:text').val(userName);
+      $('#login-modal-pwd-text:password').val(password);
+      submitLogin();
     }
 
     function clearRegistration() {
