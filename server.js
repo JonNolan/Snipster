@@ -94,7 +94,7 @@ function findSnippets(req, res) {
     }
   }
   if(req.query.sortOn && req.query.order) {
-    if (req.query.sortOn == "creator") {
+    if (req.query.sortOn == "Creator") {
       queryString.push(" ORDER BY Users.Username " + req.query.order);
     } else {
       queryString.push(" ORDER BY " + req.query.sortOn + " " + req.query.order);

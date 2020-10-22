@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-creator-asc').click(function() {
-      $.getJSON('/snippets?sortOn=creator&order=ASC', function(data) {
+      $.getJSON('/snippets?sortOn=Creator&order=ASC', function(data) {
         sorted = true;
         snippetModel = data.result;
         buildTableTR();
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-creator-desc').click(function() {
-      $.getJSON('/snippets?sortOn=creator&order=DESC', function(data) {
+      $.getJSON('/snippets?sortOn=Creator&order=DESC', function(data) {
         sorted = true;
         snippetModel = data.result;
         buildTableTR();
