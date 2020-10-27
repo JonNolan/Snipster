@@ -4,12 +4,24 @@ CREATE DATABASE SnippetsDB;
 
 USE SnippetsDB;
 
+CREATE TABLE Questions(
+  Id int NOT NULL AUTO_INCREMENT,
+  Question varchar(255) NOT NULL,
+  PRIMARY KEY(Id)
+);
+
 CREATE TABLE Users(
   Id int NOT NULL AUTO_INCREMENT,
   Username varchar (255) UNIQUE NOT NULL,
   Email varchar (255) UNIQUE NOT NULL,
   Password varchar (255) NOT NULL,
-  PRIMARY KEY (Id)
+  Question1 int NOT NULL,
+  Question1Ans varchar(255) NOT NULL,
+  Question2 int NOT NULL,
+  Question2Ans varchar(255) NOT NULL,
+  PRIMARY KEY(Id),
+  FOREIGN KEY(Question1) REFERENCES Questions(Id),
+  FOREIGN KEY(Question2) REFERENCES Questions(Id)
 );
 
 CREATE TABLE Snippets(
@@ -18,17 +30,25 @@ CREATE TABLE Snippets(
   Description varchar (255) NOT NULL,
   Code varchar (255) NOT NULL,
   UserId int NOT NULL,
-  PRIMARY KEY (Id),
+  PRIMARY KEY(Id),
   FOREIGN KEY(UserId) REFERENCES Users(Id)
 );
 
-INSERT INTO Users(Username, Email, Password)
-VALUES 
-  ("Dylan", "dylan@abc.com", "Password1"),
-  ("Alex", "alex@abc.com", "Password2"),
-  ("Jason", "jason@abc.com", "Password3"),
-  ("Josh", "josh@abc.com", "Password4"),
-  ("Jon", "jon@abc.com", "Password5");
+INSERT INTO Questions(Question)
+VALUES
+  ("What is your father's middle name?"),
+  ("What was the name of your first pet?"),
+  ("What was your first car?"),
+  ("What is your favorite video game?"),
+  ("What is your favorite programming language?");
+
+INSERT INTO Users(Username, Email, Password, Question1, Question1Ans, Question2, Question2Ans)
+VALUES
+  ("Dylan", "dylan@abc.com", "Password1", 1, "Andrew", 2, "Whiskers"),
+  ("Alex", "alex@abc.com", "Password2", 1, "Jack", 2, "Mittens"),
+  ("Jason", "jason@abc.com", "Password3", 1, "Fred", 2, "Fluffy"),
+  ("Josh", "josh@abc.com", "Password4", 1, "Mitch", 2, "Blinky"),
+  ("Jon", "jon@abc.com", "Password5", 1, "Sam", 2, "Happy");
 
 INSERT INTO Snippets(Lang, Description, Code, UserId)
 VALUES
