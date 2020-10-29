@@ -193,13 +193,13 @@ function getQuestions(req, res) {
     if(err) {
       writeResult(res, {error: err.message});
     } else {
-      console.log(dbResult.length);
+      console.log("someone is trying to reset their password.");
       if (dbResult.length == 0) {
         errorMessage = "There are no users associated with that email address.";
         result = {error: errorMessage};
       } else {
         result = {user : dbResult[0].Username, question1Id : dbResult[0].Id1, question1 : dbResult[0].Question1, question2Id : dbResult[0].Id2, question2: dbResult[0].Question2}
-        console.log("Got email and questions." + result);
+        console.log("Got user and questions of someone.");
       }
       writeResult(res, {result: result});
     }
@@ -232,6 +232,7 @@ function verifyQuestions(req, res) {
   let ans2 = req.query.question2Ans;
   let hash = bcryptjs.hashSync(req.query.password, 12);
   let result = {};
+  console.log(user + " is trying to verify the answers to their questions.");
   connection.query("SELECT Question1Ans, Question2Ans FROM Users WHERE Username = ?", [user], function(err, dbResult) {
     if(err)
       writeResult(res, {error: err.message});
@@ -244,7 +245,7 @@ function verifyQuestions(req, res) {
             writeResult(res, {result: result});
           } else {
             result = {success : "Password changed!"};
-            console.log("Password changed for : " + user);
+            console.log("Answers verified and password changed for : " + user);
             writeResult(res, {result: result});
           }
         });

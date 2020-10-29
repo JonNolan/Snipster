@@ -136,14 +136,14 @@ td code {
 }
 #register-form select {
   margin-bottom: 5px;
-  width: 250px;
+  width: 260px;
   border: 2px solid rgb(133, 133, 133);
 }
 #register-form label, #login-form label, #forgot-password-form label, #enter-email-form label {
-  margin-left:10%;
+  margin-left: 1%;
   margin-right: 10px;
   text-align: right;
-  width: 30%;
+  width: 35%;
   font-size: 14px;
   color: rgb(133, 133, 133);
 }

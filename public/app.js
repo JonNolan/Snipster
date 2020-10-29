@@ -322,7 +322,6 @@ document.addEventListener('DOMContentLoaded', () => {
       let username = $('#login-modal-username-text:text').val();
       let password = encodeURIComponent($('#login-modal-pwd-text:password').val());
       $.getJSON('/login?username=' + username + '&password=' + password, function(data) {
-        console.log(username + " wants to log in.");
         userModel = data.result;
         if (userModel.error) {
           $('#login-modal-alert-text').text('Username or password is incorrect.');
@@ -392,10 +391,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (data.result.error) {
           let errorMessage = data.result.error;
           $('#enter-email-modal-alert-text').text(errorMessage);
-          console.log('ERROR: ' + data.result.error);
         } else {
           changePassModel = data.result;
-          console.log(changePassModel);
           clearEnterEmail();
           clearResetPass();
           $('#modal-reset-password-form').modal('show');
