@@ -144,7 +144,6 @@ function register(req, res) {
     return;
   }
   let hash = bcryptjs.hashSync(req.query.password, 12);
-  //hash securty question answers
   let ans1Hash = bcryptjs.hashSync(req.query.question1Ans, 12);
   let ans2Hash = bcryptjs.hashSync(req.query.question2Ans, 12);
   connection.query("INSERT INTO Users (Username, Email, Password, Question1, Question1Ans, Question2, Question2Ans) VALUES (?, ?, ?, ?, ?, ?, ?)", [req.query.username, req.query.email, hash, req.query.question1, ans1Hash, req.query.question2, ans2Hash], function (err, result, fields) {
