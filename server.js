@@ -87,10 +87,12 @@ function findSnippets(req, res) {
   let queryString = [];
   queryString.push(sql);
   if(req.query.filterOn && req.query.filter) {
-    if (req.query.filterOn == "Creator" && validateEmail(req.query.filter)) {
-      queryString.push(" AND Users.Email LIKE \'%" + req.query.filter + "%\'");
-    } else if (req.query.filterOn == "Creator") {
-      queryString.push(" AND Users.Username LIKE \'%" + req.query.filter + "%\'");
+    if (req.query.filterOn == "Creator") {
+      if (req.query.filter.includes("@") || req.query.filter.includes(".")) {
+        queryString.push(" AND Users.Email LIKE \'%" + req.query.filter + "%\'");
+      } else {
+        queryString.push(" AND Users.Username LIKE \'%" + req.query.filter + "%\'");
+      }
     } else {
       queryString.push(" AND " + req.query.filterOn + " LIKE \'%" + req.query.filter + "%\'");
     }
