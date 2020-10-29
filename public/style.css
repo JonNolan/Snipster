@@ -128,30 +128,45 @@ td code {
 #sort-toolbar .dropdown-menu a:hover {
   background-color: rgb(50, 50, 50);
 }
-#search select {
+#search select, #register-form select {
   background-color: rgb(40, 40, 40);
   border-color: black;
   color: rgb(230, 160, 29);
   font-size: 14px;
 }
-#register-form label, #login-form label {
-  margin-left:25%;
-  width: 15%;
+#register-form select {
+  margin-bottom: 5px;
+  width: 250px;
+  border: 2px solid rgb(133, 133, 133);
+}
+#register-form label, #login-form label, #forgot-password-form label, #enter-email-form label {
+  margin-left:10%;
+  margin-right: 10px;
+  text-align: right;
+  width: 30%;
   font-size: 14px;
   color: rgb(133, 133, 133);
 }
-#register-form input, #login-form input {
+#register-form input, #login-form input, #forgot-password-form input, #enter-email-form input  {
   color: rgb(66, 219, 173);
   background-color: rgb(40, 40, 40);
   font-size: 14px;
   padding: 5px;
   margin-bottom: 5px;
   border-radius: 3px;
-  border: 1px solid black;
+  border: 2px solid rgb(133, 133, 133);
+}
+#reset-modal-question1, #reset-modal-question2 {
+  margin-left: 10%;
+  margin-top: 6px;
+  font-size: 15px;
 }
 .custom-button {
   color: rgb(40, 40, 40);
   font-size: 14px;
+}
+.custom-button:hover, .custom-button:focus {
+  color: rgb(40, 40, 40);
 }
 #search-buttons button {
   margin-bottom: 5px;

@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentFilter = '';
     let currentCategory ='';
     let currentCriteria ='';
+    let changePassModel = {};
     let sorted = false;
     let idFromRow, creatorFromRow, languageFromRow, descriptionFromRow, snippetFromRow;
 
@@ -242,11 +243,18 @@ document.addEventListener('DOMContentLoaded', () => {
       let encodedEmail = encodeURIComponent($('#registration-modal-email-text:text').val());
       let password = $('#registration-modal-pwd-text:password').val();
       let encodedPassword = encodeURIComponent($('#registration-modal-pwd-text:password').val());
-      $.getJSON('/register?username=' + userName + '&email=' + encodedEmail + '&password=' + encodedPassword, function(data) {
+      let question1 = $('#registration-modal-security-question1').val();
+      let question2 = $('#registration-modal-security-question2').val();
+      let encodedQuestion1Ans = encodeURIComponent($('#registration-modal-security-question1-ans:text').val());
+      let encodedQuestion2Ans = encodeURIComponent($('#registration-modal-security-question2-ans:text').val());
+      $.getJSON('/register?username=' + userName + '&email=' + encodedEmail + '&password=' + encodedPassword + '&question1=' + question1 + '&question1Ans=' + encodedQuestion1Ans + '&question2=' + question2 + '&question2Ans=' + encodedQuestion2Ans, function(data) {
         console.log("requesting add user");
         if (data.error) {
           registerAlert("" + data.error);
         } else {
+          $('#login-modal-username-text:text').val(userName);
+          $('#login-modal-pwd-text:password').val(password);
+          submitLogin();
           $('#welcome-user').text('Welcome ' + userName + '!');
           $('#register-btn').hide();
           $('#login-btn').hide();
@@ -254,9 +262,6 @@ document.addEventListener('DOMContentLoaded', () => {
           clearRegistration();
         }
       });
-      $('#login-modal-username-text:text').val(userName);
-      $('#login-modal-pwd-text:password').val(password);
-      submitLogin();
     }
 
     function clearRegistration() {
@@ -264,6 +269,10 @@ document.addEventListener('DOMContentLoaded', () => {
       $('#registration-modal-email-text:text').val('');
       $('#registration-modal-pwd-text:password').val('');
       $('#register-modal-alert-text').text('');
+      $('#registration-modal-security-question1').val(0);
+      $('#registration-modal-security-question2').val(0);
+      $('#registration-modal-security-question1-ans:text').val('');
+      $('#registration-modal-security-question2-ans:text').val('');
       $('#modal-register-form').modal('hide');
     }
 
@@ -288,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function registerAlert(outputString) {
       $('#register-modal-alert-text').text(outputString);
     }
-    // ****************** LOG IN ********************
+    //////////////////// LOG IN //////////////////
     $('#login-submit').click(function() {
       if (validateLoginForm() == true) {
         submitLogin();
@@ -362,6 +371,98 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    $('#forgot-password').click(function() {
+      clearLogin();
+      $('#modal-enter-email-form').modal('show');
+    })
+
+    ////////// Enter Email Modal //////////
+    $('#enter-email-submit').click(function() {
+      submitEmailForm();
+      return false;
+    })
+
+    $('form').on('submit', '#enter-email-form', function() {
+      submitEmailForm();
+      return false;
+    });
+
+    function submitEmailForm() {
+      changePassModel = {};
+      let email = $('#enter-email-modal-email-text:text').val();
+      $.getJSON('/getQuestions?email=' + email, function(data) {
+        if (data.result.error) {
+          let errorMessage = data.result.error;
+          $('#enter-email-modal-alert-text').text(errorMessage);
+          console.log('ERROR: ' + data.result.error);
+        } else {
+          changePassModel = data.result;
+          console.log(changePassModel);
+          clearEnterEmail();
+          clearResetPass();
+          $('#modal-reset-password-form').modal('show');
+          $('#reset-modal-question1').text('Q1: ' + changePassModel.question1);
+          $('#reset-modal-question2').text('Q2: ' + changePassModel.question2);
+        }
+      });
+    };
+
+    $('#enter-email-close').click(function() {
+      clearEnterEmail();
+    });
+
+    function clearEnterEmail() {
+      $('#enter-email-modal-email-text:text').val('');
+      $('#enter-email-modal-alert-text').text('Enter the email associated with your account.');
+      $('#modal-enter-email-form').modal('hide');
+    };
+
+    ////////// Validate Q and Change Password Modal /////////
+    $('#reset-password-submit').click(function() {
+      validateQsAndResetPass();
+      return false;
+    });
+
+    $('form').on('submit', '#forgot-password-form', function() {
+      validateQsAndResetPass();
+      return false;
+    });
+
+    function validateQsAndResetPass() {
+      let q1a = $('#reset-modal-question1-ans').val();
+      let q2a = $('#reset-modal-question2-ans').val();
+      let newPassword = $('#reset-modal-pwd-test').val();
+      let newPasswordCheck = $('#reset-modal-pwd-check').val();
+      let user = changePassModel.user;
+      $.getJSON('/verifyQuestions?username=' + user + '&question1Ans=' + q1a + '&question2Ans=' + q2a + '&password=' + newPassword + '&passwordCheck=' + newPasswordCheck, function(data) {
+        if (data.result.success) {
+          $('#welcome-user').text('Password Changed.');
+          clearResetPass();
+        } else if (data.result.error || data.error) {
+          if (data.error) {
+            $('#reset-modal-alert').text(data.error);
+          } else {
+            $('#reset-modal-alert').text(data.result.error);
+          }
+        } else {
+          $('#reset-modal-alert').text('Error changing password.');
+        }
+      });
+    };
+
+    $('#reset-password-close').click(function() {
+      clearResetPass()
+    });
+
+    function clearResetPass() {
+      $('#reset-modal-alert').text('');
+      $('#reset-modal-question1-ans').val('');
+      $('#reset-modal-question2-ans').val('');
+      $('#reset-modal-pwd-test').val('');
+      $('#reset-modal-pwd-check').val('');
+      $('#modal-reset-password-form').modal('hide');
+    }
+
     ////////// LOG OUT ////////////
     $('#logout-btn').click(function() {
       $.getJSON('/logout', function(data) {
@@ -381,7 +482,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Search & Clear Search
+    /////////// Search & Clear Search //////////
     $(document).on('submit', '#search', function() {
       if ($('#criteria').val() == "" || $('#criteria').val() == null || $('#category').val() == 0 || $('#category').val() == null) {
         clearSearch();
@@ -396,7 +497,6 @@ document.addEventListener('DOMContentLoaded', () => {
       $.getJSON(buildFilterQueryString(), function(data) {
         $('.sort-no-filter').hide();
         $('.sort-filter').show();
-        // SORT BUTTON CONTROL BASED ON CATEGORY
         if(currentCategory == 'Creator'){
           $('#sort-creator-dropdown-filter').hide();
         }else if (currentCategory == 'Lang'){
@@ -409,7 +509,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // BUILD FILTER QUERY
+    /////////////// BUILD FILTER QUERY /////////////////
     function buildFilterQueryString(){
       currentCategory = $('#category').val();
       currentCriteria = $('#criteria').val();
@@ -442,7 +542,7 @@ document.addEventListener('DOMContentLoaded', () => {
       $('.sort-no-filter').show(); 
     }
 
-    // Build snippet Table
+    ///////////// Build snippet Table ////////////
     function buildTableTR(data){
       $('#my-table tbody').empty();
       for (let i = 0; i < snippetModel.length; i++) {

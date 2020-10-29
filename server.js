@@ -33,7 +33,6 @@ app.get("/logout", logout);
 app.get("/who", whoIsLoggedIn);
 app.get("/getQuestions", getQuestions);
 app.get("/verifyQuestions", verifyQuestions);
-app.get("changePassword", changePassword);
 
 app.listen(3000, process.env.IP, startHandler());
 
@@ -112,31 +111,33 @@ function register(req, res) {
     writeResult(res, {"error" : "Please enter a username! (only letters and numbers and (_) are allowed. Minimum of 3 characters. Must contain a letter."});
     return;
   }
-  if (req.query.email == undefined || !validateEmail(req.query.email)){
+  if (req.query.email == undefined || !validateEmail(req.query.email)) {
     writeResult(res, {"error" : "Please enter a valid email!"});
     return;
   }
-  if (req.query.password == undefined || !validatePassword(req.query.password)){
+  if (req.query.password == undefined || !validatePassword(req.query.password)) {
     writeResult(res, {"error" : "Please enter a valid password! (must be at least eight characters long and must contain an uppercase letter, a lowercase letter, and a number)"});
     return;
   }
-  if (req.query.question1 == undefined){
+  if (req.query.question1 != 1 && req.query.question1 != 2 && req.query.question1 != 3 && req.query.question1 != 4 && req.query.question1 != 5) {
+    console.log(req.query.question1Ans)
+    console.log(req.query.question1);
     writeResult(res, {"error" : "Please select the first security question."});
     return;
   }
-  if (req.query.question2 == undefined){
+  if (req.query.question1Ans.length < 1) {
+    writeResult(res, {"error" : "Please enter an answer for the first security question."});
+    return;
+  }
+  if (req.query.question2 != 1 && req.query.question2 != 2 && req.query.question2 != 3 && req.query.question2 != 4 && req.query.question2 != 5) {
     writeResult(res, {"error" : "Please select the second security question."});
     return;
   }
-  if (req.query.question1Ans == undefined){
+  if (req.query.question2Ans.length < 1) {
     writeResult(res, {"error" : "Please enter an answer for the first security question."});
     return;
   }
-  if (req.query.question2Ans == undefined){
-    writeResult(res, {"error" : "Please enter an answer for the first security question."});
-    return;
-  }
-  if (req.query.question1 == req.query.question2){
+  if (req.query.question1 == req.query.question2) {
     writeResult(res, {"error" : "Please select 2 different security questions."});
     return;
   }
@@ -144,12 +145,12 @@ function register(req, res) {
   //hash securty question answers
   let ans1Hash = bcryptjs.hashSync(req.query.question1Ans, 12);
   let ans2Hash = bcryptjs.hashSync(req.query.question2Ans, 12);
-  connection.query("INSERT INTO Users (Username, Email, Password, Question1, Question1Ans, Question2, Question2Ans) VALUES (?, ?, ?, ?, ?, ?, ?)", [req.query.username, req.query.email, hash, req.query.question1, ans1Hash, req.query.question2, ans2Hash], function (err, result, fields){
+  connection.query("INSERT INTO Users (Username, Email, Password, Question1, Question1Ans, Question2, Question2Ans) VALUES (?, ?, ?, ?, ?, ?, ?)", [req.query.username, req.query.email, hash, req.query.question1, ans1Hash, req.query.question2, ans2Hash], function (err, result, fields) {
     console.log(req.query.username + " is trying to register")
     if (err) {
-      if (err.code == "ER_ENTRY")
+      if (err.code == "ER_DUP_ENTRY")
         err = "User account already exists. Try a different username and/or email address.";
-      writeResult(res, {"error" : err});
+      writeResult(res, {error : err});
       return;
     }
     else {
@@ -183,52 +184,73 @@ function login(req, res) {
   });
 }
 
-function getQuestions(req, res)
-{
-  let user = req.session.user.username;
-  connection.query("SELECT Question1, Question2 FROM Users WHERE Username = ?", [user], function(err, dbResult) {
-    if(err)
+function getQuestions(req, res) {
+  let email = req.query.email;
+  let result = {};
+  let errorMessage = "";
+  connection.query("SELECT Username, Questions1.Id AS Id1, Questions1.Question AS Question1, Questions2.Id AS Id2, Questions2.Question AS Question2 FROM Users JOIN Questions Questions1 on Question1 = Questions1.Id  JOIN Questions Questions2 on Question2 = Questions2.Id WHERE Email = ?", [email], function(err, dbResult) {
+    if(err) {
       writeResult(res, {error: err.message});
-    else {
-      req.session.user.question1 = dbResult[0].Question1;
-      req.session.user.question2 = dbResult[0].Question2;
-      Console.log("Security questions set.");
-    }
-  });
-}
-
-function verifyQuestions(req, res)
-{
-  let user = req.session.user.username;
-  let ans1 = bcryptjs.hashSync(req.query.question1Ans);
-  let ans2 = bcryptjs.hashSync(req.query.question2Ans);
-  connection.query("SELECT Question1Ans, Question2Ans FROM Users WHERE Username = ?", [user], function(err, dbResult){
-    if(err)
-      writeResult(res, {error: err.message});
-    else {
-      let result = {};
-      if (ans1 == dbResult[0].Question1Ans && ans2 == dbResult[0].Question2Ans){
-        result = {user: req.session.user};
-      }
-      else {
-        result = {error: "Your answers were incorrect."};
+    } else {
+      console.log(dbResult.length);
+      if (dbResult.length == 0) {
+        errorMessage = "There are no users associated with that email address.";
+        result = {error: errorMessage};
+      } else {
+        result = {user : dbResult[0].Username, question1Id : dbResult[0].Id1, question1 : dbResult[0].Question1, question2Id : dbResult[0].Id2, question2: dbResult[0].Question2}
+        console.log("Got email and questions." + result);
       }
       writeResult(res, {result: result});
     }
   });
-
 }
 
-function changePassword(req, res)
-{
-  let user = req.session.user;
-  let newPassword = req.session.newPassword;
-  connection.query("INSERT INTO Users (Password) VALUES (?) WHERE Username = ?", [newPassword, user], function(err){
+function verifyQuestions(req, res) {
+  if (req.query.question1Ans.length < 1) {
+    writeResult(res, {result: {"error" : "Please enter an answer to the first question."}});
+    return;
+  }
+  if (req.query.question2Ans.length < 1) {
+    writeResult(res, {result: {"error" : "Please enter an answer to the second question."}});
+    return;
+  }
+  if (req.query.password.length < 1 || !validatePassword(req.query.password)) {
+    writeResult(res, {result: {"error" : "Please enter a valid password! (must be at least eight characters long and must contain an uppercase letter, a lowercase letter, and a number)"}});
+    return;
+  }
+  if (req.query.passwordCheck.length < 1) {
+    writeResult(res, {result: {"error" : "Please re-enter the password."}});
+    return;
+  }
+  if (req.query.password != req.query.passwordCheck) {
+    writeResult(res, {result: {"error" : "The passwords to not match."}});
+    return;
+  }
+  let user = req.query.username;
+  let ans1 = req.query.question1Ans;
+  let ans2 = req.query.question2Ans;
+  let hash = bcryptjs.hashSync(req.query.password, 12);
+  let result = {};
+  connection.query("SELECT Question1Ans, Question2Ans FROM Users WHERE Username = ?", [user], function(err, dbResult) {
     if(err)
       writeResult(res, {error: err.message});
     else {
-      writeResult(res, {result: "Password changed!"});
-      Console.log("Password changed for : " + user);
+      if (bcryptjs.compareSync(ans1, dbResult[0].Question1Ans) && bcryptjs.compareSync(ans2, dbResult[0].Question2Ans)) {
+        connection.query("UPDATE Users SET Password = '" + hash + "' WHERE Username =  '" + user + "'", function(err) {
+          if(err) {
+            result = {error: err.message};
+            console.log(err.message);
+            writeResult(res, {result: result});
+          } else {
+            result = {success : "Password changed!"};
+            console.log("Password changed for : " + user);
+            writeResult(res, {result: result});
+          }
+        });
+      } else {
+        result = {error: "Your answers did not match what is on file."};
+        writeResult(res, {result: result});
+      }
     }
   });
 }

@@ -44,11 +44,11 @@ VALUES
 
 INSERT INTO Users(Username, Email, Password, Question1, Question1Ans, Question2, Question2Ans)
 VALUES
-  ("Dylan", "dylan@abc.com", "Password1", 1, "Andrew", 2, "Whiskers"),
-  ("Alex", "alex@abc.com", "Password2", 1, "Jack", 2, "Mittens"),
-  ("Jason", "jason@abc.com", "Password3", 1, "Fred", 2, "Fluffy"),
-  ("Josh", "josh@abc.com", "Password4", 1, "Mitch", 2, "Blinky"),
-  ("Jon", "jon@abc.com", "Password5", 1, "Sam", 2, "Happy");
+  ("Dylan", "dylan@abc.com", "$2a$12$lJBwsAW0BtjxcYYixPCuguV4cd/ME6xqVNcc68hKEx5F.7Ca5.Key", 1, "$2a$12$twx3CX4oqZVIa1CTmo79OOD3.eEuIgkDRghKDKRilqJpRvkd/N7wa", 2, "$2a$12$1pj3IwU.HsFashDfEEWGMuHO.atdKLj5lKohxte6X.JT.X6KHlu1K"),
+  ("Alex", "alex@abc.com", "$2a$12$lJBwsAW0BtjxcYYixPCuguV4cd/ME6xqVNcc68hKEx5F.7Ca5.Key", 1, "$2a$12$twx3CX4oqZVIa1CTmo79OOD3.eEuIgkDRghKDKRilqJpRvkd/N7wa", 2, "$2a$12$1pj3IwU.HsFashDfEEWGMuHO.atdKLj5lKohxte6X.JT.X6KHlu1K"),
+  ("Jason", "jason@abc.com", "$2a$12$lJBwsAW0BtjxcYYixPCuguV4cd/ME6xqVNcc68hKEx5F.7Ca5.Key", 1, "$2a$12$twx3CX4oqZVIa1CTmo79OOD3.eEuIgkDRghKDKRilqJpRvkd/N7wa", 2, "$2a$12$1pj3IwU.HsFashDfEEWGMuHO.atdKLj5lKohxte6X.JT.X6KHlu1K"),
+  ("Josh", "josh@abc.com", "$2a$12$lJBwsAW0BtjxcYYixPCuguV4cd/ME6xqVNcc68hKEx5F.7Ca5.Key", 1, "$2a$12$twx3CX4oqZVIa1CTmo79OOD3.eEuIgkDRghKDKRilqJpRvkd/N7wa", 2, "$2a$12$1pj3IwU.HsFashDfEEWGMuHO.atdKLj5lKohxte6X.JT.X6KHlu1K"),
+  ("Jon", "jon@abc.com", "$2a$12$lJBwsAW0BtjxcYYixPCuguV4cd/ME6xqVNcc68hKEx5F.7Ca5.Key", 1, "$2a$12$twx3CX4oqZVIa1CTmo79OOD3.eEuIgkDRghKDKRilqJpRvkd/N7wa", 2, "$2a$12$1pj3IwU.HsFashDfEEWGMuHO.atdKLj5lKohxte6X.JT.X6KHlu1K");
 
 INSERT INTO Snippets(Lang, Description, Code, UserId)
 VALUES

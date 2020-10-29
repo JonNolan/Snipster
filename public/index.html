@@ -145,28 +145,31 @@
               <label for="registration-modal-email-text">Email:</label>
               <input type="text" id="registration-modal-email-text" name="email"><br>
               <label for="registration-modal-pwd-text">Password:</label>
-              <input type="password" id="registration-modal-pwd-text" class="pw" name="password"><br>
-	      <label for="security-questions">Security Question One</label>
-	      <select name="security-questions" id="security-questions" required>
-		<option value="middle-name">What is your father's middle name?</option>
-		<option value="first-pet">What was the name of your first pet?</option>
-		<option value="car">What was your first car?</option>
-		<option value="video-game">What is your favorite video game?</option>
-		<option value="code-language">What is your favorite coding language?</option>
-	      </select>
-	      <label for="security-question-one">Answer</label>
-	      <input type="text" id="security-question-one" name="security">
-	      <br></br>
-	      <label for="security-questions">Security Question Two</label>
-	      <select name="security-questions" id="security-questions" required>
-		<option value="middle-name">What is your father's middle name?</option>
-		<option value="first-pet">What was the name of your first pet?</option>
-		<option value="car">What was your first car?</option>
-		<option value="video-game">What is your favorite video game?</option>
-		<option value="code-language">What is your favorite coding language?</option>
-	      </select>
-	      <label for="security-question-two">Answer</label>
-	      <input type="text" id="security-question-two" name="security">
+              <input type="password" id="registration-modal-pwd-text" class="pw" name="password"><br><br>
+	            <label for="registration-modal-security-question1">Security Question</label>
+	            <select class="custom-select  btn dropdown-toggle" id="registration-modal-security-question1">
+                <option value="0" disabled selected hidden>Choose question...</option>
+		            <option value="1">What is your father's middle name?</option>
+		            <option value="2">What was the name of your first pet?</option>
+		            <option value="3">What was your first car?</option>
+		            <option value="4">What is your favorite video game?</option>
+		            <option value="5">What is your favorite programming language?</option>
+              </select>
+              
+	            <label for="registration-modal-security-question1-ans">Answer</label>
+	            <input type="text" id="registration-modal-security-question1-ans" name="registration-modal-security-question2-ans">
+	            <br><br>
+	            <label for="registration-modal-security-question2">Security Question</label>
+	            <select class="custom-select  btn dropdown-toggle" id="registration-modal-security-question2">
+                <option value="0" disabled selected hidden>Choose question...</option>
+		            <option value="1">What is your father's middle name?</option>
+		            <option value="2">What was the name of your first pet?</option>
+		            <option value="3">What was your first car?</option>
+		            <option value="4">What is your favorite video game?</option>
+		            <option value="5">What is your favorite programming language?</option>
+              </select>
+	            <label for="registration-modal-security-question2-ans">Answer</label>
+	            <input type="text" id="registration-modal-security-question2-ans" name="registration-modal-security-question2-ans">
             </div>
             <div class="modal-footer">
               <button id="register-submit" type="button submit" class="btn btn-success custom-button">Submit</button>
@@ -191,9 +194,29 @@
               <input type="password" id="login-modal-pwd-text" class="pw" name="password"><br>
             </div>
             <div class="modal-footer">
-	      <button id="forgot-password" type="button" class="btn btn-danger custom-button" data-toggle="modal" data-target="#modal-reset-password-form">Forgot Password</button>
+	            <button id="forgot-password" type="button" class="btn btn-warning custom-button">Forgot Password</button>
               <button id="login-submit" type="button submit" class="btn btn-success custom-button">Submit</button>
               <button id="login-close" type="button" class="btn btn-danger custom-button" aria-label="Close">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id="modal-enter-email-form" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="example-modal-center-title" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title">Forgot Password?</h1>
+          </div>
+          <form id="enter-email-form" href="#">
+            <div class="modal-body">
+              <p id="enter-email-modal-alert-text">Enter the email associated with your account.</p>
+              <label for="enter-email-modal-email-text">Email:</label>
+              <input type="text" id="enter-email-modal-email-text" name="email">
+            </div>
+            <div class="modal-footer">
+              <button id="enter-email-submit" type="button submit" class="btn btn-success custom-button">Submit</button>
+              <button id="enter-email-close" type="button" class="btn btn-danger custom-button" aria-label="Close">Close</button>
             </div>
           </form>
         </div>
@@ -207,15 +230,28 @@
           </div>
           <form id="forgot-password-form" href="#">
             <div class="modal-body">
-              <label for="forgot-password-q1"> <--Connect to question 1 that was picked in Register Modal--></label>
-              <input type="text" id="check-security-question-one" name="security">
-              <label for="forgot-password-q2"> <--Connect to question 2 that was picked in Register Modal--></label>
-              <input type="text" id="check-security-question-two" name="security">
-              <label for="reset-modal-pwd-test">Enter new password</label>
-              <input type="new-password" id="reset-modal-pwd-test" class="pw" name="new-pwd">
-              <label for="reset-pwd-check">Re-enter new password</label>
-              <input type="new-pwd-check" id="reset-pwd-check" class="pw" name="new-pwd">
+              <div>
+                <p id="reset-modal-alert"></p>
+                <p id="reset-modal-question1"> <--Connect to question 1 that was picked in Register Modal--></p>
+                <label for="reset-modal-question2-ans">Q1 Answer: </label>
+                <input type="text" id="reset-modal-question1-ans" name="security">
+                <p id="reset-modal-question2"> <--Connect to question 2 that was picked in Register Modal--></p>
+                <label for="reset-modal-question2-ans">Q2 Answer: </label>
+                <input type="text" id="reset-modal-question2-ans" name="security">
+              </div>
+              <br>
+              <div>
+                <label for="reset-modal-pwd-test">Enter new password</label>
+                <input type="new-password" id="reset-modal-pwd-test" class="pw" name="new-pwd"><br>
+                <label for="reset-pwd-check">Re-enter new password</label>
+                <input type="new-pwd-check" id="reset-modal-pwd-check" class="pw" name="new-pwd">
+              </div>
+              <div class="modal-footer">
+                <button id="reset-password-submit" type="button submit" class="btn btn-success custom-button">Submit</button>
+                <button id="reset-password-close" type="button" class="btn btn-danger custom-button" aria-label="Close">Close</button>
+              </div>
             </div>
+          </form>
         </div>
       </div>
     </div>
