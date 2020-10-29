@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   $(document).ready(function() {
-    /// Model
     let userModel = {};
     let snippetModel = {};
     let currentFilter = '';
@@ -37,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
       userModel.user = {};
     };
 
-    // Views
     $('#db-modal').modal({backdrop: "static", keyboard: false, show:false}).on('show.bs.modal', function() {
       idFromRow = $(event.target).closest('tr').data('id');
       creatorFromRow = $(event.target).closest('tr').data('creator');
