@@ -224,7 +224,7 @@ function verifyQuestions(req, res) {
     return;
   }
   if (req.query.password != req.query.passwordCheck) {
-    writeResult(res, {result: {"error" : "The passwords to not match."}});
+    writeResult(res, {result: {"error" : "The passwords do not match."}});
     return;
   }
   let user = req.query.username;
