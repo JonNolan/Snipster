@@ -27,6 +27,7 @@ app.use(express.static("public"));
 app.use(session(sessionOptions));
 app.all("/", serveIndex);
 app.get("/snippets", findSnippets);
+app.get("/addSnippet", addSnippet);
 app.get("/register", register);
 app.get("/login", login);
 app.get("/logout", logout);
@@ -106,6 +107,39 @@ function findSnippets(req, res) {
   }
   executeQuery(queryString, res);
   console.log(requesterIP + " is requesting snippets.");
+}
+
+function addSnippet(req, res) {
+  if (req.session.user == undefined) {
+    writeResult(res, {"error" : "Please sign in to add a Snippet."});
+    return;
+  }
+  if (req.query.newLang == undefined) {
+    writeResult(res, {"error" : "Please enter a language for the Snippet."});
+    return;
+  }
+  if (req.query.newDesc == undefined) {
+    writeResult(res, {"error" : "Please enter a description for the Snippet."});
+    return;
+  }
+  if (req.query.newCode == undefined) {
+    writeResult(res, {"error" : "Please enter the code for the Snippet."});
+    return;
+  }
+  let user = req.session.user.username;
+  let id = req.session.user.userId;
+  let lang = req.query.newLang;
+  let desc = req.query.newDesc;
+  let code = req.query.newCode;
+  connection.query("INSERT INTO Snippets (Lang, Description, Code, UserId) VALUES (?, ?, ?, ?)", [lang, desc, code, id], function(err, result, fields) {
+    if (err) {
+      writeResult(req, res, {"error": err});
+    }
+    else {
+      writeResult(req, res, {"Success": "Snippet Added"});
+      console.log(user + " created a Snippet!");
+    }
+  });
 }
 
 function register(req, res) {
