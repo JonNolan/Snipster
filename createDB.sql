@@ -15,13 +15,13 @@ CREATE TABLE Users(
   Username varchar (255) UNIQUE NOT NULL,
   Email varchar (255) UNIQUE NOT NULL,
   Password varchar (255) NOT NULL,
-  Question1 int NOT NULL,
+  Question1Id int NOT NULL,
   Question1Ans varchar(255) NOT NULL,
-  Question2 int NOT NULL,
+  Question2Id int NOT NULL,
   Question2Ans varchar(255) NOT NULL,
   PRIMARY KEY(Id),
-  FOREIGN KEY(Question1) REFERENCES Questions(Id),
-  FOREIGN KEY(Question2) REFERENCES Questions(Id)
+  FOREIGN KEY(Question1Id) REFERENCES Questions(Id),
+  FOREIGN KEY(Question2Id) REFERENCES Questions(Id)
 );
 
 CREATE TABLE Snippets(
@@ -42,7 +42,7 @@ VALUES
   ("What is your favorite video game?"),
   ("What is your favorite programming language?");
 
-INSERT INTO Users(Username, Email, Password, Question1, Question1Ans, Question2, Question2Ans)
+INSERT INTO Users(Username, Email, Password, Question1Id, Question1Ans, Question2Id, Question2Ans)
 VALUES
   ("Dylan", "dylan@abc.com", "$2a$12$lJBwsAW0BtjxcYYixPCuguV4cd/ME6xqVNcc68hKEx5F.7Ca5.Key", 1, "$2a$12$twx3CX4oqZVIa1CTmo79OOD3.eEuIgkDRghKDKRilqJpRvkd/N7wa", 2, "$2a$12$1pj3IwU.HsFashDfEEWGMuHO.atdKLj5lKohxte6X.JT.X6KHlu1K"),
   ("Alex", "alex@abc.com", "$2a$12$lJBwsAW0BtjxcYYixPCuguV4cd/ME6xqVNcc68hKEx5F.7Ca5.Key", 1, "$2a$12$twx3CX4oqZVIa1CTmo79OOD3.eEuIgkDRghKDKRilqJpRvkd/N7wa", 2, "$2a$12$1pj3IwU.HsFashDfEEWGMuHO.atdKLj5lKohxte6X.JT.X6KHlu1K"),

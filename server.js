@@ -111,32 +111,32 @@ function findSnippets(req, res) {
 
 function addSnippet(req, res) {
   if (req.session.user == undefined) {
-    writeResult(res, {"error" : "Please sign in to add a Snippet."});
+    writeResult(res, {"error1" : "Please sign in to add a Snippet."});
     return;
   }
-  if (req.query.newLang == undefined) {
-    writeResult(res, {"error" : "Please enter a language for the Snippet."});
+  if (req.query.newLang < 1) {
+    writeResult(res, {"error2" : "Please enter a language for the Snippet."});
     return;
   }
-  if (req.query.newDesc == undefined) {
-    writeResult(res, {"error" : "Please enter a description for the Snippet."});
+  if (req.query.newDesc < 1) {
+    writeResult(res, {"error2" : "Please enter a description for the Snippet."});
     return;
   }
-  if (req.query.newCode == undefined) {
-    writeResult(res, {"error" : "Please enter the code for the Snippet."});
+  if (req.query.newCode < 1) {
+    writeResult(res, {"error2" : "Please enter the code for the Snippet."});
     return;
   }
   let user = req.session.user.username;
-  let id = req.session.user.userId;
+  let id = req.session.user.id;
   let lang = req.query.newLang;
   let desc = req.query.newDesc;
   let code = req.query.newCode;
   connection.query("INSERT INTO Snippets (Lang, Description, Code, UserId) VALUES (?, ?, ?, ?)", [lang, desc, code, id], function(err, result, fields) {
     if (err) {
-      writeResult(req, res, {"error": err});
+      writeResult(res, {"error": err});
     }
     else {
-      writeResult(req, res, {"Success": "Snippet Added"});
+      writeResult(res, {"Success": "Snippet Added"});
       console.log(user + " created a Snippet!");
     }
   });
@@ -180,7 +180,7 @@ function register(req, res) {
   let hash = bcryptjs.hashSync(req.query.password, 12);
   let ans1Hash = bcryptjs.hashSync(req.query.question1Ans, 12);
   let ans2Hash = bcryptjs.hashSync(req.query.question2Ans, 12);
-  connection.query("INSERT INTO Users (Username, Email, Password, Question1, Question1Ans, Question2, Question2Ans) VALUES (?, ?, ?, ?, ?, ?, ?)", [req.query.username, req.query.email, hash, req.query.question1, ans1Hash, req.query.question2, ans2Hash], function (err, result, fields) {
+  connection.query("INSERT INTO Users (Username, Email, Password, Question1Id, Question1Ans, Question2Id, Question2Ans) VALUES (?, ?, ?, ?, ?, ?, ?)", [req.query.username, req.query.email, hash, req.query.question1, ans1Hash, req.query.question2, ans2Hash], function (err, result, fields) {
     console.log(req.query.username + " is trying to register")
     if (err) {
       if (err.code == "ER_DUP_ENTRY")
@@ -223,7 +223,7 @@ function getQuestions(req, res) {
   let email = req.query.email;
   let result = {};
   let errorMessage = "";
-  connection.query("SELECT Username, Questions1.Id AS Id1, Questions1.Question AS Question1, Questions2.Id AS Id2, Questions2.Question AS Question2 FROM Users JOIN Questions Questions1 on Question1 = Questions1.Id  JOIN Questions Questions2 on Question2 = Questions2.Id WHERE Email = ?", [email], function(err, dbResult) {
+  connection.query("SELECT Username, Questions1.Id AS Id1, Questions1.Question AS Question1Id, Questions2.Id AS Id2, Questions2.Question AS Question2Id FROM Users JOIN Questions Questions1 on Question1Id = Questions1.Id  JOIN Questions Questions2 on Question2Id = Questions2.Id WHERE Email = ?", [email], function(err, dbResult) {
     if(err) {
       writeResult(res, {error: err.message});
     } else {

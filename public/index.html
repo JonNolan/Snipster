@@ -15,7 +15,6 @@
     <nav class="navbar sticky-top ">
       <h2>Snipster</h2>
       <div id="user-buttons">
-	<button id="snippet-button" type="button" class="btn btn-info custom-button" data-toggle="modal" data-target="#modal-add-snippet-form">Add Snippet</button>
         <button id="register-btn" type="button" class="btn btn-primary custom-button" data-toggle="modal" data-target="#modal-register-form">Register</button>
         <button id="login-btn" type="button" class="btn btn-primary custom-button" data-toggle="modal" data-target="#modal-login-form">Log In</button>
         <button id="logout-btn" type="button" class="btn btn-danger custom-button">Log Out</button>
@@ -100,6 +99,12 @@
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center" id="result-bar">
             <h2>Current Filter</h2>
             <h2 id="current-filter"></h2>
+            <div id="add-snippet-btn-block" class="d-flex justify-content-between flex-wrap">
+              <div id="add-snippet-btn-div" class="d-flex justify-content-between flex-wrap">
+                <h2 id="add-snippet-label">Create</h2>
+                <button id="add-snippet-btn" type="button" class="btn btn-info custom-button" data-toggle="modal" data-target="#modal-add-snippet-form">Add Snippet</button>
+              </div>
+            </div>
           </div>
           <div class="table-responsive">
             <table id="my-table" class="table sticky-header">
@@ -255,7 +260,6 @@
         </div>
       </div>
     </div>
-
     <div id="modal-add-snippet-form" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="example-modal-center-title" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -264,16 +268,17 @@
           </div>
           <form id="add-snippet-form" href="#">
             <div class="modal-body">
-              <label for="add-language">Enter a new language: </label>
+              <p id="add-snippet-text"></p>
+              <label for="add-language">Enter a language: </label>
               <input type="text" id="add-lang" name="new-lang"><br>
-              <label for="add-description">Enter a new description: </label>
+              <label for="add-description">Enter a description: </label>
               <input type="text" id="add-desc" name="new-desc"><br>
-              <label for="add-code">Enter a new code: </label>
+              <label for="add-code">Enter some code: </label>
               <input type="text" id="add-code" name="new-code">
-              <div class="modal-footer">
-                <button id="add-snippet-submit" type="button submit" class="btn btn-success custom-button">Submit</button>
-                <button id="add-snippet-close" type="button" class="btn btn-danger custom-button" aria-label="Close">Close</button>
-              </div>
+            </div>
+            <div class="modal-footer">
+              <button id="add-snippet-submit" type="button submit" class="btn btn-success custom-button">Submit</button>
+              <button id="add-snippet-close" type="button" class="btn btn-danger custom-button" aria-label="Close">Close</button>
             </div>
           </form>
         </div>

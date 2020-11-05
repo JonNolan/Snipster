@@ -60,6 +60,7 @@ td,th {
   margin-top: 6px;
   margin-bottom: 12px;
   border-bottom: 1px solid rgb(40, 40, 40);
+
 }
 #filter-bar {
   margin-bottom: 6px;
@@ -70,6 +71,13 @@ td,th {
 #current-filter {
   background-color: rgb(230, 160, 29);
   color: rgb(40, 40, 40);
+  margin-right:15px;
+}
+#add-snippet-btn-block {
+  width: 175px;
+}
+#add-snippet-label {
+  margin-right: 5px;
 }
 .modal-header {
   color: rgb(230, 160, 29);
@@ -81,6 +89,7 @@ td,th {
 }
 .modal-footer {
   border-color: rgb(133, 133, 133);
+  margin-top: 5px;
 }
 .modal-body code {
   font-size: 14px;
@@ -138,7 +147,7 @@ td code {
   width: 260px;
   border: 2px solid rgb(133, 133, 133);
 }
-#register-form label, #login-form label, #forgot-password-form label, #enter-email-form label {
+#register-form label, #login-form label, #forgot-password-form label, #enter-email-form label, #add-snippet-form label {
   margin-left: 1%;
   margin-right: 10px;
   text-align: right;
@@ -146,7 +155,7 @@ td code {
   font-size: 14px;
   color: rgb(133, 133, 133);
 }
-#register-form input, #login-form input, #forgot-password-form input, #enter-email-form input  {
+#register-form input, #login-form input, #forgot-password-form input, #enter-email-form input, #add-snippet-form input  {
   color: rgb(66, 219, 173);
   background-color: rgb(40, 40, 40);
   font-size: 14px;
@@ -164,6 +173,9 @@ td code {
   color: rgb(40, 40, 40);
   font-size: 14px;
 }
+#add-snippet-btn {
+  margin-bottom: 7px;
+}
 .custom-button:hover, .custom-button:focus {
   color: rgb(40, 40, 40);
 }
@@ -175,6 +187,7 @@ td code {
 #user-buttons button {
   margin-left: 4px;
 }
+
 #register-alert-text {
   color: rgb(40, 40, 40);
 }

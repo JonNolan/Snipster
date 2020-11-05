@@ -19,9 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
         $('#register-btn').hide();
         $('#login-btn').hide();
         $('#logout-btn').show();
+        $('#add-snippet-label').show();
+        $('#add-snippet-btn').show();
       } else {
         $('#welcome-user').text(data.result.noUser);
         userModel = {};
+        $('#add-snippet-label').hide();
+        $('#add-snippet-btn').hide();
       }
     });
 
@@ -330,6 +334,8 @@ document.addEventListener('DOMContentLoaded', () => {
           $('#register-btn').hide();
           $('#login-btn').hide();
           $('#logout-btn').show();
+          $('#add-snippet-label').show();
+          $('#add-snippet-btn').show();
           clearLogin();
         }
       });
@@ -466,6 +472,8 @@ document.addEventListener('DOMContentLoaded', () => {
         $('#register-btn').show();
         $('#login-btn').show();
         $('#logout-btn').hide();
+        $('#add-snippet-label').hide();
+        $('#add-snippet-btn').hide();
       });
       return false;
     });
@@ -474,6 +482,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!$(event.target).closest('.modal').length && !$(event.target).is('.modal')) {
         clearRegistration();
         clearLogin();
+        clearAddSnippet();
       }
     });
 
@@ -535,6 +544,49 @@ document.addEventListener('DOMContentLoaded', () => {
       currentCriteria = '';
       $('#current-filter').text('');
       $('.sort-no-filter').show(); 
+    }
+
+    ///////////// Add Snippet ////////////////
+    $('#add-snippet-submit').click(function(e) {
+      e.preventDefault();
+      addSnippet();
+      return false;
+    });
+
+    $('form').on('submit', '#add-snippet-form', function(e) {
+      e.preventDefault();
+      addSnippet();
+      return false;
+    });
+
+    $('#add-snippet-close').click(function() {
+      clearAddSnippet();
+    });
+
+    function addSnippet() {
+      let lang = $('#add-lang').val();
+      let desc = $('#add-desc').val();
+      let code = $('#add-code').val();
+
+      $.getJSON('/addSnippet?newLang=' + lang + '&newDesc=' + desc + '&newCode=' + encodeURIComponent(code), function(data) {
+        if (data.Success) {
+          $('#welcome-user').text('Snippet has been added.');
+          clearAddSnippet();
+          initializeModel();
+        } else if (data.error1) {
+          $('#welcome-user').text(data.error1);
+          clearAddSnippet();
+        } else if (data.error2) {
+          $('#add-snippet-text').text(data.error2);
+        }
+      });
+    }
+
+    function clearAddSnippet() {
+      $('#add-lang').val('');
+      $('#add-desc').val('');
+      $('#add-code').val('');
+      $('#modal-add-snippet-form').modal('hide');
     }
 
     ///////////// Build snippet Table ////////////
