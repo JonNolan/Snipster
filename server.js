@@ -34,6 +34,7 @@ app.get("/logout", logout);
 app.get("/who", whoIsLoggedIn);
 app.get("/getQuestions", getQuestions);
 app.get("/verifyQuestions", verifyQuestions);
+app.get("/getLanguages", getLanguages);
 
 app.listen(3000, process.env.IP, startHandler());
 
@@ -84,7 +85,7 @@ function buildSnippet(dbObject) {
 
 function findSnippets(req, res) {
   let requesterIP = req.ip;
-  let sql = "SELECT Snippets.Id, Snippets.Lang, Snippets.Description, Snippets.Code, Users.Username, Users.Email FROM Snippets, Users WHERE Snippets.UserId = Users.Id"
+  let sql = "SELECT Snippets.Id, Snippets.Description, Snippets.Code, Languages.Language, Users.Username, Users.Email FROM Snippets, Languages, Users WHERE Snippets.UserId = Users.Id AND Snippets.Id = Languages.Id"
   let queryString = [];
   queryString.push(sql);
   if(req.query.filterOn && req.query.filter) {
@@ -123,11 +124,11 @@ function addSnippet(req, res) {
     return;
   }
   let user = req.session.user.username;
-  let id = req.session.user.id;
-  let lang = req.query.newLang;
+  let userId = req.session.user.id;
   let desc = req.query.newDesc;
   let code = req.query.newCode;
-  connection.query("INSERT INTO Snippets (Lang, Description, Code, UserId) VALUES (?, ?, ?, ?)", [lang, desc, code, id], function(err, result, fields) {
+  let langId = req.query.newLangId;
+  connection.query("INSERT INTO Snippets (Description, Code, LangId, UserId) VALUES (?, ?, ?, ?)", [desc, code, langId, userId], function(err, result, fields) {
     if (err) {
       writeResult(res, {"error": err});
     }
@@ -283,6 +284,17 @@ function verifyQuestions(req, res) {
         result = {error: "Your answers did not match what is on file."};
         writeResult(res, {result: result});
       }
+    }
+  });
+}
+
+function getLanguages(req, res) {
+  connection.query("SELECT Language FROM Languages", function(err, dbResult) {
+    if(err)
+      writeResult(res, {error: err.message});
+    else {
+      console.log("Getting languages.");
+      writeResult(res, {result: dbResult});
     }
   });
 }
