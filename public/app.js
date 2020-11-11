@@ -62,8 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-creator-asc-filter-order').click(function() {
-      if (currentCategory =='Lang') {
-        $.getJSON('/snippets?filterOn=Lang&' + currentFilter + '&sortOn=Creator&order=ASC', function(data) {
+      if (currentCategory =='Language') {
+        $.getJSON('/snippets?filterOn=Language&' + currentFilter + '&sortOn=Creator&order=ASC', function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
@@ -81,8 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-creator-desc-filter-order').click(function() {
-      if (currentCategory == 'Lang') {
-        $.getJSON('/snippets?filterOn=Lang&' + currentFilter + '&sortOn=Creator&order=DESC', function(data) {
+      if (currentCategory == 'Language') {
+        $.getJSON('/snippets?filterOn=Language&' + currentFilter + '&sortOn=Creator&order=DESC', function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
@@ -100,8 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-description-asc-filter-order').click(function() {
-      if (currentCategory == 'Lang') {
-        $.getJSON('/snippets?filterOn=Lang&' + currentFilter + '&sortOn=Description&order=ASC', function(data) {
+      if (currentCategory == 'Language') {
+        $.getJSON('/snippets?filterOn=Language&' + currentFilter + '&sortOn=Description&order=ASC', function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
@@ -119,8 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-description-desc-filter-order').click(function() {
-      if (currentCategory == 'Lang') {
-        $.getJSON('/snippets?filterOn=Lang&' + currentFilter + '&sortOn=Description&order=DESC', function(data) {
+      if (currentCategory == 'Language') {
+        $.getJSON('/snippets?filterOn=Language&' + currentFilter + '&sortOn=Description&order=DESC', function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
@@ -139,17 +139,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $('#dd-language-asc-filter-order').click(function() {
       if (currentCategory == 'Description') {
-        $.getJSON('/snippets?filterOn=Description&' + currentFilter + '&sortOn=Lang&order=ASC', function(data) {
+        $.getJSON('/snippets?filterOn=Description&' + currentFilter + '&sortOn=Language&order=ASC', function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
       } else if (currentCategory == 'Creator') {
-        $.getJSON('/snippets?filterOn=Creator&' + currentFilter + '&sortOn=Lang&order=ASC', function(data) {
+        $.getJSON('/snippets?filterOn=Creator&' + currentFilter + '&sortOn=Language&order=ASC', function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
       } else {
-        $.getJSON('/snippets?filterOn=Code&' + currentFilter + '&sortOn=Lang&order=ASC', function(data) {
+        $.getJSON('/snippets?filterOn=Code&' + currentFilter + '&sortOn=Language&order=ASC', function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
@@ -158,17 +158,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $('#dd-language-desc-filter-order').click(function() {
       if (currentCategory == 'Description') {
-        $.getJSON('/snippets?filterOn=Description&' + currentFilter + '&sortOn=Lang&order=DESC', function(data) {
+        $.getJSON('/snippets?filterOn=Description&' + currentFilter + '&sortOn=Language&order=DESC', function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
       } else if (currentCategory == 'Creator') {
-        $.getJSON('/snippets?filterOn=Creator&' + currentFilter + '&sortOn=Lang&order=DESC', function(data) {
+        $.getJSON('/snippets?filterOn=Creator&' + currentFilter + '&sortOn=Language&order=DESC', function(data) {
           snippetModel = data.result;
           buildTableTR();
         });
       } else {
-        $.getJSON('/snippets?filterOn=Code&' + currentFilter + '&sortOn=Lang&order=DESC', function(data) {
+        $.getJSON('/snippets?filterOn=Code&' + currentFilter + '&sortOn=Language&order=DESC', function(data) {
           snippetModel = data.result;
           buildTableTR();
         });

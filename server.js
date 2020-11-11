@@ -77,7 +77,7 @@ function buildSnippet(dbObject) {
     Id: dbObject.Id,
     Creator: dbObject.Username,
     Email: dbObject.Email,
-    Language: dbObject.Lang,
+    Language: dbObject.Language,
     Description: dbObject.Description,
     Snippet: dbObject.Code
   };
@@ -85,7 +85,7 @@ function buildSnippet(dbObject) {
 
 function findSnippets(req, res) {
   let requesterIP = req.ip;
-  let sql = "SELECT Snippets.Id, Snippets.Description, Snippets.Code, Languages.Language AS Language, Users.Username, Users.Email FROM Snippets, Languages, Users WHERE Snippets.UserId = Users.Id AND Snippets.LangId = Languages.Id"
+  let sql = "SELECT Snippets.Id, Snippets.Description, Snippets.Code, Languages.Language, Users.Username, Users.Email FROM Snippets, Languages, Users WHERE Snippets.UserId = Users.Id AND Snippets.LangId = Languages.Id"
   let queryString = [];
   queryString.push(sql);
   if(req.query.filterOn && req.query.filter) {
