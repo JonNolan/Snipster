@@ -11,6 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let idFromRow, creatorFromRow, languageFromRow, descriptionFromRow, snippetFromRow;
 
     $('#logout-btn').hide();
+    $.getJSON('/getLanguages', function(data) {
+      for (i = 0; i < data.result.length; i++) {
+        $('#add-snippet-select-lang').append(new Option(data.result[i].Language, i + 1));
+      }
+    });
 
     $.getJSON('/who', function(data) {
       if (data.result.user) {
@@ -37,12 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         snippetModel = data.result;
         buildTableTR();
       });
-      $.getJSON('/getLanguages', function(data) {
-        for (i = 0; i < data.result.length; i++) {
-          $('#add-snippet-select-lang').append(new Option(data.result[i].Language, i));
-        }
 
-      });
       userModel.user = {};
     };
 
