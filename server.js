@@ -85,7 +85,7 @@ function buildSnippet(dbObject) {
 
 function findSnippets(req, res) {
   let requesterIP = req.ip;
-  let sql = "SELECT Snippets.Id, Snippets.Description, Snippets.Code, Languages.Language, Users.Username, Users.Email FROM Snippets, Languages, Users WHERE Snippets.UserId = Users.Id AND Snippets.Id = Languages.Id"
+  let sql = "SELECT Snippets.Id, Snippets.Description, Snippets.Code, Languages.Language AS Language, Users.Username, Users.Email FROM Snippets, Languages, Users WHERE Snippets.UserId = Users.Id AND Snippets.LangId = Languages.Id"
   let queryString = [];
   queryString.push(sql);
   if(req.query.filterOn && req.query.filter) {
@@ -127,7 +127,7 @@ function addSnippet(req, res) {
   let userId = req.session.user.id;
   let desc = req.query.newDesc;
   let code = req.query.newCode;
-  let langId = req.query.newLangId;
+  let langId = req.query.newLang;
   connection.query("INSERT INTO Snippets (Description, Code, LangId, UserId) VALUES (?, ?, ?, ?)", [desc, code, langId, userId], function(err, result, fields) {
     if (err) {
       writeResult(res, {"error": err});

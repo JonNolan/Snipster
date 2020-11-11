@@ -136,13 +136,13 @@ td code {
 #sort-toolbar .dropdown-menu a:hover {
   background-color: rgb(50, 50, 50);
 }
-#search select, #register-form select {
+#search select, #register-form select, #add-snippet-select-lang  {
   background-color: rgb(40, 40, 40);
   border-color: black;
   color: rgb(230, 160, 29);
   font-size: 14px;
 }
-#register-form select {
+#register-form select, #add-snippet-select-lang {
   margin-bottom: 5px;
   width: 260px;
   border: 2px solid rgb(133, 133, 133);

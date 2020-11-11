@@ -37,6 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
         snippetModel = data.result;
         buildTableTR();
       });
+      $.getJSON('/getLanguages', function(data) {
+        for (i = 0; i < data.result.length; i++) {
+          $('#add-snippet-select-lang').append(new Option(data.result[i].Language, i));
+        }
+
+      });
       userModel.user = {};
     };
 
@@ -186,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-language-asc').click(function() {
-      $.getJSON('/snippets?sortOn=Lang&order=ASC', function(data) {
+      $.getJSON('/snippets?sortOn=Language&order=ASC', function(data) {
         sorted = true;
         snippetModel = data.result;
         buildTableTR();
@@ -194,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     $('#dd-language-desc').click(function() {
-      $.getJSON('/snippets?sortOn=Lang&order=DESC', function(data) {
+      $.getJSON('/snippets?sortOn=Language&order=DESC', function(data) {
         sorted = true;
         snippetModel = data.result;
         buildTableTR();
@@ -564,7 +570,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function addSnippet() {
-      let lang = $('#add-lang').val();
+      let lang = $('#add-snippet-select-lang').val();
       let desc = $('#add-desc').val();
       let code = $('#add-code').val();
 

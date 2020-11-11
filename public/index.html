@@ -269,8 +269,10 @@
           <form id="add-snippet-form" href="#">
             <div class="modal-body">
               <p id="add-snippet-text"></p>
-              <label for="add-language">Enter a language: </label>
-              <input type="text" id="add-lang" name="new-lang"><br>
+              <label for="add-language">Select a language: </label>
+              <select class="custom-select  btn dropdown-toggle" id="add-snippet-select-lang">
+                <option value="0" disabled selected hidden>Choose Language...</option>
+              </select><br>
               <label for="add-description">Enter a description: </label>
               <input type="text" id="add-desc" name="new-desc"><br>
               <label for="add-code">Enter some code: </label>
