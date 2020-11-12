@@ -53,11 +53,14 @@ document.addEventListener('DOMContentLoaded', () => {
       languageFromRow = $(event.target).closest('tr').data('language');
       descriptionFromRow = $(event.target).closest('tr').data('description');
       snippetFromRow = $(event.target).closest('tr').data('snippet');
+      let snippetCodeFromRow = snippetFromRow;
+      let snippetCodeFromRowReplaced = snippetCodeFromRow.replace(/&/g,'&amp;').replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
       buildModalFromTable(this);
 
       function buildModalFromTable(table_this) {
         $(table_this).find('.modal-header').html($(' <h2> Viewing ID # ' + idFromRow + '</h2> '));
-        $(table_this).find('.modal-body').html($('<p> Creator: ' + creatorFromRow + ' &lt' + emailFromRow + '&gt' + '</p><p> Language: ' + languageFromRow + '</p><p> Description: ' + descriptionFromRow + '</p><p>  Snippet: </p><code>' + snippetFromRow + '</code>'));
+        $(table_this).find('.modal-body').html($('<p> Creator: ' + creatorFromRow + ' &lt' + emailFromRow + '&gt' + '</p><p> Language: ' + languageFromRow + '</p><p> Description: ' + descriptionFromRow + '</p><p>  Snippet: </p><code>' + snippetCodeFromRowReplaced + '</code>'));
       }
     });
 
@@ -604,7 +607,9 @@ document.addEventListener('DOMContentLoaded', () => {
         $(tr).append("<td>" + snippetModel[i].Creator + "</td>");
         $(tr).append("<td>" + snippetModel[i].Language + "</td>");
         $(tr).append("<td>" + snippetModel[i].Description + "</td>");
-        $(tr).append("<td><code>" + snippetModel[i].Snippet + "</code></td>");
+        let snippetCode = "" + snippetModel[i].Snippet;
+        let snippetCodeReplaced = snippetCode.replace(/&/g,'&amp;').replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        $(tr).append("<td><code>" + snippetCodeReplaced + "</code></td>");
         $(tr).append("</tr>");
         $('#my-table tbody').append(tr);
       }
