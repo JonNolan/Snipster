@@ -589,7 +589,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function clearAddSnippet() {
-      $('#add-lang').val('');
+      $('#add-snippet-select-lang').val(0);
       $('#add-desc').val('');
       $('#add-code').val('');
       $('#modal-add-snippet-form').modal('hide');
