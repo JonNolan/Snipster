@@ -28,6 +28,7 @@ app.use(session(sessionOptions));
 app.all("/", serveIndex);
 app.get("/snippets", findSnippets);
 app.get("/addSnippet", addSnippet);
+app.get("/deleteSnippet", deleteSnippet);
 app.get("/register", register);
 app.get("/login", login);
 app.get("/logout", logout);
@@ -116,11 +117,11 @@ function addSnippet(req, res) {
     return;
   }
   if (req.query.newDesc < 1) {
-    writeResult(res, {"error2" : "Please enter a description for the Snippet."});
+    writeResult(res, {"error3" : "Please enter a description for the Snippet."});
     return;
   }
   if (req.query.newCode < 1) {
-    writeResult(res, {"error2" : "Please enter the code for the Snippet."});
+    writeResult(res, {"error4" : "Please enter the code for the Snippet."});
     return;
   }
   let user = req.session.user.username;
@@ -128,13 +129,39 @@ function addSnippet(req, res) {
   let desc = req.query.newDesc;
   let code = req.query.newCode;
   let langId = req.query.newLang;
-  connection.query("INSERT INTO Snippets (Description, Code, LangId, UserId) VALUES (?, ?, ?, ?)", [desc, code, langId, userId], function(err, result, fields) {
-    if (err) {
+  let snippetId = req.query.snippetId;
+  if (snippetId == undefined) {
+    connection.query("INSERT INTO Snippets (Description, Code, LangId, UserId) VALUES (?, ?, ?, ?)", [desc, code, langId, userId], function(err, result, fields) {
+      if (err) {
+        writeResult(res, {"error": err});
+      }
+      else {
+        writeResult(res, {"Success": "Snippet Added"});
+        console.log(user + " created a Snippet!");
+      }
+    });
+  }
+  else if (!isNaN(snippetId)) {
+    connection.query("UPDATE Snippets SET Description = ?, Code = ?, LangId = ? WHERE Id = ?", [desc, code, langId, snippetId], function(err, result, fields) {
+      if (err)
+        writeResult(res, {"error": err});
+      else {
+        writeResult(res, {"Success": "Snippet Edited"});
+        console.log("Updating Snippet");
+      }
+    });
+  }
+}
+
+function deleteSnippet(req, res) {
+  let snippetId = req.query.snippetId;
+  connection.query("DELETE FROM Snippets WHERE Id = ?", [snippetId], function(err, result)
+  {
+    if(err)
       writeResult(res, {"error": err});
-    }
     else {
-      writeResult(res, {"Success": "Snippet Added"});
-      console.log(user + " created a Snippet!");
+      writeResult(res, {"Success": "Snippet Deleted"});
+      console.log("Deleting Snippet");
     }
   });
 }
