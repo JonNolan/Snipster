@@ -55,7 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
       emailFromRow = $(event.target).closest('tr').data('email');
       languageFromRow = $(event.target).closest('tr').data('language');
       descriptionFromRow = $(event.target).closest('tr').data('description');
-      snippetFromRow = $(event.target).closest('tr').data('snippet');
+      snippetFromRow = $(event.target).closest('tr').find('.snippet-code').text();
+      
       let snippetCodeFromRow = snippetFromRow;
       let snippetCodeFromRowReplaced = snippetCodeFromRow.replace(/&/g,'&amp;').replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
@@ -619,12 +620,11 @@ document.addEventListener('DOMContentLoaded', () => {
       editSnippetId = $(event.target).closest('tr').data('id');
       languageFromRow = $(event.target).closest('tr').data('language');
       descriptionFromRow = $(event.target).closest('tr').data('description');
-      snippetFromRow = $(event.target).closest('tr').data('snippet');
+      snippetFromRow = $(event.target).closest('tr').find('.snippet-code').text();
 
       // populate Modal
       for (i = 0; i < languageModel.length; i++) {
         if (languageFromRow == languageModel[i].Language) {
-          console.log(languageModel[i])
           $('#add-snippet-select-lang').val(i+1);
         }
       }
@@ -659,8 +659,8 @@ document.addEventListener('DOMContentLoaded', () => {
           $(tr).append("<td>" + snippetModel[i].Language + "</td>");
           $(tr).append("<td>" + snippetModel[i].Description + "</td>");
           let snippetCode = "" + snippetModel[i].Snippet;
-          let snippetCodeReplaced = snippetCode.replace(/&/g,'&amp;').replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "\"");
-          $(tr).append("<td><code>" + snippetCodeReplaced + "</code></td>");
+          let snippetCodeReplaced = snippetCode.replace(/&/g,'&amp;').replace(/</g, "&lt;").replace(/>/g, "&gt;");
+          $(tr).append("<td><code class='snippet-code'>" + snippetCodeReplaced + "</code></td>");
           if (snippetModel[i].Creator == userModel.user.username) {
             $(tr).append("<td><div class='edit-delete-div'><button type='button' id=e-" + i + "' class='btn btn-primary custom-button table-button-edit'>Edit</button><button id=d-" + i + "' type='button' class='btn btn-danger custom-button table-button-delete'>Delete</button></div></td>");
           } else {
@@ -678,7 +678,7 @@ document.addEventListener('DOMContentLoaded', () => {
           $(tr).append("<td>" + snippetModel[i].Description + "</td>");
           let snippetCode = "" + snippetModel[i].Snippet;
           let snippetCodeReplaced = snippetCode.replace(/&/g,'&amp;').replace(/</g, "&lt;").replace(/>/g, "&gt;");
-          $(tr).append("<td><code>" + snippetCodeReplaced + "</code></td>");
+          $(tr).append("<td><code class='snippet-code'>" + snippetCodeReplaced + "</code></td>");
           $(tr).append("<td></td>");
           $(tr).append("</tr>");
           $('#my-table tbody').append(tr);
