@@ -659,7 +659,7 @@ document.addEventListener('DOMContentLoaded', () => {
           $(tr).append("<td>" + snippetModel[i].Language + "</td>");
           $(tr).append("<td>" + snippetModel[i].Description + "</td>");
           let snippetCode = "" + snippetModel[i].Snippet;
-          let snippetCodeReplaced = snippetCode.replace(/&/g,'&amp;').replace(/</g, "&lt;").replace(/>/g, "&gt;");
+          let snippetCodeReplaced = snippetCode.replace(/&/g,'&amp;').replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "\"");
           $(tr).append("<td><code>" + snippetCodeReplaced + "</code></td>");
           if (snippetModel[i].Creator == userModel.user.username) {
             $(tr).append("<td><div class='edit-delete-div'><button type='button' id=e-" + i + "' class='btn btn-primary custom-button table-button-edit'>Edit</button><button id=d-" + i + "' type='button' class='btn btn-danger custom-button table-button-delete'>Delete</button></div></td>");
