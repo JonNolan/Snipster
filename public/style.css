@@ -25,7 +25,6 @@ td,th {
   padding-left: 4px;
   width: 126px;
 }
-
 #category {
   margin-right: 5px;
   margin-bottom: 5px;
@@ -69,7 +68,6 @@ td,th {
   margin-top: 6px;
   margin-bottom: 12px;
   border-bottom: 1px solid rgb(40, 40, 40);
-
 }
 #filter-bar {
   margin-bottom: 6px;
@@ -119,10 +117,12 @@ td,th {
 }
 thead {
   color: rgb(230, 160, 29);
+  
 }
 thead th {
   border-left: 1px solid #000;
   border-right: 1px solid #000;
+
   text-align: center;
 }
 thead th:first-child {
@@ -141,6 +141,9 @@ tbody tr th {
 }
 .table th, .table td, .table thead th {
   border-color: rgb(133, 133, 133);
+}
+.table thead th {
+  border-top: 0px;
 }
 td code {
   color: rgb(66, 219, 173);
