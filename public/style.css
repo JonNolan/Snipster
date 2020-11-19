@@ -17,6 +17,15 @@ body {
 td,th {
  font-size: 24px;
 }
+.table-button-edit, .table-button-delete {
+  margin: 4px;
+}
+.edit-delete-div {
+  margin: 0px;
+  padding-left: 4px;
+  width: 126px;
+}
+
 #category {
   margin-right: 5px;
   margin-bottom: 5px;

@@ -102,6 +102,8 @@ function findSnippets(req, res) {
     } else {
       queryString.push(" ORDER BY " + req.query.sortOn + " " + req.query.order);
     }
+  } else {
+    queryString.push(" ORDER BY Snippets.Id ASC");
   }
   executeQuery(queryString, res);
   console.log(requesterIP + " is requesting snippets.");
@@ -130,7 +132,7 @@ function addSnippet(req, res) {
   let code = req.query.newCode;
   let langId = req.query.newLang;
   let snippetId = req.query.snippetId;
-  if (snippetId == undefined) {
+  if (snippetId == "none") {
     connection.query("INSERT INTO Snippets (Description, Code, LangId, UserId) VALUES (?, ?, ?, ?)", [desc, code, langId, userId], function(err, result, fields) {
       if (err) {
         writeResult(res, {"error": err});
