@@ -620,8 +620,6 @@ document.addEventListener('DOMContentLoaded', () => {
       languageFromRow = $(event.target).closest('tr').data('language');
       descriptionFromRow = $(event.target).closest('tr').data('description');
       snippetFromRow = $(event.target).closest('tr').data('snippet');
-      let snippetCodeFromRow = snippetFromRow;
-      let snippetCodeFromRowReplaced = snippetCodeFromRow.replace(/&/g,'&amp;').replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
       // populate Modal
       for (i = 0; i < languageModel.length; i++) {
@@ -632,7 +630,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       $('#add-snippet-title').text("Edit Snippet");
       $('#add-desc').val(descriptionFromRow);
-      $('#add-code').val(snippetCodeFromRowReplaced);
+      $('#add-code').val(snippetFromRow);
       $("#modal-add-snippet-form").modal();
     })
 
