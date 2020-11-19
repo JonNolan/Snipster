@@ -1,7 +1,7 @@
 body {
   font-size: .8rem;
   font-family: 'Francois One', sans-serif;
-  background-color: rgb(133, 133, 133);
+  background-color: rgb(89, 89, 89);
 }
 .navbar {
   background-color: rgb(40, 40, 40);
@@ -16,6 +16,14 @@ body {
 }
 td,th {
  font-size: 24px;
+}
+.table-button-edit, .table-button-delete {
+  margin: 4px;
+}
+.edit-delete-div {
+  margin: 0px;
+  padding-left: 4px;
+  width: 126px;
 }
 #category {
   margin-right: 5px;
@@ -60,7 +68,6 @@ td,th {
   margin-top: 6px;
   margin-bottom: 12px;
   border-bottom: 1px solid rgb(40, 40, 40);
-
 }
 #filter-bar {
   margin-bottom: 6px;
@@ -102,20 +109,56 @@ td,th {
   background-color: rgb(40, 40, 40);
   color: gray;
 }
+#table-div {
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 1%;
+  padding-bottom: 3%;
+}
 thead {
   color: rgb(230, 160, 29);
+  
+}
+thead th {
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+
+  text-align: center;
+}
+thead th:first-child {
+  border-left: none;
+}
+
+thead th:last-child {
+  border-right: none;
 }
 tbody tr:hover {
   background-color: rgb(17, 16, 15);
 }
 tbody tr th {
   color: rgb(230, 160, 29);
+  text-align: center;
 }
 .table th, .table td, .table thead th {
   border-color: rgb(133, 133, 133);
 }
+.table thead th {
+  border-top: 0px;
+}
 td code {
   color: rgb(66, 219, 173);
+}
+table td {
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+}
+
+table td:first-child {
+  border-left: none;
+}
+
+table td:last-child {
+  border-right: none;
 }
 #sort-toolbar button {
   color: rgb(230, 160, 29);

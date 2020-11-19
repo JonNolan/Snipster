@@ -7,12 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentCategory ='';
     let currentCriteria ='';
     let changePassModel = {};
+    let languageModel = {};
     let sorted = false;
     let idFromRow, creatorFromRow, languageFromRow, descriptionFromRow, snippetFromRow;
+    let editSnippetId = "none";
 
     $('#logout-btn').hide();
     $.getJSON('/getLanguages', function(data) {
       for (i = 0; i < data.result.length; i++) {
+        languageModel = data.result;
         $('#add-snippet-select-lang').append(new Option(data.result[i].Language, i + 1));
       }
     });
@@ -36,17 +39,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function initializeModel() {
       $('#category').val(0);
+      editSnippetId = "none";
       $('.sort-no-filter').show();
       $('.sort-filter').hide();
       $.getJSON('/snippets', function(data) {
         snippetModel = data.result;
         buildTableTR();
       });
-
-      userModel.user = {};
     };
 
-    $('#db-modal').modal({backdrop: "static", keyboard: false, show:false}).on('show.bs.modal', function() {
+    $('#db-modal').modal({backdrop: "static", keyboard: false, show:false}).on('show.bs.modal', function(e) {
+
       idFromRow = $(event.target).closest('tr').data('id');
       creatorFromRow = $(event.target).closest('tr').data('creator');
       emailFromRow = $(event.target).closest('tr').data('email');
@@ -325,6 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
     $('form').on('submit', '#login-form', function() {
       if (validateLoginForm() == true) {
         submitLogin();
+        buildTableTR();
         return false;
       } else {
         return false;
@@ -346,6 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
           $('#add-snippet-label').show();
           $('#add-snippet-btn').show();
           clearLogin();
+          buildTableTR();
         }
       });
     }
@@ -483,6 +488,7 @@ document.addEventListener('DOMContentLoaded', () => {
         $('#logout-btn').hide();
         $('#add-snippet-label').hide();
         $('#add-snippet-btn').hide();
+        buildTableTR();
       });
       return false;
     });
@@ -576,10 +582,18 @@ document.addEventListener('DOMContentLoaded', () => {
       let lang = $('#add-snippet-select-lang').val();
       let desc = $('#add-desc').val();
       let code = $('#add-code').val();
+      let edited = false;
+      if (editSnippetId != "none") {
+        edited = true;
+      }
 
-      $.getJSON('/addSnippet?newLang=' + lang + '&newDesc=' + desc + '&newCode=' + encodeURIComponent(code), function(data) {
+      $.getJSON('/addSnippet?newLang=' + lang + '&newDesc=' + desc + '&newCode=' + encodeURIComponent(code) + '&snippetId=' + editSnippetId, function(data) {
         if (data.Success) {
-          $('#welcome-user').text('Snippet has been added.');
+          if (edited == false) {
+            $('#welcome-user').text('Snippet has been added.');
+          } else {
+            $('#welcome-user').text('Snippet has been edited.');
+          }
           clearAddSnippet();
           initializeModel();
         } else if (data.error1) {
@@ -592,26 +606,83 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function clearAddSnippet() {
+      $('#modal-add-snippet-form').modal('hide');
       $('#add-snippet-select-lang').val(0);
       $('#add-desc').val('');
       $('#add-code').val('');
-      $('#modal-add-snippet-form').modal('hide');
+      $('#add-snippet-title').text("Add Snippet");
     }
 
+    $('body').on('click', '.table-button-edit', function(e) {
+      e.stopPropagation();
+      // get values
+      editSnippetId = $(event.target).closest('tr').data('id');
+      languageFromRow = $(event.target).closest('tr').data('language');
+      descriptionFromRow = $(event.target).closest('tr').data('description');
+      snippetFromRow = $(event.target).closest('tr').data('snippet');
+
+      // populate Modal
+      for (i = 0; i < languageModel.length; i++) {
+        if (languageFromRow == languageModel[i].Language) {
+          console.log(languageModel[i])
+          $('#add-snippet-select-lang').val(i+1);
+        }
+      }
+      $('#add-snippet-title').text("Edit Snippet");
+      $('#add-desc').val(descriptionFromRow);
+      $('#add-code').val(snippetFromRow);
+      $("#modal-add-snippet-form").modal();
+    })
+
+    $('body').on('click', '.table-button-delete', function(e) {
+      e.stopPropagation();
+      editSnippetId = $(event.target).closest('tr').data('id');
+      $.getJSON('/deleteSnippet?snippetId=' + editSnippetId, function(data) {
+        if (data.Success) {
+          $('#welcome-user').text('Snippet has been deleted.');
+          initializeModel();
+        } else {
+          $('#welcome-user').text('Error deleting snippet.');
+        }
+      });
+    })
+
     ///////////// Build snippet Table ////////////
+
     function buildTableTR(data){
       $('#my-table tbody').empty();
-      for (let i = 0; i < snippetModel.length; i++) {
-        let tr = $('<tr data-toggle="modal" data-id="' + snippetModel[i].Id +'" data-target="#db-modal" data-backdrop="static" data-keyboard="false" data-creator="' + snippetModel[i].Creator + '"data-email="' + snippetModel[i].Email + '" data-language="' + snippetModel[i].Language + '" data-description="' + snippetModel[i].Description + '" data-snippet="' + snippetModel[i].Snippet + '">');
-        $(tr).append("<th scope='row'>" + snippetModel[i].Id + "</th>");
-        $(tr).append("<td>" + snippetModel[i].Creator + "</td>");
-        $(tr).append("<td>" + snippetModel[i].Language + "</td>");
-        $(tr).append("<td>" + snippetModel[i].Description + "</td>");
-        let snippetCode = "" + snippetModel[i].Snippet;
-        let snippetCodeReplaced = snippetCode.replace(/&/g,'&amp;').replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        $(tr).append("<td><code>" + snippetCodeReplaced + "</code></td>");
-        $(tr).append("</tr>");
-        $('#my-table tbody').append(tr);
+      if (userModel.user) {
+        for (let i = 0; i < snippetModel.length; i++) {
+          let tr = $('<tr data-toggle="modal" data-id="' + snippetModel[i].Id +'" data-target="#db-modal" data-backdrop="static" data-keyboard="false" data-creator="' + snippetModel[i].Creator + '"data-email="' + snippetModel[i].Email + '" data-language="' + snippetModel[i].Language + '" data-description="' + snippetModel[i].Description + '" data-snippet="' + snippetModel[i].Snippet + '">');
+          $(tr).append("<th scope='row'>" + snippetModel[i].Id + "</th>");
+          $(tr).append("<td>" + snippetModel[i].Creator + "</td>");
+          $(tr).append("<td>" + snippetModel[i].Language + "</td>");
+          $(tr).append("<td>" + snippetModel[i].Description + "</td>");
+          let snippetCode = "" + snippetModel[i].Snippet;
+          let snippetCodeReplaced = snippetCode.replace(/&/g,'&amp;').replace(/</g, "&lt;").replace(/>/g, "&gt;");
+          $(tr).append("<td><code>" + snippetCodeReplaced + "</code></td>");
+          if (snippetModel[i].Creator == userModel.user.username) {
+            $(tr).append("<td><div class='edit-delete-div'><button type='button' id=e-" + i + "' class='btn btn-primary custom-button table-button-edit'>Edit</button><button id=d-" + i + "' type='button' class='btn btn-danger custom-button table-button-delete'>Delete</button></div></td>");
+          } else {
+            $(tr).append("<td></td>");
+          }
+          $(tr).append("</tr>");
+          $('#my-table tbody').append(tr);
+        }
+      } else {
+        for (let i = 0; i < snippetModel.length; i++) {
+          let tr = $('<tr data-toggle="modal" data-id="' + snippetModel[i].Id +'" data-target="#db-modal" data-backdrop="static" data-keyboard="false" data-creator="' + snippetModel[i].Creator + '"data-email="' + snippetModel[i].Email + '" data-language="' + snippetModel[i].Language + '" data-description="' + snippetModel[i].Description + '" data-snippet="' + snippetModel[i].Snippet + '">');
+          $(tr).append("<th scope='row'>" + snippetModel[i].Id + "</th>");
+          $(tr).append("<td>" + snippetModel[i].Creator + "</td>");
+          $(tr).append("<td>" + snippetModel[i].Language + "</td>");
+          $(tr).append("<td>" + snippetModel[i].Description + "</td>");
+          let snippetCode = "" + snippetModel[i].Snippet;
+          let snippetCodeReplaced = snippetCode.replace(/&/g,'&amp;').replace(/</g, "&lt;").replace(/>/g, "&gt;");
+          $(tr).append("<td><code>" + snippetCodeReplaced + "</code></td>");
+          $(tr).append("<td></td>");
+          $(tr).append("</tr>");
+          $('#my-table tbody').append(tr);
+        }
       }
     };
     initializeModel();
