@@ -34,6 +34,7 @@ app.get("/login", login);
 app.get("/logout", logout);
 app.get("/who", whoIsLoggedIn);
 app.get("/getQuestions", getQuestions);
+app.get("/getQuestionsList", getQuestionsList);
 app.get("/verifyQuestions", verifyQuestions);
 app.get("/getLanguages", getLanguages);
 
@@ -263,6 +264,15 @@ function getQuestions(req, res) {
       }
       writeResult(res, {result: result});
     }
+  });
+}
+
+function getQuestionsList(req, res) {
+  connection.query("SELECT Id, Question FROM Questions", function(err, result) {
+    if(err)
+      writeResult(res, {"error": err});
+    else
+      writeResult(res, {result: result});
   });
 }
 
