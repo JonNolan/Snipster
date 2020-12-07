@@ -249,7 +249,7 @@ function getQuestions(req, res) {
   let email = req.query.email;
   let result = {};
   let errorMessage = "";
-  connection.query("SELECT Username, Questions1.Id AS Id1, Questions1.Question AS Question1Id, Questions2.Id AS Id2, Questions2.Question AS Question2Id FROM Users JOIN Questions Questions1 on Question1Id = Questions1.Id  JOIN Questions Questions2 on Question2Id = Questions2.Id WHERE Email = ?", [email], function(err, dbResult) {
+  connection.query("SELECT Username, Questions1.Id AS Id1, Questions1.Question AS Question1, Questions2.Id AS Id2, Questions2.Question AS Question2 FROM Users JOIN Questions Questions1 on Question1Id = Questions1.Id  JOIN Questions Questions2 on Question2Id = Questions2.Id WHERE Email = ?", [email], function(err, dbResult) {
     if(err) {
       writeResult(res, {error: err.message});
     } else {
