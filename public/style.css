@@ -22,8 +22,8 @@ td,th {
 }
 .edit-delete-div {
   margin: 0px;
-  padding-left: 4px;
-  width: 126px;
+  padding-left: 10px;
+  width: 150px;
 }
 #category {
   margin-right: 5px;
@@ -80,8 +80,8 @@ td,th {
   color: rgb(40, 40, 40);
   margin-right:15px;
 }
-#add-snippet-btn-block {
-  width: 175px;
+#add-snippet-btn-div {
+  width: 200px;
 }
 #add-snippet-label {
   margin-right: 5px;

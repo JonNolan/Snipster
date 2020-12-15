@@ -28,6 +28,7 @@ app.use(session(sessionOptions));
 app.all("/", serveIndex);
 app.get("/snippets", findSnippets);
 app.get("/addSnippet", addSnippet);
+app.get("/editSnippet", editSnippet);
 app.get("/deleteSnippet", deleteSnippet);
 app.get("/register", register);
 app.get("/login", login);
@@ -46,8 +47,7 @@ connection.connect(function(err) {
 });
 
 function startHandler() {
-  console.log("\x1b[31m", "\n         Snip This.");
-  console.log("\x1b[37m","\x1b[41m","    ̿' ̿'\̵͇̿̿\з=(◕_◕)=ε/̵͇̿̿/'̿'̿ ̿     ","\x1b[0m");
+  console.log("\x1b[37m","\x1b[41m","        SNIPSTER         ","\x1b[0m");
   console.log("\n   Waiting for a request...\n")
 }
 
@@ -129,28 +129,70 @@ function addSnippet(req, res) {
   }
   let user = req.session.user.username;
   let userId = req.session.user.id;
+  if (req.query.userId != userId) {
+    writeResult(res, {"error5" : "User must be logged in."});
+    return;
+  }
   let desc = req.query.newDesc;
   let code = req.query.newCode;
   let langId = req.query.newLang;
   let snippetId = req.query.snippetId;
-  if (snippetId == "none") {
-    connection.query("INSERT INTO Snippets (Description, Code, LangId, UserId) VALUES (?, ?, ?, ?)", [desc, code, langId, userId], function(err, result, fields) {
-      if (err) {
-        writeResult(res, {"error": err});
-      }
-      else {
-        writeResult(res, {"Success": "Snippet Added"});
-        console.log(user + " created a Snippet!");
-      }
-    });
+  connection.query("INSERT INTO Snippets (Description, Code, LangId, UserId) VALUES (?, ?, ?, ?)", [desc, code, langId, userId], function(err, result, fields) {
+    if (err) {
+      writeResult(res, {"error": err});
+    } else {
+      writeResult(res, {"Success": "Snippet Added"});
+      console.log(user + " created a Snippet!");
+    }
+  });
+}
+
+function editSnippet(req, res) {
+  if (req.session.user == undefined) {
+    writeResult(res, {"error1" : "Please sign in to add a Snippet."});
+    return;
   }
-  else if (!isNaN(snippetId)) {
-    connection.query("UPDATE Snippets SET Description = ?, Code = ?, LangId = ? WHERE Id = ?", [desc, code, langId, snippetId], function(err, result, fields) {
-      if (err)
-        writeResult(res, {"error": err});
-      else {
-        writeResult(res, {"Success": "Snippet Edited"});
-        console.log("Updating Snippet");
+  if (req.query.newLang < 1) {
+    writeResult(res, {"error2" : "Please enter a language for the Snippet."});
+    return;
+  }
+  if (req.query.newDesc < 1) {
+    writeResult(res, {"error3" : "Please enter a description for the Snippet."});
+    return;
+  }
+  if (req.query.newCode < 1) {
+    writeResult(res, {"error4" : "Please enter the code for the Snippet."});
+    return;
+  }
+  let user = req.session.user.username;
+  let userId = req.session.user.id;
+  
+  let desc = req.query.newDesc;
+  let code = req.query.newCode;
+  let langId = req.query.newLang;
+  let snippetId = req.query.snippetId;
+  if (!isNaN(snippetId)) {
+    connection.query("SELECT * FROM Snippets, Users WHERE Snippets.UserId = ? AND Users.Id = ?;", [userId, userId], function(err, result, fields) {
+      if (err) {
+        console.log(err);
+        return;
+      } else {
+        for (let i = 0; i < result.length; i++) {
+          if (result[i].Id != userId) {
+            writeResult(res, {"error": "User not logged in"});
+            return;
+          }
+        }
+        connection.query("UPDATE Snippets SET Description = ?, Code = ?, LangId = ? WHERE Id = ?", [desc, code, langId, snippetId], function(err, result, fields) {
+          if (err) {
+            writeResult(res, {"error": err});
+            return;
+          } else {
+              writeResult(res, {"Success": "Snippet Edited"});
+              console.log("Updating Snippet");
+              return;
+          }
+        });
       }
     });
   }
@@ -158,13 +200,26 @@ function addSnippet(req, res) {
 
 function deleteSnippet(req, res) {
   let snippetId = req.query.snippetId;
-  connection.query("DELETE FROM Snippets WHERE Id = ?", [snippetId], function(err, result)
-  {
-    if(err)
+  let userId = req.session.user.id;
+  connection.query("SELECT * FROM Snippets, Users WHERE Snippets.UserId = ? AND Users.Id = ?;", [userId, userId], function(err, result, fields) {
+    if (err) {
       writeResult(res, {"error": err});
-    else {
-      writeResult(res, {"Success": "Snippet Deleted"});
-      console.log("Deleting Snippet");
+      return;
+    } else {
+      for (let i = 0; i < result.length; i++) {
+        if (result[i].Id != userId) {
+          writeResult(res, {"error": "User not logged in"});
+          return;
+        }
+      }
+      connection.query("DELETE FROM Snippets WHERE Id = ?", [snippetId], function(err, result) {
+        if(err)
+          writeResult(res, {"error": err});
+        else {
+          writeResult(res, {"Success": "Snippet Deleted"});
+          console.log("Deleting Snippet");
+        }
+      });
     }
   });
 }
@@ -214,8 +269,7 @@ function register(req, res) {
         err = "User account already exists. Try a different username and/or email address.";
       writeResult(res, {error : err});
       return;
-    }
-    else {
+    } else {
       writeResult(res, {"Success" : "User added."});
       console.log("User added.");
     }
@@ -237,8 +291,7 @@ function login(req, res) {
         req.session.user = {id: dbResult[0].Id, username: dbResult[0].Username};
         result = {user: req.session.user};
         console.log(dbResult[0].Username + " logged in.");
-      }
-      else {
+      } else {
         result = {error: "Username or password is incorrect."};
       }
       writeResult(res, {result: result});
@@ -254,7 +307,7 @@ function getQuestions(req, res) {
     if(err) {
       writeResult(res, {error: err.message});
     } else {
-      console.log("someone is trying to reset their password.");
+      console.log("Someone is trying to reset their password.");
       if (dbResult.length == 0) {
         errorMessage = "There are no users associated with that email address.";
         result = {error: errorMessage};
@@ -378,8 +431,7 @@ function executeQuery(req, res) {
     if (err) {
       writeResult(res, {"error" : "error @ executeQuery"});
       return;
-    }
-    else {
+    } else {
       console.log("Query: " + queryStr);
       let snippets = dbResult.map(function(snippet) {
         return buildSnippet(snippet);

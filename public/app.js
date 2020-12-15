@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   $(document).ready(function() {
     let userModel = {};
     let snippetModel = {};
+    let questionModel = {};
     let currentFilter = '';
     let currentCategory ='';
     let currentCriteria ='';
@@ -14,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $('#logout-btn').hide();
     $.getJSON('/getLanguages', function(data) {
-      for (i = 0; i < data.result.length; i++) {
+      for (let i = 0; i < data.result.length; i++) {
         languageModel = data.result;
         $('#add-snippet-select-lang').append(new Option(data.result[i].Language, i + 1));
       }
@@ -46,10 +47,16 @@ document.addEventListener('DOMContentLoaded', () => {
         snippetModel = data.result;
         buildTableTR();
       });
+      $.getJSON('/getQuestionsList', function(data) {
+        questionModel = data.result;
+        for (let i = 0; i < data.result.length; i++) {
+          $('#registration-modal-security-question1').append(new Option(questionModel[i].Question, questionModel[i].Id));
+          $('#registration-modal-security-question2').append(new Option(questionModel[i].Question, questionModel[i].Id));
+        }
+      })
     };
 
     $('#db-modal').modal({backdrop: "static", keyboard: false, show:false}).on('show.bs.modal', function(e) {
-
       idFromRow = $(event.target).closest('tr').data('id');
       creatorFromRow = $(event.target).closest('tr').data('creator');
       emailFromRow = $(event.target).closest('tr').data('email');
@@ -263,7 +270,6 @@ document.addEventListener('DOMContentLoaded', () => {
       let encodedQuestion1Ans = encodeURIComponent($('#registration-modal-security-question1-ans:text').val());
       let encodedQuestion2Ans = encodeURIComponent($('#registration-modal-security-question2-ans:text').val());
       $.getJSON('/register?username=' + userName + '&email=' + encodedEmail + '&password=' + encodedPassword + '&question1=' + question1 + '&question1Ans=' + encodedQuestion1Ans + '&question2=' + question2 + '&question2Ans=' + encodedQuestion2Ans, function(data) {
-        console.log("requesting add user");
         if (data.error) {
           registerAlert("" + data.error);
         } else {
@@ -587,23 +593,34 @@ document.addEventListener('DOMContentLoaded', () => {
       if (editSnippetId != "none") {
         edited = true;
       }
-
-      $.getJSON('/addSnippet?newLang=' + lang + '&newDesc=' + desc + '&newCode=' + encodeURIComponent(code) + '&snippetId=' + editSnippetId, function(data) {
-        if (data.Success) {
-          if (edited == false) {
-            $('#welcome-user').text('Snippet has been added.');
-          } else {
-            $('#welcome-user').text('Snippet has been edited.');
+      if (edited == true) {
+        $('#welcome-user').text('Snippet has been edited.');
+        $.getJSON('/editSnippet?newLang=' + lang + '&newDesc=' + desc + '&newCode=' + encodeURIComponent(code) + '&snippetId=' + editSnippetId, function(data) {
+          if (data.Success) {
+            $('#current-filter').text('Snippet has been edited.');
+            clearAddSnippet();
+            initializeModel();
+          } else if (data.error1) {
+            $('#current-filter').text(data.error1);
+            clearAddSnippet();
+          } else if (data.error2) {
+            $('#add-snippet-text').text(data.error2);
           }
-          clearAddSnippet();
-          initializeModel();
-        } else if (data.error1) {
-          $('#welcome-user').text(data.error1);
-          clearAddSnippet();
-        } else if (data.error2) {
-          $('#add-snippet-text').text(data.error2);
-        }
-      });
+        });
+      } else {
+        $.getJSON('/addSnippet?newLang=' + lang + '&newDesc=' + desc + '&newCode=' + encodeURIComponent(code) + '&userId=' + userModel.user.id, function(data) {
+          if (data.Success) {
+            $('#current-filter').text('Snippet has been added.');
+            clearAddSnippet();
+            initializeModel();
+          } else if (data.error1) {
+            $('#current-filter').text(data.error1);
+            clearAddSnippet();
+          } else if (data.error2) {
+            $('#add-snippet-text').text(data.error2);
+          }
+        });
+      }
     }
 
     function clearAddSnippet() {
