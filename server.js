@@ -48,7 +48,7 @@ connection.connect(function(err) {
 
 function startHandler() {
   console.log("\x1b[37m","\x1b[41m","        SNIPSTER         ","\x1b[0m");
-  console.log("\n   Waiting for a request...\n")
+  console.log("\n   Waiting for a request...\n");
 }
 
 function serveIndex(req, res) {
@@ -59,17 +59,17 @@ function serveIndex(req, res) {
 
 // APP FUNCTIONS
 function writeResult(res, object) {
-  res.writeHead(200, {"Content-Type" : "application/json"});
+  res.writeHead(200, {"Content-Type": "application/json"});
   res.end(JSON.stringify(object));
 }
 
 function whoIsLoggedIn(req, res) {
   let result = {};
   if (req.session.user == undefined) {
-    result = {noUser : "Register or login!"};
+    result = {noUser: "Register or login!"};
   }
   else {
-    result = {user : req.session.user};
+    result = {user: req.session.user};
   }
   writeResult(res, {result: result});
 }
@@ -87,23 +87,26 @@ function buildSnippet(dbObject) {
 
 function findSnippets(req, res) {
   let requesterIP = req.ip;
-  let sql = "SELECT Snippets.Id, Snippets.Description, Snippets.Code, Languages.Language, Users.Username, Users.Email FROM Snippets, Languages, Users WHERE Snippets.UserId = Users.Id AND Snippets.LangId = Languages.Id"
+  let sql = "SELECT Snippets.Id, Snippets.Description, Snippets.Code, Languages.Language, Users.Username, Users.Email FROM Snippets, Languages, Users WHERE Snippets.UserId = Users.Id AND Snippets.LanguageId = Languages.Id"
   let queryString = [];
   queryString.push(sql);
   if(req.query.filterOn && req.query.filter) {
     if (req.query.filterOn == "Creator") {
       queryString.push(" AND (Users.Email LIKE \'%" + req.query.filter + "%\' OR Users.Username LIKE \'%" + req.query.filter + "%\')");
-    } else {
+    }
+    else {
       queryString.push(" AND " + req.query.filterOn + " LIKE \'%" + req.query.filter + "%\'");
     }
   }
   if(req.query.sortOn && req.query.order) {
     if (req.query.sortOn == "Creator") {
       queryString.push(" ORDER BY Users.Username " + req.query.order);
-    } else {
+    }
+    else {
       queryString.push(" ORDER BY " + req.query.sortOn + " " + req.query.order);
     }
-  } else {
+  }
+  else {
     queryString.push(" ORDER BY Snippets.Id ASC");
   }
   executeQuery(queryString, res);
@@ -112,36 +115,37 @@ function findSnippets(req, res) {
 
 function addSnippet(req, res) {
   if (req.session.user == undefined) {
-    writeResult(res, {"error1" : "Please sign in to add a Snippet."});
+    writeResult(res, {"error1": "Please sign in to add a Snippet."});
     return;
   }
   if (req.query.newLang < 1) {
-    writeResult(res, {"error2" : "Please enter a language for the Snippet."});
+    writeResult(res, {"error2": "Please enter a language for the Snippet."});
     return;
   }
   if (req.query.newDesc < 1) {
-    writeResult(res, {"error3" : "Please enter a description for the Snippet."});
+    writeResult(res, {"error3": "Please enter a description for the Snippet."});
     return;
   }
   if (req.query.newCode < 1) {
-    writeResult(res, {"error4" : "Please enter the code for the Snippet."});
+    writeResult(res, {"error4": "Please enter the code for the Snippet."});
     return;
   }
   let user = req.session.user.username;
   let userId = req.session.user.id;
   if (req.query.userId != userId) {
-    writeResult(res, {"error5" : "User must be logged in."});
+    writeResult(res, {"error5": "User must be logged in."});
     return;
   }
   let desc = req.query.newDesc;
   let code = req.query.newCode;
-  let langId = req.query.newLang;
+  let languageId = req.query.newLang;
   let snippetId = req.query.snippetId;
-  connection.query("INSERT INTO Snippets (Description, Code, LangId, UserId) VALUES (?, ?, ?, ?)", [desc, code, langId, userId], function(err, result, fields) {
+  connection.query("INSERT INTO Snippets (Description, Code, LanguageId, UserId) VALUES (?, ?, ?, ?)", [desc, code, languageId, userId], function(err, result, fields) {
     if (err) {
       writeResult(res, {"error": err});
-    } else {
-      writeResult(res, {"Success": "Snippet Added"});
+    }
+    else {
+      writeResult(res, {"Success": "Snippet Added."});
       console.log(user + " created a Snippet!");
     }
   });
@@ -149,48 +153,49 @@ function addSnippet(req, res) {
 
 function editSnippet(req, res) {
   if (req.session.user == undefined) {
-    writeResult(res, {"error1" : "Please sign in to add a Snippet."});
+    writeResult(res, {"error1": "Please sign in to add a Snippet."});
     return;
   }
   if (req.query.newLang < 1) {
-    writeResult(res, {"error2" : "Please enter a language for the Snippet."});
+    writeResult(res, {"error2": "Please enter a language for the Snippet."});
     return;
   }
   if (req.query.newDesc < 1) {
-    writeResult(res, {"error3" : "Please enter a description for the Snippet."});
+    writeResult(res, {"error3": "Please enter a description for the Snippet."});
     return;
   }
   if (req.query.newCode < 1) {
-    writeResult(res, {"error4" : "Please enter the code for the Snippet."});
+    writeResult(res, {"error4": "Please enter the code for the Snippet."});
     return;
   }
   let user = req.session.user.username;
   let userId = req.session.user.id;
-  
   let desc = req.query.newDesc;
   let code = req.query.newCode;
-  let langId = req.query.newLang;
+  let languageId = req.query.newLang;
   let snippetId = req.query.snippetId;
   if (!isNaN(snippetId)) {
     connection.query("SELECT * FROM Snippets, Users WHERE Snippets.UserId = ? AND Users.Id = ?;", [userId, userId], function(err, result, fields) {
       if (err) {
         console.log(err);
         return;
-      } else {
+      }
+      else {
         for (let i = 0; i < result.length; i++) {
           if (result[i].Id != userId) {
-            writeResult(res, {"error": "User not logged in"});
+            writeResult(res, {"error": "User not logged in."});
             return;
           }
         }
-        connection.query("UPDATE Snippets SET Description = ?, Code = ?, LangId = ? WHERE Id = ?", [desc, code, langId, snippetId], function(err, result, fields) {
+        connection.query("UPDATE Snippets SET Description = ?, Code = ?, LanguageId = ? WHERE Id = ?", [desc, code, languageId, snippetId], function(err, result, fields) {
           if (err) {
             writeResult(res, {"error": err});
             return;
-          } else {
-              writeResult(res, {"Success": "Snippet Edited"});
-              console.log("Updating Snippet");
-              return;
+          }
+          else {
+            writeResult(res, {"Success": "Snippet Edited."});
+            console.log("Updating Snippet.");
+            return;
           }
         });
       }
@@ -205,10 +210,11 @@ function deleteSnippet(req, res) {
     if (err) {
       writeResult(res, {"error": err});
       return;
-    } else {
+    }
+    else {
       for (let i = 0; i < result.length; i++) {
         if (result[i].Id != userId) {
-          writeResult(res, {"error": "User not logged in"});
+          writeResult(res, {"error": "User not logged in."});
           return;
         }
       }
@@ -216,8 +222,8 @@ function deleteSnippet(req, res) {
         if(err)
           writeResult(res, {"error": err});
         else {
-          writeResult(res, {"Success": "Snippet Deleted"});
-          console.log("Deleting Snippet");
+          writeResult(res, {"Success": "Snippet Deleted."});
+          console.log("Deleting Snippet.");
         }
       });
     }
@@ -226,51 +232,52 @@ function deleteSnippet(req, res) {
 
 function register(req, res) {
   if (req.query.username == undefined || !validateUsername(req.query.username)) {
-    writeResult(res, {"error" : "Please enter a username! (only letters and numbers and (_) are allowed. Minimum of 3 characters. Must contain a letter."});
+    writeResult(res, {"error": "Please enter a username! (only letters and numbers and (_) are allowed. Minimum of 3 characters. Must contain a letter."});
     return;
   }
   if (req.query.email == undefined || !validateEmail(req.query.email)) {
-    writeResult(res, {"error" : "Please enter a valid email!"});
+    writeResult(res, {"error": "Please enter a valid email!"});
     return;
   }
   if (req.query.password == undefined || !validatePassword(req.query.password)) {
-    writeResult(res, {"error" : "Please enter a valid password! (must be at least eight characters long and must contain an uppercase letter, a lowercase letter, and a number)"});
+    writeResult(res, {"error": "Please enter a valid password! (must be at least eight characters long and must contain an uppercase letter, a lowercase letter, and a number)."});
     return;
   }
   if (req.query.question1 != 1 && req.query.question1 != 2 && req.query.question1 != 3 && req.query.question1 != 4 && req.query.question1 != 5) {
-    console.log(req.query.question1Ans)
+    console.log(req.query.question1Ans);
     console.log(req.query.question1);
-    writeResult(res, {"error" : "Please select the first security question."});
+    writeResult(res, {"error": "Please select the first security question."});
     return;
   }
   if (req.query.question1Ans.length < 1) {
-    writeResult(res, {"error" : "Please enter an answer for the first security question."});
+    writeResult(res, {"error": "Please enter an answer for the first security question."});
     return;
   }
   if (req.query.question2 != 1 && req.query.question2 != 2 && req.query.question2 != 3 && req.query.question2 != 4 && req.query.question2 != 5) {
-    writeResult(res, {"error" : "Please select the second security question."});
+    writeResult(res, {"error": "Please select the second security question."});
     return;
   }
   if (req.query.question2Ans.length < 1) {
-    writeResult(res, {"error" : "Please enter an answer for the first security question."});
+    writeResult(res, {"error": "Please enter an answer for the first security question."});
     return;
   }
   if (req.query.question1 == req.query.question2) {
-    writeResult(res, {"error" : "Please select 2 different security questions."});
+    writeResult(res, {"error": "Please select 2 different security questions."});
     return;
   }
   let hash = bcryptjs.hashSync(req.query.password, 12);
   let ans1Hash = bcryptjs.hashSync(req.query.question1Ans, 12);
   let ans2Hash = bcryptjs.hashSync(req.query.question2Ans, 12);
   connection.query("INSERT INTO Users (Username, Email, Password, Question1Id, Question1Ans, Question2Id, Question2Ans) VALUES (?, ?, ?, ?, ?, ?, ?)", [req.query.username, req.query.email, hash, req.query.question1, ans1Hash, req.query.question2, ans2Hash], function (err, result, fields) {
-    console.log(req.query.username + " is trying to register")
+    console.log(req.query.username + " is trying to register.");
     if (err) {
       if (err.code == "ER_DUP_ENTRY")
         err = "User account already exists. Try a different username and/or email address.";
-      writeResult(res, {error : err});
+      writeResult(res, {error: err});
       return;
-    } else {
-      writeResult(res, {"Success" : "User added."});
+    }
+    else {
+      writeResult(res, {"Success": "User added."});
       console.log("User added.");
     }
   });
@@ -291,7 +298,8 @@ function login(req, res) {
         req.session.user = {id: dbResult[0].Id, username: dbResult[0].Username};
         result = {user: req.session.user};
         console.log(dbResult[0].Username + " logged in.");
-      } else {
+      }
+      else {
         result = {error: "Username or password is incorrect."};
       }
       writeResult(res, {result: result});
@@ -306,13 +314,15 @@ function getQuestions(req, res) {
   connection.query("SELECT Username, Questions1.Id AS Id1, Questions1.Question AS Question1, Questions2.Id AS Id2, Questions2.Question AS Question2 FROM Users JOIN Questions Questions1 on Question1Id = Questions1.Id  JOIN Questions Questions2 on Question2Id = Questions2.Id WHERE Email = ?", [email], function(err, dbResult) {
     if(err) {
       writeResult(res, {error: err.message});
-    } else {
+    }
+    else {
       console.log("Someone is trying to reset their password.");
       if (dbResult.length == 0) {
         errorMessage = "There are no users associated with that email address.";
         result = {error: errorMessage};
-      } else {
-        result = {user : dbResult[0].Username, question1Id : dbResult[0].Id1, question1 : dbResult[0].Question1, question2Id : dbResult[0].Id2, question2: dbResult[0].Question2}
+      }
+      else {
+        result = {user: dbResult[0].Username, question1Id: dbResult[0].Id1, question1: dbResult[0].Question1, question2Id: dbResult[0].Id2, question2: dbResult[0].Question2}
         console.log("Got user and questions of someone.");
       }
       writeResult(res, {result: result});
@@ -331,23 +341,23 @@ function getQuestionsList(req, res) {
 
 function verifyQuestions(req, res) {
   if (req.query.question1Ans.length < 1) {
-    writeResult(res, {result: {"error" : "Please enter an answer to the first question."}});
+    writeResult(res, {result: {"error": "Please enter an answer to the first question."}});
     return;
   }
   if (req.query.question2Ans.length < 1) {
-    writeResult(res, {result: {"error" : "Please enter an answer to the second question."}});
+    writeResult(res, {result: {"error": "Please enter an answer to the second question."}});
     return;
   }
   if (req.query.password.length < 1 || !validatePassword(req.query.password)) {
-    writeResult(res, {result: {"error" : "Please enter a valid password! (must be at least eight characters long and must contain an uppercase letter, a lowercase letter, and a number)"}});
+    writeResult(res, {result: {"error": "Please enter a valid password! (must be at least eight characters long and must contain an uppercase letter, a lowercase letter, and a number)"}});
     return;
   }
   if (req.query.passwordCheck.length < 1) {
-    writeResult(res, {result: {"error" : "Please re-enter the password."}});
+    writeResult(res, {result: {"error": "Please re-enter the password."}});
     return;
   }
   if (req.query.password != req.query.passwordCheck) {
-    writeResult(res, {result: {"error" : "The passwords do not match."}});
+    writeResult(res, {result: {"error": "The passwords do not match."}});
     return;
   }
   let user = req.query.username;
@@ -367,12 +377,13 @@ function verifyQuestions(req, res) {
             console.log(err.message);
             writeResult(res, {result: result});
           } else {
-            result = {success : "Password changed!"};
+            result = {success: "Password changed!"};
             console.log("Answers verified and password changed for : " + user);
             writeResult(res, {result: result});
           }
         });
-      } else {
+      }
+      else {
         result = {error: "Your answers did not match what is on file."};
         writeResult(res, {result: result});
       }
@@ -429,9 +440,10 @@ function executeQuery(req, res) {
   queryStr.replace(",", "");
   connection.query(queryStr + ";", function (err, dbResult) {
     if (err) {
-      writeResult(res, {"error" : "error @ executeQuery"});
+      writeResult(res, {"error": "error @ executeQuery"});
       return;
-    } else {
+    }
+    else {
       console.log("Query: " + queryStr);
       let snippets = dbResult.map(function(snippet) {
         return buildSnippet(snippet);

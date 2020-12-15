@@ -34,10 +34,10 @@ CREATE TABLE Snippets(
   Id int NOT NULL AUTO_INCREMENT,
   Description varchar (255) NOT NULL,
   Code varchar (255) NOT NULL,
-  LangId int NOT NULL,
+  LanguageId int NOT NULL,
   UserId int NOT NULL,
   PRIMARY KEY(Id),
-  FOREIGN KEY(LangId) REFERENCES Languages(Id),
+  FOREIGN KEY(LanguageId) REFERENCES Languages(Id),
   FOREIGN KEY(UserId) REFERENCES Users(Id)
 );
 
@@ -69,7 +69,7 @@ VALUES
   ("Josh", "josh@abc.com", "$2a$12$lJBwsAW0BtjxcYYixPCuguV4cd/ME6xqVNcc68hKEx5F.7Ca5.Key", 1, "$2a$12$twx3CX4oqZVIa1CTmo79OOD3.eEuIgkDRghKDKRilqJpRvkd/N7wa", 2, "$2a$12$1pj3IwU.HsFashDfEEWGMuHO.atdKLj5lKohxte6X.JT.X6KHlu1K"),
   ("Jon", "jon@abc.com", "$2a$12$lJBwsAW0BtjxcYYixPCuguV4cd/ME6xqVNcc68hKEx5F.7Ca5.Key", 1, "$2a$12$twx3CX4oqZVIa1CTmo79OOD3.eEuIgkDRghKDKRilqJpRvkd/N7wa", 2, "$2a$12$1pj3IwU.HsFashDfEEWGMuHO.atdKLj5lKohxte6X.JT.X6KHlu1K");
 
-INSERT INTO Snippets(Description, Code, LangId, UserId)
+INSERT INTO Snippets(Description, Code, LanguageId, UserId)
 VALUES
   ("Wildcard", "SELECT * FROM Customers WHERE City LIKE 'ber%';", 1, 1),
   ("AUTO_INCREMENT", "CREATE TABLE Persons (Personid int NOT NULL AUTO_INCREMENT, LastName varchar(255) NOT NULL, FirstName varchar(255), Age int, PRIMARY KEY (Personid));", 1, 1),
