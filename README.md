@@ -1,8 +1,3 @@
-# CSCI_452_ATeam
+Jon's Software Engineering Group Project
 
 Snipster
-
-Team: 
-Jon,
-Dylan,
-Alex
